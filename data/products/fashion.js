@@ -2,10 +2,10 @@ export const products1 = [
   {
     id: 1,
     imgSrc: "/assets/images/home/demo1/product-0-1.jpg",
-    imgAlt: "Cropped Faux leather Jacket",
-    category: "Dresses",
-    title: "Hub Accent Mirror",
-    price: 17,
+    imgAlt: "Masala Chai Elixir 500ml",
+    category: "Elixirs/Syrups",
+    title: "Masala Chai Elixir",
+    price: 3700,
   },
   {
     id: 2,

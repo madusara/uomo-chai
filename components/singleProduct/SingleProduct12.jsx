@@ -53,7 +53,7 @@ export default function SingleProduct12({ product }) {
             </div>
             {/* <!-- /.breadcrumb --> */}
 
-            <div className="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
+            {/* <div className="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
               <a className="text-uppercase fw-medium">
                 <svg
                   className="mb-1px"
@@ -78,18 +78,18 @@ export default function SingleProduct12({ product }) {
                   <use href="#icon_next_md" />
                 </svg>
               </a>
-            </div>
+            </div> */}
             {/* <!-- /.shop-acs --> */}
           </div>
           <h1 className="product-single__name">{product.title}</h1>
-          <div className="product-single__rating">
+          {/* <div className="product-single__rating">
             <div className="reviews-group d-flex">
               <Star stars={5} />
             </div>
             <span className="reviews-note text-lowercase text-secondary ms-1">
               8k+ reviews
             </span>
-          </div>
+          </div> */}
           <div className="product-single__price">
             <span className="current-price">${product.price}</span>
           </div>
@@ -117,12 +117,12 @@ export default function SingleProduct12({ product }) {
                   Size Guide
                 </a>
               </div>
-              <div className="product-swatch color-swatches">
+              {/* <div className="product-swatch color-swatches">
                 <label>Color</label>
                 <div className="swatch-list">
                   <Colors />
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="product-single__addtocart">
               <div className="qty-control position-relative">
@@ -238,7 +238,20 @@ export default function SingleProduct12({ product }) {
               aria-controls="tab-reviews"
               aria-selected="false"
             >
-              Reviews (2)
+              Reviews
+            </a>
+          </li>
+          <li className="nav-item" role="presentation">
+            <a
+              className="nav-link nav-link_underscore"
+              id="tab-reviews-tab"
+              data-bs-toggle="tab"
+              href="#tab-reviews"
+              role="tab"
+              aria-controls="tab-reviews"
+              aria-selected="false"
+            >
+              How to use
             </a>
           </li>
         </ul>
