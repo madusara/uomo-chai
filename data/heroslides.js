@@ -26,7 +26,7 @@ export const slides2 = [
     imageSrc: "/assets/images/home/demo2/slider1.jpg",
     imageAlt: "Pattern",
     imageStyle: { objectPosition: "80% center" },
-    season: "Summer 2023",
+    season: "Summer 2026",
     title: "Hello New Season",
     discount: "Limited time offer - up to 60% off & free shipping",
   },
@@ -35,7 +35,7 @@ export const slides2 = [
     imageSrc: "/assets/images/home/demo2/slider2.jpg",
     imageAlt: "Pattern",
     imageStyle: { objectPosition: "70% center" },
-    season: "Summer 2023",
+    season: "Summer 2026",
     title: "Hello New Season",
     discount: "Limited time offer - up to 60% off & free shipping",
   },
@@ -44,7 +44,7 @@ export const slides2 = [
     imageSrc: "/assets/images/home/demo2/slider3.jpg",
     imageAlt: "Pattern",
     imageStyle: { objectPosition: "70% center" },
-    season: "Summer 2023",
+    season: "Summer 2026",
     title: "Hello New Season",
     discount: "Limited time offer - up to 60% off & free shipping",
   },
@@ -261,7 +261,7 @@ export const slidesData3 = [
   {
     id: 1,
     imageSrc: "/assets/images/home/demo8/slider1.jpg",
-    season: "Summer 2023",
+    season: "Summer 2026",
     objectPosition: "50% center",
     title: "New Arrival Men’s",
     subtitle: "Collection",
@@ -269,7 +269,7 @@ export const slidesData3 = [
   {
     id: 2,
     imageSrc: "/assets/images/home/demo8/slider2.jpg",
-    season: "Summer 2023",
+    season: "Summer 2026",
     objectPosition: "70% center",
     title: "New Arrival Women’s",
     subtitle: "Collection",
@@ -277,7 +277,7 @@ export const slidesData3 = [
   {
     id: 3,
     imageSrc: "/assets/images/home/demo8/slider3.jpg",
-    season: "Summer 2023",
+    season: "Summer 2026",
     objectPosition: "50% center",
     title: "New Arrival Kid’s",
     subtitle: "Collection",
@@ -286,36 +286,36 @@ export const slidesData3 = [
 export const slidesData4 = [
   {
     id: 1,
-    imageSrc: "/assets/images/home/demo9/slider1.jpg",
-    imageAlt: "TRENDING 2023",
-    subtitle: "Interior Designs",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur elit. Odio pulvinar in ipsum amet.",
+    imageSrc: "/assets/images/home/demo9/slider1.webp",
+    imageAlt: "TRENDING 2026",
+    subtitle: "First Steps in Chai",
+    description: "The perfect packs for beginners are thoughtfully designed to make your first steps simple and stress-free.",
   },
+
   {
     id: 2,
-    imageSrc: "/assets/images/home/demo9/slider1.jpg",
-    imageAlt: "TRENDING 2023",
-    subtitle: "Interior Designs",
+    imageSrc: "/assets/images/home/demo9/slider2.webp",
+    imageAlt: "TRENDING 2026",
+    subtitle: "First Steps in Chai",
     description:
-      "Lorem ipsum dolor sit amet, consectetur elit. Odio pulvinar in ipsum amet.",
+      "The perfect packs for beginners are thoughtfully designed to make your first steps simple and stress-free.",
   },
-  {
-    id: 3,
-    imageSrc: "/assets/images/home/demo9/slider1.jpg",
-    imageAlt: "TRENDING 2023",
-    subtitle: "Interior Designs",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur elit. Odio pulvinar in ipsum amet.",
-  },
-  {
-    id: 4,
-    imageSrc: "/assets/images/home/demo9/slider1.jpg",
-    imageAlt: "TRENDING 2023",
-    subtitle: "Interior Designs",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio pulvinar in ipsum amet.",
-  },
+  // {
+  //   id: 3,
+  //   imageSrc: "/assets/images/home/demo9/slider1.webp",
+  //   imageAlt: "TRENDING 2026",
+  //   subtitle: "Interior Designs",
+  //   description:
+  //     "The perfect packs for beginners are thoughtfully designed to make your first steps simple and stress-free.",
+  // },
+  // {
+  //   id: 4,
+  //   imageSrc: "/assets/images/home/demo9/slider2.jpg",
+  //   imageAlt: "TRENDING 2026",
+  //   subtitle: "Interior Designs",
+  //   description:
+  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Odio pulvinar in ipsum amet.",
+  // },
 ];
 export const slidesData5 = [
   {

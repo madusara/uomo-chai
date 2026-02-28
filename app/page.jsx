@@ -1,4 +1,5 @@
 import HomePage1 from "./(homes)/home-1/page";
+import HomePage8 from "./(madusara)/home/page";
 
 export const metadata = {
   title: "Home 1 || Uomo eCommerce React Nextjs Template",
@@ -7,7 +8,9 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <HomePage1 />
+      {/* <HomePage1 /> */}
+
+      <HomePage8 />
     </>
   );
 }

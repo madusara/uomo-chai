@@ -9,19 +9,23 @@ import Hero from "@/components/homes/home-9/Hero";
 import Instagram from "@/components/homes/home-9/Instagram";
 import Lookbook from "@/components/homes/home-9/Lookbook";
 import React from "react";
+import { getCategoryData } from "@/lib/api/home";
 
 export const metadata = {
   title: "Home 9 || Uomo eCommerce React Nextjs Template",
   description: "Uomo eCommerce React Nextjs Template",
 };
-export default function HomePage8() {
+export default async function HomePage8() {
+  const categoryData = await getCategoryData();
+  const collections = categoryData.collections || [];
+
   return (
     <>
       <Header9 />
       <main className="page-wrapper">
         <Hero />
         <div className="mb-3 pb-1"></div>
-        <Collections />
+        <Collections collections={collections} />
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
         <BestSelling />
         <div className="mb-5 pb-4"></div>

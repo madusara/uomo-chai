@@ -60,6 +60,8 @@ export const categories = [
     productCount: 20,
   },
 ];
+
+
 export const categories2 = [
   {
     id: 1,

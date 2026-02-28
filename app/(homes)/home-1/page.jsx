@@ -10,12 +10,18 @@ import Products2 from "@/components/homes/home-1/Products2";
 import Products3 from "@/components/homes/home-1/Products3";
 import Products4 from "@/components/homes/home-1/Products4";
 import Products5 from "@/components/homes/home-1/Products5";
+import { getCategoryData } from "@/lib/api/home";
 
 export const metadata = {
   title: "Home 1 || Uomo eCommerce React Nextjs Template",
   description: "Uomo eCommerce React Nextjs Template",
 };
-export default function HomePage1() {
+export default async function HomePage1() {
+  const homeData = await getCategoryData();
+
+  // Optional: extract collections for Products1 or Hero component
+  const collections = homeData.collections || [];
+
   return (
     <>
       <div>
@@ -24,7 +30,7 @@ export default function HomePage1() {
           <Hero />
           <div className="mb-3 pb-3 mb-md-4 pb-md-4 mb-xl-5 pb-xl-5"></div>
           <div className="pb-1"></div>
-          <Products1 />
+          {/* <Products1 /> */}
           <div className="mb-4 pb-4 mb-xl-5 pb-xl-5"></div>
           <Products2 />
           <div className="mb-3 mb-xl-5 pb-1 pb-xl-5"></div>
