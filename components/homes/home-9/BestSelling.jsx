@@ -9,6 +9,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 
 export default function BestSelling() {
+
+  
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
   const [currentCategory, setCurrentCategory] = useState(filterCategories4[0]);
