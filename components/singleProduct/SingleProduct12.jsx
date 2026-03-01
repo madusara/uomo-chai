@@ -228,7 +228,7 @@ export default function SingleProduct12({ product }) {
               Additional Information
             </a>
           </li>
-          <li className="nav-item" role="presentation">
+          {/* <li className="nav-item" role="presentation">
             <a
               className="nav-link nav-link_underscore"
               id="tab-reviews-tab"
@@ -240,7 +240,7 @@ export default function SingleProduct12({ product }) {
             >
               Reviews
             </a>
-          </li>
+          </li> */}
           <li className="nav-item" role="presentation">
             <a
               className="nav-link nav-link_underscore"
@@ -272,14 +272,14 @@ export default function SingleProduct12({ product }) {
           >
             <AdditionalInfo />
           </div>
-          <div
+          {/* <div
             className="tab-pane fade"
             id="tab-reviews"
             role="tabpanel"
             aria-labelledby="tab-reviews-tab"
           >
             <Reviews />
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

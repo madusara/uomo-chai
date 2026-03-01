@@ -21,7 +21,7 @@ export default function AdditionalInfo() {
       </div>
       <div className="item">
         <label className="h6">Ingredients</label>
-        <span>Sugar, Water, Citric Acid, Natural Flavors, Color, Preservative</span>
+        <span>Sugar, Water, Citric Acid, Natural Flavors, Color</span>
       </div>
     </div>
   );
