@@ -1,8 +1,8 @@
-// import { instagramImages2 } from "@/data/instagramIds";
+import { instagramImages2 } from "@/data/instagramIds";
 import React from "react";
 import Image from "next/image";
 
-export default function Instagram({ instagramImages }) {
+export default function Instagram({ instagramImages = instagramImages2 }) {
   return (
     <section className="instagram px-1 position-relative full-width_padding-20">
       <h2 className="d-none">Instagram</h2>
@@ -20,7 +20,7 @@ export default function Instagram({ instagramImages }) {
                 src={elm.src}
                 width="232"
                 height="232"
-                alt="Insta image 27"
+                alt={elm.alt || "Instagram image"}
               />
             </a>
           </div>
