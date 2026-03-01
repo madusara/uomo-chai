@@ -11,21 +11,33 @@ export default function BestSelling({ products = [] }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
 
-  console.log(products);
+  // console.log(products);
 
-  //Get unique show area names from backend
   const filterCategories = useMemo(() => {
     const names = [...new Set(products.map((p) => p.filterCategory))];
-    return ["All", ...names];
+    return ["All", ...names.filter((name) => name !== "Instagram")];
   }, [products]);
 
   const [currentCategory, setCurrentCategory] = useState("All");
 
   // Filter products
   const filtered = useMemo(() => {
-    if (currentCategory === "All") return products;
-    return products.filter(
-      (product) => product.filterCategory === currentCategory
+    const validProducts = products.filter(
+      (product) => product.filterCategory !== "Instagram",
+    );
+
+    if (currentCategory === "All") {
+      const uniqueProductsMap = new Map();
+      validProducts.forEach((product) => {
+        if (!uniqueProductsMap.has(product.id)) {
+          uniqueProductsMap.set(product.id, product);
+        }
+      });
+      return Array.from(uniqueProductsMap.values());
+    }
+
+    return validProducts.filter(
+      (product) => product.filterCategory === currentCategory,
     );
   }, [products, currentCategory]);
 
@@ -58,7 +70,10 @@ export default function BestSelling({ products = [] }) {
         <div className="tab-pane fade show active">
           <div className="row">
             {filtered.map((product, i) => (
-              <div key={`${product.id}-${i}`} className="col-6 col-md-4 col-lg-3">
+              <div
+                key={`${product.id}-${i}`}
+                className="col-6 col-md-4 col-lg-3"
+              >
                 <div className="product-card mb-3 mb-md-4 mb-xxl-5">
                   <div className="pc__img-wrapper">
                     <Swiper
@@ -74,8 +89,11 @@ export default function BestSelling({ products = [] }) {
                           <Link href={`/product1_simple/${product.id}`}>
                             <Image
                               loading="lazy"
-                              src={product.imgSrc ? product.imgSrc : "/images/placeholder.png"}
-
+                              src={
+                                product.imgSrc
+                                  ? product.imgSrc
+                                  : "/images/placeholder.png"
+                              }
                               width={330}
                               height={400}
                               alt={product.title}
@@ -123,16 +141,15 @@ export default function BestSelling({ products = [] }) {
                     </h6>
 
                     <div className="product-card__price d-flex">
-                      <span className="money price">
-                        ${product.price}
-                      </span>
+                      <span className="money price">${product.price}</span>
                     </div>
 
                     <button
-                      className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 ${
+                      className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${
                         isAddedtoWishlist(product.id) ? "active" : ""
                       }`}
                       onClick={() => toggleWishlist(product.id)}
+                      title="Add To Wishlist"
                     >
                       <svg width="16" height="16">
                         <use href="#icon_heart" />

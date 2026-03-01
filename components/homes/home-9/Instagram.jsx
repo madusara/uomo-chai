@@ -1,13 +1,13 @@
-import { instagramImages2 } from "@/data/instagramIds";
+// import { instagramImages2 } from "@/data/instagramIds";
 import React from "react";
 import Image from "next/image";
 
-export default function Instagram() {
+export default function Instagram({ instagramImages }) {
   return (
     <section className="instagram px-1 position-relative full-width_padding-20">
       <h2 className="d-none">Instagram</h2>
       <div className="row row-cols-2 row-cols-md-4 row-cols-xl-8">
-        {instagramImages2.map((elm, i) => (
+        {instagramImages.map((elm, i) => (
           <div key={i} className="instagram__tile">
             <a
               href="https://instagram.com"
