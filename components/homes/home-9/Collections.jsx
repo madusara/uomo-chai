@@ -2,7 +2,10 @@ import { collectionsData } from "@/data/categories";
 import React from "react";
 import Link from "next/link";
 
-export default function Collections() {
+export default function Collections({ collections }) {
+  if (!collections || collections.length === 0) return null;
+
+  // console.log(collections);
   return (
     <section className="collections-grid collections-grid_masonry gutters-20">
       <div className="h-md-100 full-width_padding-20">
@@ -37,7 +40,7 @@ export default function Collections() {
           <div className="col-lg-7 d-flex flex-column">
             <div className="position-relative flex-grow-1">
               <div className="row h-md-100">
-                {collectionsData.slice(1, 3).map((elm, i) => (
+                {collections.slice(1, 3).map((elm, i) => (
                   <Link href={"/shop-1"} key={i} className="col-md-6 h-md-100">
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
@@ -58,7 +61,7 @@ export default function Collections() {
 
             <div className="position-relative flex-grow-1 mt-lg-3 pt-lg-1">
               <div className="row h-md-100">
-                {collectionsData.slice(3, 5).map((elm, i) => (
+                {collections.slice(3, 5).map((elm, i) => (
                   <Link href={"/shop-1"} key={i} className="col-md-6 h-md-100">
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div

@@ -60,6 +60,8 @@ export const categories = [
     productCount: 20,
   },
 ];
+
+
 export const categories2 = [
   {
     id: 1,
@@ -253,9 +255,9 @@ export const categories3 = [
 export const collectionsData = [
   {
     id: 1,
-    imageSrc: "/assets/images/home/demo9/collection_grid_1.jpg",
-    title: "Furniture",
-    productCount: "954 Products",
+    imageSrc: "/assets/images/home/demo9/collection_grid_2.webp",
+    title: "Chai Concentrate",
+    productCount: "10 Products",
   },
   {
     id: 2,

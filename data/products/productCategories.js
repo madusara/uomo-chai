@@ -1,13 +1,9 @@
 export const menuCategories = [
   "All",
-  "StayHome",
-  "Jackets",
-  "Hoodies",
-  "Men",
-  "Women",
-
-  "Accessories",
-  "Shoes",
+  "Elixirs/Syrups",
+  "Dropit",
+  "Olivespices",
+  "RTDs"
 ];
 
 export const sortingOptions = [

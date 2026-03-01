@@ -14,6 +14,9 @@ const nextConfig = {
       "legacy-js-api",
     ],
   },
+    images: {
+    domains: ['pub-860b96fb3f4b4c8aafe4f645234dd20f.r2.dev'],
+  },
 };
 
 export default nextConfig;
