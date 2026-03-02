@@ -141,7 +141,7 @@ export default function BestSelling({ products = [] }) {
                     </h6>
 
                     <div className="product-card__price d-flex">
-                      <span className="money price">${product.price}</span>
+                      <span className="money price">LKR {product.price}</span>
                     </div>
 
                     <button
