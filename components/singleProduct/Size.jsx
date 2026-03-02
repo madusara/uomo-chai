@@ -17,7 +17,7 @@ export default function Size() {
         data-bs-placement="top"
         data-tippy-content="Extra Small"
       >
-        XS
+        500ml
       </label>
       <input type="radio" name="size" id="swatch-2" defaultChecked />
       <label

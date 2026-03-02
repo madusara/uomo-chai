@@ -86,7 +86,7 @@ export default function BestSelling({ products = [] }) {
                     >
                       {[1].map((_, index) => (
                         <SwiperSlide key={index}>
-                          <Link href={`/product1_simple/${product.id}`}>
+                          <Link href={`/product/${product.slug}`}>
                             <Image
                               loading="lazy"
                               src={

@@ -44,6 +44,15 @@ export default function SingleProduct12({ product }) {
     <section className="product-single container">
       <div className="row">
         <div className="col-lg-7">
+          {/* <ProductSlider1
+            images={[
+              ...(Array.isArray(product.imgSrc) ? product.imgSrc : []),
+              ...(Array.isArray(product.other_images)
+                ? product.other_images
+                : []),
+            ]}
+          /> */}
+
           <ProductSlider1 />
         </div>
         <div className="col-lg-5">
@@ -94,12 +103,7 @@ export default function SingleProduct12({ product }) {
             <span className="current-price">${product.price}</span>
           </div>
           <div className="product-single__short-desc">
-            <p>
-              Phasellus sed volutpat orci. Fusce eget lore mauris vehicula
-              elementum gravida nec dui. Aenean aliquam varius ipsum, non
-              ultricies tellus sodales eu. Donec dignissim viverra nunc, ut
-              aliquet magna posuere eget.
-            </p>
+            <div dangerouslySetInnerHTML={{ __html: product.description }} />
           </div>
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="product-single__swatches">
@@ -140,7 +144,7 @@ export default function SingleProduct12({ product }) {
                   onClick={() =>
                     setQuantityCartItem(
                       product.id,
-                      isIncludeCard()?.quantity - 1 || quantity - 1
+                      isIncludeCard()?.quantity - 1 || quantity - 1,
                     )
                   }
                   className="qty-control__reduce"
@@ -151,7 +155,7 @@ export default function SingleProduct12({ product }) {
                   onClick={() =>
                     setQuantityCartItem(
                       product.id,
-                      isIncludeCard()?.quantity + 1 || quantity + 1
+                      isIncludeCard()?.quantity + 1 || quantity + 1,
                     )
                   }
                   className="qty-control__increase"
