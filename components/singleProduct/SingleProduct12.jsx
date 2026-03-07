@@ -17,6 +17,17 @@ export default function SingleProduct12({ product }) {
 
   const sizes = product.bottle_sizes;
 
+  const [selectedSize, setSelectedSize] = useState(
+    sizes && sizes.length > 0 ? sizes[0] : "500ml",
+  );
+
+  const [displayPrice, setDisplayPrice] = useState(
+    product.variants[selectedSize]?.price || product.price,
+  );
+  const handleSizeChange = (size) => {
+    setSelectedSize(size);
+    setDisplayPrice(product.variants[size]?.price || product.price);
+  };
 
   const isIncludeCard = () => {
     const item = cartProducts.filter((elm) => elm.id == product.id)[0];
@@ -103,7 +114,7 @@ export default function SingleProduct12({ product }) {
             </span>
           </div> */}
           <div className="product-single__price">
-            <span className="current-price">${product.price}</span>
+            <span className="current-price">LKR {displayPrice}</span>
           </div>
           <div className="product-single__short-desc">
             <div dangerouslySetInnerHTML={{ __html: product.description }} />
@@ -113,7 +124,11 @@ export default function SingleProduct12({ product }) {
               <div className="product-swatch text-swatches">
                 <label>Sizes</label>
                 <div className="swatch-list">
-                  <Size sizes={sizes} />
+                  <Size
+                    sizes={sizes}
+                    selectedSize={selectedSize}
+                    onSizeChange={handleSizeChange}
+                  />
                 </div>
                 <a
                   href="#"

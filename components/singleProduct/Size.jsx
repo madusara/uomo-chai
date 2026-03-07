@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import tippy from "tippy.js";
 
-export default function Size({ sizes }) {
+export default function Size({ sizes, selectedSize, onSizeChange }) {
   useEffect(() => {
     tippy("[data-tippy-content]");
   }, []);
@@ -18,7 +18,8 @@ export default function Size({ sizes }) {
             type="radio"
             name="size"
             id={`swatch-${index + 1}`}
-            defaultChecked={index === 0}
+            checked={selectedSize === size}
+            onChange={() => onSizeChange(size)}
           />
 
           <label
