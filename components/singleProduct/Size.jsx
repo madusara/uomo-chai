@@ -1,68 +1,38 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import tippy from "tippy.js";
 
-export default function Size() {
+export default function Size({ sizes }) {
   useEffect(() => {
     tippy("[data-tippy-content]");
   }, []);
+
+  const displaySizes = sizes && sizes.length > 0 ? sizes : ["500ml", "200ml"];
+
   return (
     <>
-      <label
-        className="swatch js-swatch"
-        htmlFor="swatch-1"
-        aria-label="Extra Small"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-tippy-content="Extra Small"
-      >
-        500ml
-      </label>
-      <input type="radio" name="size" id="swatch-2" defaultChecked />
-      <label
-        className="swatch js-swatch"
-        htmlFor="swatch-2"
-        aria-label="Small"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-tippy-content="Small"
-      >
-        S
-      </label>
-      <input type="radio" name="size" id="swatch-3" />
-      <label
-        className="swatch js-swatch"
-        htmlFor="swatch-3"
-        aria-label="Middle"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-tippy-content="Middle"
-      >
-        M
-      </label>
-      <input type="radio" name="size" id="swatch-4" />
-      <label
-        className="swatch js-swatch"
-        htmlFor="swatch-4"
-        aria-label="Large"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-tippy-content="Large"
-      >
-        L
-      </label>
-      <input type="radio" name="size" id="swatch-5" />
-      <label
-        className="swatch js-swatch"
-        htmlFor="swatch-5"
-        aria-label="Extra Large"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        data-tippy-content="Extra Large"
-      >
-        XL
-      </label>
+      {displaySizes.map((size, index) => (
+        <React.Fragment key={index}>
+          <input
+            type="radio"
+            name="size"
+            id={`swatch-${index + 1}`}
+            defaultChecked={index === 0}
+          />
+
+          <label
+            className="swatch js-swatch"
+            htmlFor={`swatch-${index + 1}`}
+            aria-label={size}
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-tippy-content={size}
+          >
+            {size}
+          </label>
+        </React.Fragment>
+      ))}
     </>
   );
 }

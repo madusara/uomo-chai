@@ -15,6 +15,9 @@ export default function SingleProduct12({ product }) {
   const { cartProducts, setCartProducts } = useContextElement();
   const [quantity, setQuantity] = useState(1);
 
+  const sizes = product.bottle_sizes;
+
+
   const isIncludeCard = () => {
     const item = cartProducts.filter((elm) => elm.id == product.id)[0];
     return item;
@@ -110,7 +113,7 @@ export default function SingleProduct12({ product }) {
               <div className="product-swatch text-swatches">
                 <label>Sizes</label>
                 <div className="swatch-list">
-                  <Size />
+                  <Size sizes={sizes} />
                 </div>
                 <a
                   href="#"
