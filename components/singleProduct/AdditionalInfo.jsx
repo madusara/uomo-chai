@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function AdditionalInfo() {
+export default function AdditionalInfo({ ingredients }) {
   return (
     <div className="product-single__addtional-info">
-      <div className="item">
+      {/* <div className="item">
         <label className="h6">Size</label>
         <span>200ml, 500ml, 1l</span>
       </div>
@@ -22,7 +22,9 @@ export default function AdditionalInfo() {
       <div className="item">
         <label className="h6">Ingredients</label>
         <span>Sugar, Water, Citric Acid, Natural Flavors, Color, Preservative</span>
-      </div>
+      </div> */}
+
+      <div dangerouslySetInnerHTML={{ __html: ingredients }} />
     </div>
   );
 }

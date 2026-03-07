@@ -11,6 +11,7 @@ import Reviews from "./Reviews";
 import Link from "next/link";
 import ShareComponent from "../common/ShareComponent";
 import { useContextElement } from "@/context/Context";
+import HowToUse from "./HowToUse";
 export default function SingleProduct12({ product }) {
   const { cartProducts, setCartProducts } = useContextElement();
   const [quantity, setQuantity] = useState(1);
@@ -29,6 +30,12 @@ export default function SingleProduct12({ product }) {
     ...(Array.isArray(product.imgSrc) ? product.imgSrc : []),
     ...(product.other_images ? Object.values(product.other_images) : []),
   ].filter((v, i, a) => a.indexOf(v) === i);
+
+  // const description = product.description;
+  // const ingredients = product.ingredients;
+  // const howToUse = product.how_to_use;
+
+
 
   const handleSizeChange = (size) => {
     setSelectedSize(size);
@@ -244,7 +251,7 @@ export default function SingleProduct12({ product }) {
               aria-controls="tab-additional-info"
               aria-selected="false"
             >
-              Additional Information
+              Ingredients 
             </a>
           </li>
           <li className="nav-item" role="presentation">
@@ -260,17 +267,17 @@ export default function SingleProduct12({ product }) {
               Reviews
             </a>
           </li>
-          <li className="nav-item" role="presentation">
+           <li className="nav-item" role="presentation">
             <a
               className="nav-link nav-link_underscore"
-              id="tab-reviews-tab"
+              id="tab-how-to-use-tab"
               data-bs-toggle="tab"
-              href="#tab-reviews"
+              href="#tab-how-to-use"
               role="tab"
-              aria-controls="tab-reviews"
+              aria-controls="tab-how-to-use"
               aria-selected="false"
             >
-              How to use
+              How To Use 
             </a>
           </li>
         </ul>
@@ -281,7 +288,7 @@ export default function SingleProduct12({ product }) {
             role="tabpanel"
             aria-labelledby="tab-description-tab"
           >
-            <Description />
+            <Description description={product.description} />
           </div>
           <div
             className="tab-pane fade"
@@ -289,7 +296,7 @@ export default function SingleProduct12({ product }) {
             role="tabpanel"
             aria-labelledby="tab-additional-info-tab"
           >
-            <AdditionalInfo />
+            <AdditionalInfo  ingredients={product.ingredients}/>
           </div>
           <div
             className="tab-pane fade"
@@ -298,6 +305,15 @@ export default function SingleProduct12({ product }) {
             aria-labelledby="tab-reviews-tab"
           >
             <Reviews />
+          </div>
+
+          <div
+            className="tab-pane fade"
+            id="tab-how-to-use"
+            role="tabpanel"
+            aria-labelledby="tab-how-to-use-tab"
+          >
+            <HowToUse  ingredients={product.how_to_use}/>
           </div>
         </div>
       </div>
