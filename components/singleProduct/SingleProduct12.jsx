@@ -24,6 +24,12 @@ export default function SingleProduct12({ product }) {
   const [displayPrice, setDisplayPrice] = useState(
     product.variants[selectedSize]?.price || product.price,
   );
+
+  const allImages = [
+    ...(Array.isArray(product.imgSrc) ? product.imgSrc : []),
+    ...(product.other_images ? Object.values(product.other_images) : []),
+  ].filter((v, i, a) => a.indexOf(v) === i);
+
   const handleSizeChange = (size) => {
     setSelectedSize(size);
     setDisplayPrice(product.variants[size]?.price || product.price);
@@ -58,16 +64,7 @@ export default function SingleProduct12({ product }) {
     <section className="product-single container">
       <div className="row">
         <div className="col-lg-7">
-          {/* <ProductSlider1
-            images={[
-              ...(Array.isArray(product.imgSrc) ? product.imgSrc : []),
-              ...(Array.isArray(product.other_images)
-                ? product.other_images
-                : []),
-            ]}
-          /> */}
-
-          <ProductSlider1 />
+          <ProductSlider1 images={allImages} />
         </div>
         <div className="col-lg-5">
           <div className="d-flex justify-content-between mb-4 pb-md-2">
