@@ -35,8 +35,6 @@ export default function SingleProduct12({ product }) {
   // const ingredients = product.ingredients;
   // const howToUse = product.how_to_use;
 
-
-
   const handleSizeChange = (size) => {
     setSelectedSize(size);
     setDisplayPrice(product.variants[size]?.price || product.price);
@@ -251,7 +249,7 @@ export default function SingleProduct12({ product }) {
               aria-controls="tab-additional-info"
               aria-selected="false"
             >
-              Ingredients 
+              Ingredients
             </a>
           </li>
           <li className="nav-item" role="presentation">
@@ -267,7 +265,7 @@ export default function SingleProduct12({ product }) {
               Reviews
             </a>
           </li>
-           <li className="nav-item" role="presentation">
+          <li className="nav-item" role="presentation">
             <a
               className="nav-link nav-link_underscore"
               id="tab-how-to-use-tab"
@@ -277,7 +275,7 @@ export default function SingleProduct12({ product }) {
               aria-controls="tab-how-to-use"
               aria-selected="false"
             >
-              How To Use 
+              How To Use
             </a>
           </li>
         </ul>
@@ -296,7 +294,7 @@ export default function SingleProduct12({ product }) {
             role="tabpanel"
             aria-labelledby="tab-additional-info-tab"
           >
-            <AdditionalInfo  ingredients={product.ingredients}/>
+            <AdditionalInfo ingredients={product.ingredients} />
           </div>
           <div
             className="tab-pane fade"
@@ -313,7 +311,7 @@ export default function SingleProduct12({ product }) {
             role="tabpanel"
             aria-labelledby="tab-how-to-use-tab"
           >
-            <HowToUse  ingredients={product.how_to_use}/>
+            <HowToUse ingredients={product.how_to_use} />
           </div>
         </div>
       </div>
