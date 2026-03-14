@@ -43,7 +43,7 @@ export default function Collections({ collections }) {
                 <h3 className="text-uppercase mb-0">{mainCollection.title}</h3>
                 <p className="mb-3">{mainCollection.productCount}</p>
                 <Link
-                  href="/shop-1"
+                  href="/shop/"
                   className="btn-link default-underline text-uppercase fw-medium"
                 >
                   Shop Now
