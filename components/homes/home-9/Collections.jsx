@@ -1,9 +1,30 @@
-import { collectionsData } from "@/data/categories";
 import React from "react";
 import Link from "next/link";
 
 export default function Collections({ collections }) {
   if (!collections || collections.length === 0) return null;
+
+  const uniqueCollections = collections
+    .filter(
+      (item, index, list) =>
+        index ===
+        list.findIndex(
+          (entry) =>
+            (entry.id || entry.slug || entry.title) ===
+            (item.id || item.slug || item.title),
+        ),
+    )
+    .slice(0, 5);
+
+  if (uniqueCollections.length === 0) return null;
+
+  const [
+    mainCollection,
+    topLeftCollection,
+    topRightCollection,
+    bottomLeftCollection,
+    bottomRightCollection,
+  ] = uniqueCollections;
 
   // console.log(collections);
   return (
@@ -15,16 +36,12 @@ export default function Collections({ collections }) {
               <div
                 className="background-img"
                 style={{
-                  backgroundImage: `url(${collectionsData[0].imageSrc})`,
+                  backgroundImage: `url(${mainCollection.imageSrc})`,
                 }}
               ></div>
               <div className="content_abs content_top content_left content_top-md content_left-md pt-2 px-2">
-                <h3 className="text-uppercase mb-0">
-                  {collectionsData[0].title}
-                </h3>
-                <p className="mb-3">
-                  {collectionsData[0].productCount} Products
-                </p>
+                <h3 className="text-uppercase mb-0">{mainCollection.title}</h3>
+                <p className="mb-3">{mainCollection.productCount}</p>
                 <Link
                   href="/shop-1"
                   className="btn-link default-underline text-uppercase fw-medium"
@@ -40,43 +57,91 @@ export default function Collections({ collections }) {
           <div className="col-lg-7 d-flex flex-column">
             <div className="position-relative flex-grow-1">
               <div className="row h-md-100">
-                {collections.slice(1, 3).map((elm, i) => (
-                  <Link href={"/shop-1"} key={i} className="col-md-6 h-md-100">
+                {topLeftCollection && (
+                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
                         className="background-img"
-                        style={{ backgroundImage: `url(${elm.imageSrc})` }}
+                        style={{
+                          backgroundImage: `url(${topLeftCollection.imageSrc})`,
+                        }}
                       ></div>
                       <div className="content_abs content_top content_left content_top-md content_left-md pt-2 px-2">
-                        <h3 className="text-uppercase mb-0">{elm.title}</h3>
-                        <p className="mb-3">{elm.productCount} Products</p>
+                        <h3 className="text-uppercase mb-0">
+                          {topLeftCollection.title}
+                        </h3>
+                        <p className="mb-3">{topLeftCollection.productCount}</p>
                       </div>
-                      {/* <!-- /.content_abs content_top content_left content_top-md content_left-md pt-2 px-2 --> */}
                     </div>
-                    {/* <!-- /.collection-grid__item --> */}
                   </Link>
-                ))}
+                )}
+
+                {topRightCollection && (
+                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
+                    <div className="collection-grid__item h-md-100 position-relative">
+                      <div
+                        className="background-img"
+                        style={{
+                          backgroundImage: `url(${topRightCollection.imageSrc})`,
+                        }}
+                      ></div>
+                      <div className="content_abs content_top content_left content_top-md content_left-md pt-2 px-2">
+                        <h3 className="text-uppercase mb-0">
+                          {topRightCollection.title}
+                        </h3>
+                        <p className="mb-3">
+                          {topRightCollection.productCount}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
 
             <div className="position-relative flex-grow-1 mt-lg-3 pt-lg-1">
               <div className="row h-md-100">
-                {collections.slice(3, 5).map((elm, i) => (
-                  <Link href={"/shop-1"} key={i} className="col-md-6 h-md-100">
+                {bottomLeftCollection && (
+                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
                         className="background-img"
-                        style={{ backgroundImage: `url(${elm.imageSrc})` }}
+                        style={{
+                          backgroundImage: `url(${bottomLeftCollection.imageSrc})`,
+                        }}
                       ></div>
                       <div className="content_abs content_top content_left content_top-md content_left-md pt-2 px-2">
-                        <h3 className="text-uppercase mb-0">{elm.title}</h3>
-                        <p className="mb-3">{elm.productCount} Products</p>
+                        <h3 className="text-uppercase mb-0">
+                          {bottomLeftCollection.title}
+                        </h3>
+                        <p className="mb-3">
+                          {bottomLeftCollection.productCount}
+                        </p>
                       </div>
-                      {/* <!-- /.content_abs content_top content_left content_top-md content_left-md pt-2 px-2 --> */}
                     </div>
-                    {/* <!-- /.collection-grid__item --> */}
                   </Link>
-                ))}
+                )}
+
+                {bottomRightCollection && (
+                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
+                    <div className="collection-grid__item h-md-100 position-relative">
+                      <div
+                        className="background-img"
+                        style={{
+                          backgroundImage: `url(${bottomRightCollection.imageSrc})`,
+                        }}
+                      ></div>
+                      <div className="content_abs content_top content_left content_top-md content_left-md pt-2 px-2">
+                        <h3 className="text-uppercase mb-0">
+                          {bottomRightCollection.title}
+                        </h3>
+                        <p className="mb-3">
+                          {bottomRightCollection.productCount}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
