@@ -1,5 +1,4 @@
 "use client";
-import { products51 } from "@/data/products/fashion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Star from "../common/Star";
 import ColorSelection from "../common/ColorSelection";
@@ -11,27 +10,28 @@ import { useContextElement } from "@/context/Context";
 const itemPerRow = [3, 4, 5];
 import Image from "next/image";
 import { openModalShopFilter } from "@/utlis/aside";
-import {
-  menuCategories,
-  sortingOptions,
-} from "@/data/products/productCategories";
-export default function Shop6() {
+import { sortingOptions } from "@/data/products/productCategories";
+export default function Shop6({ products: apiData }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
 
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
   const [selectedColView, setSelectedColView] = useState(5);
 
+  const productsList = apiData?.products ?? [];
+  const categoryName = apiData?.category?.name ?? "Shop";
+  const menuCategories = ["All", ...new Set(productsList.map((p) => p.filterCategory).filter(Boolean))];
+
   const [currentCategory, setCurrentCategory] = useState(menuCategories[0]);
-  const [filtered, setFiltered] = useState(products51);
+  const [filtered, setFiltered] = useState(productsList);
   useEffect(() => {
-    if (currentCategory == "All") {
-      setFiltered(products51);
+    if (currentCategory === "All") {
+      setFiltered(productsList);
     } else {
       setFiltered(
-        products51.filter((elm) => elm.filterCategory2 == currentCategory)
+        productsList.filter((elm) => elm.filterCategory === currentCategory)
       );
     }
-  }, [currentCategory]);
+  }, [currentCategory, productsList]);
   return (
     <>
       <section>
@@ -53,7 +53,7 @@ export default function Shop6() {
 
             <div className="shop-banner__content container position-absolute start-50 top-50 translate-middle">
               <h2 className="h1 text-uppercase text-white text-center fw-bold mb-3 mb-xl-4 mb-xl-5">
-                Elixirs/Syrups</h2>
+                {categoryName}</h2>
               <ul
                 className="d-flex flex-wrap justify-content-center list-unstyled text-uppercase h6"
                 aria-label="Collections List"
@@ -161,7 +161,7 @@ export default function Shop6() {
           className={`products-grid row row-cols-2 row-cols-md-3 row-cols-lg-${selectedColView}`}
           id="products-grid"
         >
-          {products51.slice(0, 15).map((elm, i) => (
+          {filtered.map((elm, i) => (
             <div key={i} className="product-card-wrapper">
               <div className="product-card mb-3 mb-md-4 mb-xxl-5">
                 <div className="pc__img-wrapper">
@@ -176,13 +176,13 @@ export default function Shop6() {
                   >
                     {[elm.imgSrc, elm.imgSrc2].map((elm2, i) => (
                       <SwiperSlide key={i} className="swiper-slide">
-                        <Link href={`/product1_simple/${elm.id}`}>
+                        <Link href={`/product/${elm.slug}`}>
                           <Image
                             loading="lazy"
                             src={elm2}
                             width="330"
                             height="400"
-                            alt="Cropped Faux leather Jacket"
+                            alt={elm.title}
                             className="pc__img"
                           />
                         </Link>
@@ -232,7 +232,7 @@ export default function Shop6() {
                 <div className="pc__info position-relative">
                   <p className="pc__category">{elm.category}</p>
                   <h6 className="pc__title">
-                    <Link href={`/product1_simple/${elm.id}`}>{elm.title}</Link>
+                    <Link href={`/product/${elm.slug}`}>{elm.title}</Link>
                   </h6>
                   <div className="product-card__price d-flex">
                     {elm.priceOld ? (
