@@ -26,6 +26,9 @@ export default function Collections({ collections }) {
     bottomRightCollection,
   ] = uniqueCollections;
 
+  const getCategoryShopLink = (collection) =>
+    collection?.slug ? `/shop/${collection.slug}` : "/shop";
+
   // console.log(collections);
   return (
     <section className="collections-grid collections-grid_masonry gutters-20">
@@ -43,7 +46,7 @@ export default function Collections({ collections }) {
                 <h3 className="text-uppercase mb-0">{mainCollection.title}</h3>
                 <p className="mb-3">{mainCollection.productCount}</p>
                 <Link
-                  href="/shop/"
+                  href={getCategoryShopLink(mainCollection)}
                   className="btn-link default-underline text-uppercase fw-medium"
                 >
                   Shop Now
@@ -58,7 +61,10 @@ export default function Collections({ collections }) {
             <div className="position-relative flex-grow-1">
               <div className="row h-md-100">
                 {topLeftCollection && (
-                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
+                  <Link
+                    href={getCategoryShopLink(topLeftCollection)}
+                    className="col-md-6 h-md-100"
+                  >
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
                         className="background-img"
@@ -77,7 +83,10 @@ export default function Collections({ collections }) {
                 )}
 
                 {topRightCollection && (
-                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
+                  <Link
+                    href={getCategoryShopLink(topRightCollection)}
+                    className="col-md-6 h-md-100"
+                  >
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
                         className="background-img"
@@ -102,7 +111,10 @@ export default function Collections({ collections }) {
             <div className="position-relative flex-grow-1 mt-lg-3 pt-lg-1">
               <div className="row h-md-100">
                 {bottomLeftCollection && (
-                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
+                  <Link
+                    href={getCategoryShopLink(bottomLeftCollection)}
+                    className="col-md-6 h-md-100"
+                  >
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
                         className="background-img"
@@ -123,7 +135,10 @@ export default function Collections({ collections }) {
                 )}
 
                 {bottomRightCollection && (
-                  <Link href={"/shop-1"} className="col-md-6 h-md-100">
+                  <Link
+                    href={getCategoryShopLink(bottomRightCollection)}
+                    className="col-md-6 h-md-100"
+                  >
                     <div className="collection-grid__item h-md-100 position-relative">
                       <div
                         className="background-img"
