@@ -11,18 +11,33 @@ const itemPerRow = [3, 4, 5];
 import Image from "next/image";
 import { openModalShopFilter } from "@/utlis/aside";
 import { sortingOptions } from "@/data/products/productCategories";
+
+const DEFAULT_VISIBLE_COUNT = 36;
 export default function Shop6({ products: apiData }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
 
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
   const [selectedColView, setSelectedColView] = useState(5);
 
-  const productsList = apiData?.products ?? [];
+  const productsList = Array.isArray(apiData)
+    ? apiData
+    : Array.isArray(apiData?.products)
+      ? apiData.products
+      : [];
+
+  const apiTotalCount =
+    Number(apiData?.total) ||
+    Number(apiData?.pagination?.total) ||
+    Number(apiData?.meta?.total) ||
+    0;
+
   const categoryName = apiData?.category?.name ?? "Shop";
   const menuCategories = ["All", ...new Set(productsList.map((p) => p.filterCategory).filter(Boolean))];
 
   const [currentCategory, setCurrentCategory] = useState(menuCategories[0]);
   const [filtered, setFiltered] = useState(productsList);
+  const [visibleCount, setVisibleCount] = useState(DEFAULT_VISIBLE_COUNT);
+
   useEffect(() => {
     if (currentCategory === "All") {
       setFiltered(productsList);
@@ -32,6 +47,19 @@ export default function Shop6({ products: apiData }) {
       );
     }
   }, [currentCategory, productsList]);
+
+  useEffect(() => {
+    setVisibleCount(DEFAULT_VISIBLE_COUNT);
+  }, [currentCategory]);
+
+  const totalForCurrentView = currentCategory === "All"
+    ? apiTotalCount || filtered.length
+    : filtered.length;
+  const showingCount = Math.min(visibleCount, filtered.length, totalForCurrentView);
+  const canShowMore = showingCount < filtered.length;
+  const progress = totalForCurrentView > 0 ? (showingCount / totalForCurrentView) * 100 : 0;
+  const visibleProducts = filtered.slice(0, visibleCount);
+
   return (
     <>
       <section>
@@ -161,7 +189,7 @@ export default function Shop6({ products: apiData }) {
           className={`products-grid row row-cols-2 row-cols-md-3 row-cols-lg-${selectedColView}`}
           id="products-grid"
         >
-          {filtered.map((elm, i) => (
+          {visibleProducts.map((elm, i) => (
             <div key={i} className="product-card-wrapper">
               <div className="product-card mb-3 mb-md-4 mb-xxl-5">
                 <div className="pc__img-wrapper">
@@ -308,14 +336,26 @@ export default function Shop6({ products: apiData }) {
         </div>
         {/* <!-- /.products-grid row --> */}
 
-        <p className="mb-5 text-center fw-medium">SHOWING 36 of 497 items</p>
-        <Pagination1 />
+        <p className="mb-5 text-center fw-medium">
+          SHOWING {showingCount} of {totalForCurrentView} items
+        </p>
+        <Pagination1
+          progress={progress}
+          current={showingCount}
+          total={Math.max(totalForCurrentView, 1)}
+        />
 
-        <div className="text-center">
-          <a className="btn-link btn-link_lg text-uppercase fw-medium" href="#">
-            Show More
-          </a>
-        </div>
+        {canShowMore && (
+          <div className="text-center">
+            <button
+              className="btn-link btn-link_lg text-uppercase fw-medium border-0 bg-transparent"
+              onClick={() => setVisibleCount((prev) => prev + DEFAULT_VISIBLE_COUNT)}
+              type="button"
+            >
+              Show More
+            </button>
+          </div>
+        )}
       </section>{" "}
     </>
   );
