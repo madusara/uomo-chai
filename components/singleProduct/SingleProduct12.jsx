@@ -23,7 +23,7 @@ export default function SingleProduct12({ product }) {
   );
 
   const [displayPrice, setDisplayPrice] = useState(
-    product.variants[selectedSize]?.price || product.price,
+    product.variants?.[selectedSize]?.price || product.price,
   );
 
   const allImages = [
@@ -37,7 +37,7 @@ export default function SingleProduct12({ product }) {
 
   const handleSizeChange = (size) => {
     setSelectedSize(size);
-    setDisplayPrice(product.variants[size]?.price || product.price);
+    setDisplayPrice(product.variants?.[size]?.price || product.price);
   };
 
   const isIncludeCard = () => {
