@@ -9,7 +9,12 @@ import Hero from "@/components/homes/home-9/Hero";
 import Instagram from "@/components/homes/home-9/Instagram";
 import Lookbook from "@/components/homes/home-9/Lookbook";
 import React from "react";
-import { getCategoryData, getInstagramProducts, getShowAreaProducts } from "@/lib/api/home";
+import {
+  getBlogsData,
+  getCategoryData,
+  getInstagramProducts,
+  getShowAreaProducts,
+} from "@/lib/api/home";
 
 export const metadata = {
   title: "Home 9 || Uomo eCommerce React Nextjs Template",
@@ -20,6 +25,11 @@ export default async function HomePage8() {
   const collections = categoryData.collections || [];
   const showAreaProducts = await getShowAreaProducts();
   const instagramImages = await getInstagramProducts();
+  const blogsData = await getBlogsData();
+
+  console.log(blogsData);
+
+  
 
 
   return (
@@ -34,7 +44,7 @@ export default async function HomePage8() {
         <div className="mb-5 pb-4"></div>
         <Lookbook />
         <div className="pt-1 pb-5 mt-4 mt-xl-5"></div>
-        <Blogs />
+        <Blogs blogs={blogsData} />
         <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
         <Brands />
         <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>

@@ -6,7 +6,15 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 
-export default function Blogs() {
+export default function Blogs({ blogs: apiBlogs }) {
+  const blogList = Array.isArray(apiBlogs)
+    ? apiBlogs
+    : Array.isArray(apiBlogs?.blogs)
+      ? apiBlogs.blogs
+      : Array.isArray(apiBlogs?.data)
+        ? apiBlogs.data
+        : blogs3;
+
   const swiperOptions = {
     autoplay: {
       delay: 5000,
@@ -45,13 +53,13 @@ export default function Blogs() {
           className="swiper-container js-swiper-slider"
           {...swiperOptions}
         >
-          {blogs3.map((elm, i) => (
+          {blogList.map((elm, i) => (
             <SwiperSlide key={i} className="swiper-slide blog-grid__item mb-4">
               <div className="blog-grid__item-image">
                 <Image
                   loading="lazy"
                   className="h-auto"
-                  src={elm.imgSrc}
+                  src={elm.imgSrc || elm.image || elm.imageUrl || "/assets/images/home/demo9/post1.jpg"}
                   width="450"
                   height="300"
                   alt="image"
@@ -60,12 +68,12 @@ export default function Blogs() {
               <div className="blog-grid__item-detail">
                 <div className="blog-grid__item-meta">
                   <span className="blog-grid__item-meta__author">
-                    By {elm.author}
+                    By {elm.author || "Admin"}
                   </span>
-                  <span className="blog-grid__item-meta__date">{elm.date}</span>
+                  <span className="blog-grid__item-meta__date">{elm.date || ""}</span>
                 </div>
                 <div className="blog-grid__item-title mb-0 blog-title">
-                  <Link href={`/blog_single/${elm.id}`}>{elm.title}</Link>
+                  <Link href={`/blog_single/${elm.slug || elm.id}`}>{elm.title}</Link>
                 </div>
               </div>
             </SwiperSlide>
