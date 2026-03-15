@@ -4,12 +4,26 @@ import Footer1 from "@/components/footers/Footer1";
 
 import Header1 from "@/components/headers/Header1";
 import { allBlogs } from "@/data/blogs";
+import { getBlogDetails } from "@/lib/api/home";
 import React from "react";
+
+export async function generateMetadata({ params }) {
+  const data = await getBlogDetails(params.slug);
+  const seo = data?.seo;
+
+  return {
+    title: seo?.title ?? "Blog | Site name",
+    description: seo?.description ?? "",
+    keywords: seo?.keywords ?? "",
+  };
+}
 
 export default async function BlogDetailsPage(props) {
   const params = await props.params;
-  const id = params.id;
-  const blog = allBlogs.filter((elm) => elm.id == id)[0] || allBlogs[0];
+  const slug = params.slug;
+  const res = await getBlogDetails(slug);
+  const blog = res?.success ? (res.blog || res.data || allBlogs[0]) : allBlogs[0];
+
   return (
     <>
       <Header1 />

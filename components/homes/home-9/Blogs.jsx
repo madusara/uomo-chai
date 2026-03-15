@@ -73,7 +73,7 @@ export default function Blogs({ blogs: apiBlogs }) {
                   <span className="blog-grid__item-meta__date">{elm.date || ""}</span>
                 </div>
                 <div className="blog-grid__item-title mb-0 blog-title">
-                  <Link href={`/blog_single/${elm.slug || elm.id}`}>{elm.title}</Link>
+                  <Link href={`/blog/${elm.slug || elm.id}`}>{elm.title}</Link>
                 </div>
               </div>
             </SwiperSlide>
