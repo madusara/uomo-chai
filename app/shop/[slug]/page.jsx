@@ -5,7 +5,8 @@ import { getCategoryProductsBySlug } from "@/lib/api/home";
 import React from "react";
 
 export async function generateMetadata({ params }) {
-  const data = await getCategoryProductsBySlug(params.slug);
+  const { slug } = await params;
+  const data = await getCategoryProductsBySlug(slug);
   const seo = data?.seo;
 
   return {
@@ -16,7 +17,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ShopPage6({ params }) {
-  const data = await getCategoryProductsBySlug(params.slug);
+  const { slug } = await params;
+  const data = await getCategoryProductsBySlug(slug);
 
   return (
     <>
