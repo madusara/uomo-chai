@@ -30,19 +30,15 @@ export default async function HomePage8() {
 
   console.log(collections);
 
-  
-
-
   return (
     <>
       <Header9 />
       <main className="page-wrapper">
         <Hero />
-        <div className="mb-3 pb-1 mt-4"></div>
+        <div className="mb-3 pb-1 mt-4 pb-xl-5"></div>
         {/* <Collections collections={collections} /> */}
 
-
-          <CategoryMassonry  collections={collections}/>
+        <CategoryMassonry collections={collections} />
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
         <BestSelling products={showAreaProducts} />
         <div className="mb-5 pb-4"></div>
@@ -52,7 +48,7 @@ export default async function HomePage8() {
         <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
         <Brands />
         <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>
-        <Instagram  instagramImages={instagramImages}/>
+        <Instagram instagramImages={instagramImages} />
         <div className="mb-3 mb-xl-5"></div>
         <Features />
       </main>

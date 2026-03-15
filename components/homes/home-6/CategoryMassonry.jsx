@@ -59,7 +59,7 @@ export default function CategoryMassonry({ collections = [] }) {
                 href={getShopHref(item, leftFallback.slug)}
                 className="btn-link btn-link_md default-underline text-uppercase fw-medium"
               >
-                Discover Now
+                Shop Now
               </Link>
               <div className="category-masonry__item-category fw-medium">
                 {item?.productCount || leftFallback.productCount}
@@ -88,7 +88,7 @@ export default function CategoryMassonry({ collections = [] }) {
                 href={getShopHref(item, rightFallback.slug)}
                 className="btn-link btn-link_md default-underline text-uppercase fw-medium"
               >
-                Discover Now
+                Shop Now
               </Link>
               <div className="category-masonry__item-category fw-medium">
                 {item?.productCount || rightFallback.productCount}
