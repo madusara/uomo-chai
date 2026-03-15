@@ -15,6 +15,7 @@ import {
   getInstagramProducts,
   getShowAreaProducts,
 } from "@/lib/api/home";
+import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
 
 export const metadata = {
   title: "Home 9 || Uomo eCommerce React Nextjs Template",
@@ -27,7 +28,7 @@ export default async function HomePage8() {
   const instagramImages = await getInstagramProducts();
   const blogsData = await getBlogsData();
 
-  console.log(blogsData);
+  console.log(collections);
 
   
 
@@ -37,8 +38,11 @@ export default async function HomePage8() {
       <Header9 />
       <main className="page-wrapper">
         <Hero />
-        <div className="mb-3 pb-1"></div>
-        <Collections collections={collections} />
+        <div className="mb-3 pb-1 mt-4"></div>
+        {/* <Collections collections={collections} /> */}
+
+
+          <CategoryMassonry  collections={collections}/>
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
         <BestSelling products={showAreaProducts} />
         <div className="mb-5 pb-4"></div>
