@@ -4,6 +4,21 @@ import Reviews from "./Reviews";
 import Image from "next/image";
 
 export default function BlogDetails({ blog }) {
+  const otherImages = blog.otherImages || blog.images || [];
+  const getImageUrl = (image) => (typeof image === "string" ? image : image?.imgSrc || image?.url);
+  const secondaryImageOne =
+    blog.imgSrc2 ||
+    blog.secondImage ||
+    blog.second_image ||
+    getImageUrl(otherImages[0]) ||
+    "/assets/images/blog/blog-15.jpg";
+  const secondaryImageTwo =
+    blog.imgSrc3 ||
+    blog.thirdImage ||
+    blog.third_image ||
+    getImageUrl(otherImages[1]) ||
+    "/assets/images/blog/blog-16.jpg";
+
   return (
     <section className="blog-page blog-single container">
       <div className="mw-930">
@@ -42,7 +57,7 @@ export default function BlogDetails({ blog }) {
                 <Image
                   loading="lazy"
                   className="w-100 h-auto d-block"
-                  src="/assets/images/blog/blog-15.jpg"
+                  src={secondaryImageOne}
                   width="570"
                   height="697"
                   alt="image"
@@ -54,7 +69,7 @@ export default function BlogDetails({ blog }) {
                 <Image
                   loading="lazy"
                   className="w-100 h-auto d-block"
-                  src="/assets/images/blog/blog-16.jpg"
+                  src={secondaryImageTwo}
                   width="570"
                   height="697"
                   alt="image"
@@ -67,7 +82,7 @@ export default function BlogDetails({ blog }) {
           </div>
         </div>
         <div className="mw-930">
-          <p>
+          {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet sapien
             dignissim a elementum. Sociis metus, hendrerit mauris id in. Quis
             sit sit ultrices tincidunt euismod luctus diam. Turpis sodales orci
@@ -88,7 +103,7 @@ export default function BlogDetails({ blog }) {
             kind great so bring greater fill darkness darkness two land of
             creepeth there second fruitful, waters. Make don't void years
             Gathering gathering divide fill.
-          </p>
+          </p> */}
         </div>
       </div>
       <div className="blog-single__item-share mw-930">
