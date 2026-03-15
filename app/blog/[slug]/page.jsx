@@ -8,7 +8,8 @@ import { getBlogDetails } from "@/lib/api/home";
 import React from "react";
 
 export async function generateMetadata({ params }) {
-  const data = await getBlogDetails(params.slug);
+  const { slug } = await params;
+  const data = await getBlogDetails(slug);
   const seo = data?.seo;
 
   return {

@@ -2,6 +2,7 @@ import React from "react";
 import ReviewForm from "./ReviewForm";
 import Reviews from "./Reviews";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BlogDetails({ blog }) {
   const otherImages = blog.otherImages || blog.images || [];
@@ -158,35 +159,45 @@ export default function BlogDetails({ blog }) {
       </div>
       <div className="blog-single__item-pagination mw-930">
         <div className="row">
-          <div className="col-lg-6">
-            <a href="#" className="btn-link d-inline-flex align-items-center">
-              <svg
-                className="me-1"
-                width="7"
-                height="11"
-                viewBox="0 0 7 11"
-                xmlns="http://www.w3.org/2000/svg"
+          {blog.prevSlug && (
+            <div className="col-lg-6">
+              <Link
+                href={`/blog/${blog.prevSlug}`}
+                className="btn-link d-inline-flex align-items-center"
               >
-                <use href="#icon_prev_sm" />
-              </svg>
-              <span className="fw-medium">PREVIOUS POST</span>
-            </a>
-            <p>Given Set was without from god divide rule Hath</p>
-          </div>
-          <div className="col-lg-6 text-lg-right">
-            <a href="#" className="btn-link d-inline-flex align-items-center">
-              <span className="fw-medium me-1">NEXT POST</span>
-              <svg
-                width="25"
-                height="25"
-                viewBox="0 0 25 25"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  className="me-1"
+                  width="7"
+                  height="11"
+                  viewBox="0 0 7 11"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <use href="#icon_prev_sm" />
+                </svg>
+                <span className="fw-medium">PREVIOUS POST</span>
+              </Link>
+              <p>{blog.prevSlug}</p>
+            </div>
+          )}
+          {blog.nextSlug && (
+            <div className="col-lg-6 text-lg-right">
+              <Link
+                href={`/blog/${blog.nextSlug}`}
+                className="btn-link d-inline-flex align-items-center"
               >
-                <use href="#icon_next_md" />
-              </svg>
-            </a>
-            <p>Tree earth fowl given moveth deep lesser After</p>
-          </div>
+                <span className="fw-medium me-1">NEXT POST</span>
+                <svg
+                  width="25"
+                  height="25"
+                  viewBox="0 0 25 25"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <use href="#icon_next_md" />
+                </svg>
+              </Link>
+              <p>{blog.nextSlug}</p>
+            </div>
+          )}
         </div>
       </div>
       <div className="blog-single__reviews mw-930">
