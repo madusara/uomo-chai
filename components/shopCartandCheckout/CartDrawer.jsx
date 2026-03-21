@@ -63,7 +63,7 @@ export default function CartDrawer() {
                       width={330}
                       height={400}
                       style={{ height: "fit-content" }}
-                      src={elm.imgSrc}
+                      src={elm.imgSrc || "/assets/images/products/product_0.jpg"}
                       alt="image"
                     />
                   </div>

@@ -58,7 +58,7 @@ export default function Cart() {
                       <div className="shopping-cart__product-item">
                         <Image
                           loading="lazy"
-                          src={elm.imgSrc}
+                          src={elm.imgSrc || "/assets/images/products/product_0.jpg"}
                           width="120"
                           height="120"
                           alt="image"

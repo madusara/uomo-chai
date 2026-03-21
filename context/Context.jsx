@@ -8,6 +8,29 @@ export const useContextElement = () => {
 };
 
 export default function Context({ children }) {
+  const defaultCartImage = "/assets/images/products/product_0.jpg";
+
+  const getImageSrc = (product) => {
+    if (!product) return defaultCartImage;
+    if (typeof product.imgSrc === "string" && product.imgSrc) return product.imgSrc;
+    if (Array.isArray(product.imgSrc) && product.imgSrc[0]) return product.imgSrc[0];
+    if (typeof product.image === "string" && product.image) return product.image;
+    if (typeof product.thumbnail === "string" && product.thumbnail) return product.thumbnail;
+    if (typeof product.img === "string" && product.img) return product.img;
+    if (product.other_images && typeof product.other_images === "object") {
+      const firstOtherImage = Object.values(product.other_images)[0];
+      if (typeof firstOtherImage === "string" && firstOtherImage) return firstOtherImage;
+    }
+    return defaultCartImage;
+  };
+
+  const normalizeCartItem = (item) => ({
+    ...item,
+    imgSrc: getImageSrc(item),
+    price: Number(item?.price) || 0,
+    quantity: Number(item?.quantity) > 0 ? Number(item.quantity) : 1,
+  });
+
   const [cartProducts, setCartProducts] = useState([]);
   const [wishList, setWishList] = useState([]);
   const [quickViewItem, setQuickViewItem] = useState(allProducts[0]);
@@ -35,16 +58,10 @@ export default function Context({ children }) {
       return;
     }
 
-    const item = {
+    const item = normalizeCartItem({
       ...sourceProduct,
-      imgSrc:
-        sourceProduct.imgSrc ||
-        sourceProduct.image ||
-        sourceProduct.thumbnail ||
-        sourceProduct.img,
-      price: Number(sourceProduct.price) || 0,
       quantity: 1,
-    };
+    });
 
     setCartProducts((pre) => [...pre, item]);
 
@@ -76,7 +93,7 @@ export default function Context({ children }) {
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("cartList"));
     if (items?.length) {
-      setCartProducts(items);
+      setCartProducts(items.map(normalizeCartItem));
     }
   }, []);
 

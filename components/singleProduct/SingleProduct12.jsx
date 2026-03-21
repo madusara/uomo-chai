@@ -62,6 +62,7 @@ export default function SingleProduct12({ product }) {
     if (!isIncludeCard()) {
       const item = {
         ...product,
+        imgSrc: allImages[0] || product.imgSrc || "/assets/images/products/product_0.jpg",
         quantity,
         size: selectedSize,
         price: Number(displayPrice) || Number(product.price) || 0,
