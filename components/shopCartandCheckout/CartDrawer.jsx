@@ -106,7 +106,7 @@ export default function CartDrawer() {
                       </div>
 
                       <span className="cart-drawer-item__price money price">
-                        ${elm.price * elm.quantity}
+                        LKR {elm.price * elm.quantity}
                       </span>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function CartDrawer() {
           <hr className="cart-drawer-divider" />
           <div className="d-flex justify-content-between">
             <h6 className="fs-base fw-medium">SUBTOTAL:</h6>
-            <span className="cart-subtotal fw-medium">${totalPrice}</span>
+            <span className="cart-subtotal fw-medium">LKR {totalPrice}</span>
           </div>
           {/* <!-- /.d-flex justify-content-between --> */}
           {cartProducts.length ? (

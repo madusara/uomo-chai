@@ -19,19 +19,39 @@ export default function Context({ children }) {
     setTotalPrice(subtotal);
   }, [cartProducts]);
 
-  const addProductToCart = (id) => {
-    if (!cartProducts.filter((elm) => elm.id == id)[0]) {
-      const item = {
-        ...allProducts.filter((elm) => elm.id == id)[0],
-        quantity: 1,
-      };
-      setCartProducts((pre) => [...pre, item]);
+  const addProductToCart = (productOrId) => {
+    const incomingProduct =
+      productOrId && typeof productOrId === "object" ? productOrId : null;
+    const id = incomingProduct ? incomingProduct.id : productOrId;
 
-      document
-        .getElementById("cartDrawerOverlay")
-        .classList.add("page-overlay_visible");
-      document.getElementById("cartDrawer").classList.add("aside_visible");
+    if (cartProducts.filter((elm) => elm.id == id)[0]) {
+      return;
     }
+
+    const fallbackProduct = allProducts.filter((elm) => elm.id == id)[0];
+    const sourceProduct = incomingProduct || fallbackProduct;
+
+    if (!sourceProduct) {
+      return;
+    }
+
+    const item = {
+      ...sourceProduct,
+      imgSrc:
+        sourceProduct.imgSrc ||
+        sourceProduct.image ||
+        sourceProduct.thumbnail ||
+        sourceProduct.img,
+      price: Number(sourceProduct.price) || 0,
+      quantity: 1,
+    };
+
+    setCartProducts((pre) => [...pre, item]);
+
+    document
+      .getElementById("cartDrawerOverlay")
+      .classList.add("page-overlay_visible");
+    document.getElementById("cartDrawer").classList.add("aside_visible");
   };
   const isAddedToCartProducts = (id) => {
     if (cartProducts.filter((elm) => elm.id == id)[0]) {

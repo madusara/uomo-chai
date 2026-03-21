@@ -244,7 +244,7 @@ export default function Shop6({ products: apiData }) {
                   </Swiper>
                   <button
                     className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                    onClick={() => addProductToCart(elm.id)}
+                    onClick={() => addProductToCart(elm)}
                     title={
                       isAddedToCartProducts(elm.id)
                         ? "Already Added"

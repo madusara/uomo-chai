@@ -107,7 +107,7 @@ export default function Cart() {
                     </td>
                     <td>
                       <span className="shopping-cart__subtotal">
-                        ${elm.price * elm.quantity}
+                        LKR {elm.price * elm.quantity}
                       </span>
                     </td>
                     <td>
@@ -170,7 +170,7 @@ export default function Cart() {
                 <tbody>
                   <tr>
                     <th>Subtotal</th>
-                    <td>${totalPrice}</td>
+                    <td>LKR {totalPrice}</td>
                   </tr>
                   <tr>
                     <th>Shipping</th>
@@ -199,7 +199,7 @@ export default function Cart() {
                           onChange={handleCheckboxChange}
                         />
                         <label className="form-check-label" htmlFor="flat_rate">
-                          Flat rate: $49
+                          Flat rate: LKR 350
                         </label>
                       </div>
                       <div className="form-check">
@@ -214,7 +214,7 @@ export default function Cart() {
                           className="form-check-label"
                           htmlFor="local_pickup"
                         >
-                          Local pickup: $8
+                          Local pickup: LKR 8
                         </label>
                       </div>
                       <div>Shipping to AL.</div>
@@ -227,12 +227,12 @@ export default function Cart() {
                   </tr>
                   <tr>
                     <th>VAT</th>
-                    <td>$19</td>
+                    <td>LKR 19</td>
                   </tr>
                   <tr>
                     <th>Total</th>
                     <td>
-                      $
+                      LKR {" "}
                       {49 * checkboxes.flat_rate +
                         8 * checkboxes.local_pickup +
                         totalPrice +
