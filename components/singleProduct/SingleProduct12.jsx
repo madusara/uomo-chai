@@ -12,6 +12,7 @@ import Link from "next/link";
 import ShareComponent from "../common/ShareComponent";
 import { useContextElement } from "@/context/Context";
 import HowToUse from "./HowToUse";
+import { openCart } from "@/utlis/openCart";
 export default function SingleProduct12({ product }) {
   const { cartProducts, setCartProducts } = useContextElement();
   const [quantity, setQuantity] = useState(1);
@@ -59,16 +60,20 @@ export default function SingleProduct12({ product }) {
     }
   };
   const addToCart = () => {
-    if (!isIncludeCard()) {
-      const item = {
-        ...product,
-        imgSrc: allImages[0] || product.imgSrc || "/assets/images/products/product_0.jpg",
-        quantity,
-        size: selectedSize,
-        price: Number(displayPrice) || Number(product.price) || 0,
-      };
-      setCartProducts((pre) => [...pre, item]);
+    if (isIncludeCard()) {
+      openCart();
+      return;
     }
+
+    const item = {
+      ...product,
+      imgSrc: allImages[0] || product.imgSrc || "/assets/images/products/product_0.jpg",
+      quantity,
+      size: selectedSize,
+      price: Number(displayPrice) || Number(product.price) || 0,
+    };
+    setCartProducts((pre) => [...pre, item]);
+    openCart();
   };
   return (
     <section className="product-single container">
