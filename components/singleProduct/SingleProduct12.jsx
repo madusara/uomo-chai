@@ -14,7 +14,8 @@ import { useContextElement } from "@/context/Context";
 import HowToUse from "./HowToUse";
 import { openCart } from "@/utlis/openCart";
 export default function SingleProduct12({ product }) {
-  const { cartProducts, setCartProducts } = useContextElement();
+  const { cartProducts, setCartProducts, toggleWishlist, isAddedtoWishlist } =
+    useContextElement();
   const [quantity, setQuantity] = useState(1);
 
   const sizes = product.bottle_sizes;
@@ -204,7 +205,16 @@ export default function SingleProduct12({ product }) {
             </div>
           </form>
           <div className="product-single__addtolinks">
-            <a href="#" className="menu-link menu-link_us-s add-to-wishlist">
+            <a
+              href="#"
+              className={`menu-link menu-link_us-s add-to-wishlist ${
+                isAddedtoWishlist(product.id) ? "active" : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                toggleWishlist(product.id);
+              }}
+            >
               <svg
                 width="16"
                 height="16"

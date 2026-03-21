@@ -5,21 +5,70 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import { Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
-import { allProducts } from "@/data/products";
+import { apiFetch } from "@/lib/api/client";
+
+const DEFAULT_WISHLIST_IMAGE = "/assets/images/products/product_0.jpg";
+
+const getWishlistImage = (product) => {
+  if (typeof product?.imgSrc === "string" && product.imgSrc) return product.imgSrc;
+  if (Array.isArray(product?.imgSrc) && product.imgSrc[0]) return product.imgSrc[0];
+  if (typeof product?.image === "string" && product.image) return product.image;
+  if (typeof product?.thumbnail === "string" && product.thumbnail)
+    return product.thumbnail;
+  if (product?.other_images && typeof product.other_images === "object") {
+    const firstOther = Object.values(product.other_images)[0];
+    if (typeof firstOther === "string" && firstOther) return firstOther;
+  }
+  return DEFAULT_WISHLIST_IMAGE;
+};
 
 export default function AccountWishlist() {
   const { wishList, toggleWishlist } = useContextElement();
-  const [wishlistProducts, setWishlistProducts] = useState(
-    allProducts.filter((elm) => wishList.includes(elm.id))
-  );
+  const [wishlistProducts, setWishlistProducts] = useState([]);
+
   useEffect(() => {
-    setWishlistProducts(allProducts.filter((elm) => wishList.includes(elm.id)));
+    let isMounted = true;
+
+    const loadWishlistProducts = async () => {
+      if (!wishList.length) {
+        if (isMounted) setWishlistProducts([]);
+        return;
+      }
+
+      try {
+        const data = await apiFetch("/products", { cache: "no-store" });
+        const apiProducts = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.products)
+            ? data.products
+            : [];
+
+        const wishedProducts = apiProducts
+          .filter((product) => wishList.includes(product.id))
+          .map((product) => ({
+            ...product,
+            imgSrc: getWishlistImage(product),
+          }));
+
+        if (isMounted) {
+          setWishlistProducts(wishedProducts);
+        }
+      } catch {
+        if (isMounted) setWishlistProducts([]);
+      }
+    };
+
+    loadWishlistProducts();
+
+    return () => {
+      isMounted = false;
+    };
   }, [wishList]);
 
   return (
     <div className="col-lg-9">
       <div className="page-content my-account__wishlist">
-        {wishList.length ? (
+        {wishlistProducts.length ? (
           <div
             className="products-grid row row-cols-2 row-cols-lg-3"
             id="products-grid"
@@ -41,13 +90,13 @@ export default function AccountWishlist() {
                     >
                       {[elm.imgSrc, elm.imgSrc].map((elm2, i) => (
                         <SwiperSlide key={i} className="swiper-slide">
-                          <Link href={`/product1_simple/${elm.id}`}>
+                          <Link href={`/product/${elm.slug || elm.id}`}>
                             <Image
                               loading="lazy"
                               src={elm.imgSrc}
                               width="330"
                               height="400"
-                              alt="Cropped Faux leather Jacket"
+                              alt={elm.title || "Product"}
                               className="pc__img"
                             />
                           </Link>
@@ -99,7 +148,7 @@ export default function AccountWishlist() {
                     <p className="pc__category">{elm.category}</p>
                     <h6 className="pc__title">{elm.title}</h6>
                     <div className="product-card__price d-flex">
-                      <span className="money price">${elm.price}</span>
+                      <span className="money price">LKR {elm.price}</span>
                     </div>
 
                     <button
