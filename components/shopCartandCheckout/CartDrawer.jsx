@@ -71,11 +71,11 @@ export default function CartDrawer() {
                     <h6 className="cart-drawer-item__title fw-normal">
                       {elm.title}
                     </h6>
-                    <p className="cart-drawer-item__option text-secondary">
+                    {/* <p className="cart-drawer-item__option text-secondary">
                       Color: Yellow
-                    </p>
+                    </p> */}
                     <p className="cart-drawer-item__option text-secondary">
-                      Size: L
+                      Size: {elm.size || "L"}
                     </p>
                     <div className="d-flex align-items-center justify-content-between mt-1">
                       <div className="qty-control position-relative">

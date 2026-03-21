@@ -69,8 +69,8 @@ export default function Cart() {
                       <div className="shopping-cart__product-item__detail">
                         <h4>{elm.title}</h4>
                         <ul className="shopping-cart__product-item__options">
-                          <li>Color: Yellow</li>
-                          <li>Size: L</li>
+                          {/* <li>Color: Yellow</li> */}
+                          <li>Size: {elm.size || "L"}</li>
                         </ul>
                       </div>
                     </td>

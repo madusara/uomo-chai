@@ -60,8 +60,12 @@ export default function SingleProduct12({ product }) {
   };
   const addToCart = () => {
     if (!isIncludeCard()) {
-      const item = product;
-      item.quantity = quantity;
+      const item = {
+        ...product,
+        quantity,
+        size: selectedSize,
+        price: Number(displayPrice) || Number(product.price) || 0,
+      };
       setCartProducts((pre) => [...pre, item]);
     }
   };

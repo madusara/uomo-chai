@@ -28,7 +28,10 @@ export default async function HomePage8() {
   const instagramImages = await getInstagramProducts();
   const blogsData = await getBlogsData();
 
-  console.log(collections);
+
+
+
+  console.log(showAreaProducts);
 
   return (
     <>
