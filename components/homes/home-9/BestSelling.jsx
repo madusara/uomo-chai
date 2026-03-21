@@ -121,7 +121,7 @@ export default function BestSelling({ products = [] }) {
 
                     <button
                       className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium"
-                      onClick={() => addProductToCart(product.id)}
+                      onClick={() => addProductToCart(product)}
                     >
                       <span>
                         {isAddedToCartProducts(product.id)
