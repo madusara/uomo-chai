@@ -15,6 +15,7 @@ import { sortingOptions } from "@/data/products/productCategories";
 const DEFAULT_VISIBLE_COUNT = 36;
 export default function Shop6({ products: apiData }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
+  const { setQuickViewItem } = useContextElement();
 
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
   const [selectedColView, setSelectedColView] = useState(5);
@@ -242,7 +243,7 @@ export default function Shop6({ products: apiData }) {
                       </svg>
                     </span>
                   </Swiper>
-                  <button
+                  {/* <button
                     className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
                     onClick={() => addProductToCart(elm)}
                     title={
@@ -254,7 +255,27 @@ export default function Shop6({ products: apiData }) {
                     {isAddedToCartProducts(elm.id)
                       ? "Already Added"
                       : "Add To Cart"}
-                  </button>
+                  </button> */}
+
+                  <div className="anim_appear-right position-absolute top-0 mt-2 me-2">
+                    <button
+                      className="btn btn-round-sm btn-hover-red d-block border-0 text-uppercase mb-2 js-quick-view"
+                      data-bs-toggle="modal"
+                      data-bs-target="#quickView"
+                      onClick={() => setQuickViewItem(elm)}
+                      title="Quick view"
+                    >
+                      <svg
+                        className="d-inline-block"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 18 18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <use href="#icon_view" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="pc__info position-relative">
@@ -283,7 +304,7 @@ export default function Shop6({ products: apiData }) {
                       <ColorSelection />{" "}
                     </div>
                   )}
-                  {elm.reviews && (
+                  {/* {elm.reviews && (
                     <div className="product-card__review d-flex align-items-center">
                       <div className="reviews-group d-flex">
                         <Star stars={elm.rating} />
@@ -292,7 +313,7 @@ export default function Shop6({ products: apiData }) {
                         {elm.reviews}
                       </span>
                     </div>
-                  )}
+                  )} */}
 
                   <button
                     className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${

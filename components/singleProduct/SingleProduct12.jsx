@@ -272,7 +272,7 @@ export default function SingleProduct12({ product }) {
               Ingredients
             </a>
           </li>
-          <li className="nav-item" role="presentation">
+          {/* <li className="nav-item" role="presentation">
             <a
               className="nav-link nav-link_underscore"
               id="tab-reviews-tab"
@@ -284,7 +284,7 @@ export default function SingleProduct12({ product }) {
             >
               Reviews
             </a>
-          </li>
+          </li> */}
           <li className="nav-item" role="presentation">
             <a
               className="nav-link nav-link_underscore"
