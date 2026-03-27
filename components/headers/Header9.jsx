@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import { openCart } from "@/utlis/openCart";
 import CartLength from "./components/CartLength";
+import WishlistLength from "./components/WishlistLength";
 import Image from "next/image";
 import User from "./components/User";
 import SearchPopup from "./components/SearchPopup";
@@ -108,7 +109,7 @@ export default function Header9() {
             </a>
           </div> */}
 
-          <Link className="header-tools__item" href="/wishlist">
+          <Link className="header-tools__item header-tools__cart js-open-aside" href="/wishlist">
             <svg
               width="20"
               height="20"
@@ -118,6 +119,9 @@ export default function Header9() {
             >
               <use href="#icon_heart" />
             </svg>
+             <span className="cart-amount d-block position-absolute js-cart-items-count">
+              <WishlistLength />
+            </span>
           </Link>
 
           <a

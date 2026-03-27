@@ -7,6 +7,7 @@ import CartLength from "./components/CartLength";
 import Image from "next/image";
 import User from "./components/User";
 import SearchPopup from "./components/SearchPopup";
+import WishlistLength from "./components/WishlistLength";
 
 export default function Header1() {
   const [scrollDirection, setScrollDirection] = useState("down");
@@ -82,7 +83,7 @@ export default function Header1() {
               </a>
             </div> */}
 
-            <Link className="header-tools__item" href="/account_wishlist">
+            <Link className="header-tools__item header-tools__cart js-open-aside" href="/wishlist">
               <svg
                 width="20"
                 height="20"
@@ -92,6 +93,10 @@ export default function Header1() {
               >
                 <use href="#icon_heart" />
               </svg>
+
+                <span className="cart-amount d-block position-absolute js-cart-items-count">
+                <WishlistLength />
+              </span>
             </Link>
 
             <a

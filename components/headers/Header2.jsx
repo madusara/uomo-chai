@@ -10,6 +10,7 @@ import User from "./components/User";
 import { currencyOptions, languageOptions2 } from "@/data/footer";
 import { socialLinks } from "@/data/socials";
 import SearchPopup from "./components/SearchPopup";
+import WishlistLength from "./components/WishlistLength";
 
 export default function Header2() {
   const [scrollDirection, setScrollDirection] = useState("down");
@@ -171,7 +172,7 @@ export default function Header2() {
             </a>
           </div>
 
-          <Link className="header-tools__item" href="/wishlist">
+          <Link className="header-tools__item header-tools__cart js-open-aside" href="/wishlist">
             <svg
               className="d-block"
               width="20"
@@ -182,6 +183,9 @@ export default function Header2() {
             >
               <use href="#icon_heart" />
             </svg>
+              <span className="cart-amount d-block position-absolute js-cart-items-count">
+              <WishlistLength />
+            </span>
           </Link>
 
           <a
