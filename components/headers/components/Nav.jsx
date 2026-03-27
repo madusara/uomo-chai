@@ -57,14 +57,14 @@ export default function Nav() {
     <>
       <li className="navigation__item">
         <a
-          href="#"
+          href="/"
           className={`navigation__link ${
             isActiveParentMenu(homePages) ? "menu-active" : ""
           }`}
         >
           Home
         </a>
-        <div className="box-menu" style={{ width: "800px" }}>
+        <div className="box-menum d-none" style={{ width: "800px" }}>
           <div className="col pe-4">
             <ul className="sub-menu__list list-unstyled">
               {homePages.slice(0, 6).map((elm, i) => (
@@ -146,7 +146,7 @@ export default function Nav() {
         >
           Shop
         </a>
-        <div className="mega-menu">
+        <div className="mega-menu d-none">
           <div className="container d-flex">
             <div className="col pe-4">
               <a href="#" className="sub-menu__title">
@@ -237,14 +237,14 @@ export default function Nav() {
       </li>
       <li className="navigation__item">
         <a
-          href="#"
+          href="blogs"
           className={`navigation__link ${
             isActiveParentMenu(blogmenuItems) ? "menu-active" : ""
           }`}
         >
           Blog
         </a>
-        <ul className="default-menu list-unstyled">
+        <ul className="default-menu list-unstyled d-none">
           {blogmenuItems.map((elm, i) => (
             <li key={i} className="sub-menu__item">
               <Link
@@ -260,7 +260,7 @@ export default function Nav() {
         </ul>
         {/* <!-- /.box-menu --> */}
       </li>
-      <li className="navigation__item">
+      <li className="navigation__item d-none">
         <a
           href="#"
           className={`navigation__link ${
