@@ -6,10 +6,11 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 
-export default function RelatedSlider() {
+export default function RelatedSlider({ products = [] }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
-  const { setQuickViewItem } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
+
+  const relatedProducts = Array.isArray(products) && products.length > 0 ? products : products51;
   const swiperOptions = {
     autoplay: false,
     slidesPerView: 4,
@@ -56,57 +57,69 @@ export default function RelatedSlider() {
           className="swiper-container js-swiper-slider"
           data-settings=""
         >
-          {products51.map((elm, i) => (
-            <SwiperSlide key={i} className="swiper-slide product-card">
+          {relatedProducts.map((elm, i) => {
+            const itemId = elm.id ?? elm.slug ?? i;
+            const productHref = elm.slug ? `/product/${elm.slug}` : `/product1_simple/${elm.id}`;
+            const primaryImage =
+              elm.imgSrc ||
+              elm.image ||
+              elm.thumbnail ||
+              elm.imgSrc2 ||
+              "/assets/images/products/product_0.jpg";
+            const secondaryImage = elm.imgSrc2 || primaryImage;
+            const displayPrice = elm.price ?? elm.salePrice ?? "0.00";
+
+            return (
+            <SwiperSlide key={itemId} className="swiper-slide product-card">
               <div className="pc__img-wrapper">
-                <Link href={`/product1_simple/${elm.id}`}>
+                <Link href={productHref}>
                   <Image
                     loading="lazy"
-                    src={elm.imgSrc}
+                    src={primaryImage}
                     width="330"
                     height="400"
-                    alt="Cropped Faux leather Jacket"
+                    alt={elm.title || elm.name || "Product"}
                     className="pc__img"
                   />
                   <Image
                     loading="lazy"
-                    src={elm.imgSrc2}
+                    src={secondaryImage}
                     width="330"
                     height="400"
-                    alt="Cropped Faux leather Jacket"
+                    alt={elm.title || elm.name || "Product"}
                     className="pc__img pc__img-second"
                   />
                 </Link>
-                <button
+                {/* <button
                   className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                  onClick={() => addProductToCart(elm.id)}
+                  onClick={() => addProductToCart(itemId)}
                   title={
-                    isAddedToCartProducts(elm.id)
+                    isAddedToCartProducts(itemId)
                       ? "Already Added"
                       : "Add to Cart"
                   }
                 >
-                  {isAddedToCartProducts(elm.id)
+                  {isAddedToCartProducts(itemId)
                     ? "Already Added"
                     : "Add To Cart"}
-                </button>
+                </button> */}
               </div>
 
               <div className="pc__info position-relative">
-                <p className="pc__category">{elm.category}</p>
+                <p className="pc__category">{elm.category || elm.filterCategory || "Products"}</p>
                 <h6 className="pc__title">
-                  <Link href={`/product1_simple/${elm.id}`}>{elm.title}</Link>
+                  <Link href={productHref}>{elm.title || elm.name}</Link>
                 </h6>
                 <div className="product-card__price d-flex">
-                  <span className="money price">${elm.price}</span>
+                  <span className="money price">LKR {displayPrice}</span>
                 </div>
 
                 <button
                   className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${
-                    isAddedtoWishlist(elm.id) ? "active" : ""
+                    isAddedtoWishlist(itemId) ? "active" : ""
                   }`}
                   title="Add To Wishlist"
-                  onClick={() => toggleWishlist(elm.id)}
+                  onClick={() => toggleWishlist(itemId)}
                 >
                   <svg
                     width="16"
@@ -120,7 +133,8 @@ export default function RelatedSlider() {
                 </button>
               </div>
             </SwiperSlide>
-          ))}
+          );
+          })}
 
           {/* <!-- /.swiper-wrapper --> */}
         </Swiper>
