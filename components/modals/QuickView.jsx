@@ -122,15 +122,10 @@ export default function QuickView() {
             <div className="product-single__detail">
               <h1 className="product-single__name">{quickViewItem.title}</h1>
               <div className="product-single__price">
-                <span className="current-price">${quickViewItem.price}</span>
+                <span className="current-price">LKR {quickViewItem.price}</span>
               </div>
               <div className="product-single__short-desc">
-                <p>
-                  Phasellus sed volutpat orci. Fusce eget lore mauris vehicula
-                  elementum gravida nec dui. Aenean aliquam varius ipsum, non
-                  ultricies tellus sodales eu. Donec dignissim viverra nunc, ut
-                  aliquet magna posuere eget.
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: quickViewItem.description }} />
               </div>
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="product-single__swatches">
@@ -139,21 +134,9 @@ export default function QuickView() {
                     <div className="swatch-list">
                       <Size />
                     </div>
-                    <a
-                      href="#"
-                      className="sizeguide-link"
-                      data-bs-toggle="modal"
-                      data-bs-target="#sizeGuide"
-                    >
-                      Size Guide
-                    </a>
+                 
                   </div>
-                  <div className="product-swatch color-swatches">
-                    <label>Color</label>
-                    <div className="swatch-list">
-                      <Colors />
-                    </div>
-                  </div>
+                
                 </div>
                 <div className="product-single__addtocart">
                   <div className="qty-control position-relative">

@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export default function BestSelling({ products = [] }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
+  const { setQuickViewItem } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
 
   // console.log(products);
@@ -119,7 +120,7 @@ export default function BestSelling({ products = [] }) {
                       </span>
                     </Swiper>
 
-                    <button
+                    {/* <button
                       className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium"
                       onClick={() => addProductToCart(product)}
                     >
@@ -128,7 +129,27 @@ export default function BestSelling({ products = [] }) {
                           ? "Already Added"
                           : "Add To Cart"}
                       </span>
-                    </button>
+                    </button> */}
+
+                    <div className="anim_appear-right position-absolute top-0 mt-2 me-2">
+                      <button
+                        className="btn btn-round-sm btn-hover-red d-block border-0 text-uppercase mb-2 js-quick-view"
+                        data-bs-toggle="modal"
+                        data-bs-target="#quickView"
+                        onClick={() => setQuickViewItem(product)}
+                        title="Quick view"
+                      >
+                        <svg
+                          className="d-inline-block"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 18 18"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <use href="#icon_view" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
 
                   <div className="pc__info position-relative">
