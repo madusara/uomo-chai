@@ -34,28 +34,91 @@ export default function QuickView() {
   ];
   const { cartProducts, setCartProducts } = useContextElement();
   const [quantity, setQuantity] = useState(1);
-  const sizes = quickViewItem.bottle_sizes;
-  const defaultSize = sizes && sizes.length > 0 ? sizes[0] : "500ml";
+  const getNormalizedSizes = () => {
+    const rawSizes = quickViewItem.bottle_sizes;
+    const rawVariants = quickViewItem.variants;
+
+    if (Array.isArray(rawSizes)) {
+      return rawSizes
+        .map((size) =>
+          typeof size === "string"
+            ? size
+            : size?.size || size?.label || size?.name || ""
+        )
+        .filter(Boolean);
+    }
+
+    if (typeof rawSizes === "string") {
+      return rawSizes
+        .split(/[|,]/)
+        .map((size) => size.trim())
+        .filter(Boolean);
+    }
+
+    if (rawSizes && typeof rawSizes === "object") {
+      return Object.keys(rawSizes);
+    }
+
+    if (rawVariants && typeof rawVariants === "object") {
+      return Object.keys(rawVariants);
+    }
+
+    return [];
+  };
+
+  const getVariantPrice = (size) => {
+    const variants = quickViewItem.variants;
+
+    if (Array.isArray(variants)) {
+      const matchedVariant = variants.find(
+        (variant) =>
+          variant?.size === size ||
+          variant?.name === size ||
+          variant?.bottle_size === size
+      );
+      return matchedVariant?.price;
+    }
+
+    if (variants && typeof variants === "object") {
+      const selectedVariant = variants[size];
+      if (typeof selectedVariant === "number") return selectedVariant;
+      return selectedVariant?.price;
+    }
+
+    if (Array.isArray(quickViewItem.bottle_sizes)) {
+      const matchedSize = quickViewItem.bottle_sizes.find(
+        (item) =>
+          (typeof item === "object" &&
+            (item?.size === size || item?.label === size || item?.name === size)) ||
+          item === size
+      );
+
+      if (typeof matchedSize === "object") {
+        return matchedSize?.price;
+      }
+    }
+
+    return undefined;
+  };
+
+  const sizes = getNormalizedSizes();
+  const defaultSize = sizes.length > 0 ? sizes[0] : "500ml";
   const [selectedSize, setSelectedSize] = useState(defaultSize);
   const [displayPrice, setDisplayPrice] = useState(
-    quickViewItem.variants?.[defaultSize]?.price || quickViewItem.price
+    getVariantPrice(defaultSize) || quickViewItem.price
   );
 
   useEffect(() => {
-    const nextDefaultSize =
-      quickViewItem.bottle_sizes && quickViewItem.bottle_sizes.length > 0
-        ? quickViewItem.bottle_sizes[0]
-        : "500ml";
+    const nextSizes = getNormalizedSizes();
+    const nextDefaultSize = nextSizes.length > 0 ? nextSizes[0] : "500ml";
 
     setSelectedSize(nextDefaultSize);
-    setDisplayPrice(
-      quickViewItem.variants?.[nextDefaultSize]?.price || quickViewItem.price
-    );
+    setDisplayPrice(getVariantPrice(nextDefaultSize) || quickViewItem.price);
   }, [quickViewItem]);
 
   const handleSizeChange = (size) => {
     setSelectedSize(size);
-    setDisplayPrice(quickViewItem.variants?.[size]?.price || quickViewItem.price);
+    setDisplayPrice(getVariantPrice(size) || quickViewItem.price);
   };
 
   const isIncludeCard = () => {

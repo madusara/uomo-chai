@@ -13,6 +13,8 @@ export const metadata = {
 export default async function ShopPage6() {
   const data = await getAllProducts();
 
+  console.log(data);
+
   return (
     <>
       <Header1 />
