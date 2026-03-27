@@ -143,14 +143,14 @@ export default function SingleProduct12({ product }) {
                     onSizeChange={handleSizeChange}
                   />
                 </div>
-                <a
+                {/* <a
                   href="#"
                   className="sizeguide-link"
                   data-bs-toggle="modal"
                   data-bs-target="#sizeGuide"
                 >
                   Size Guide
-                </a>
+                </a> */}
               </div>
               {/* <div className="product-swatch color-swatches">
                 <label>Color</label>
@@ -228,7 +228,7 @@ export default function SingleProduct12({ product }) {
             </a>
             <ShareComponent title={product.title} />
           </div>
-          <div className="product-single__meta-info">
+          {/* <div className="product-single__meta-info">
             <div className="meta-item">
               <label>SKU:</label>
               <span>N/A</span>
@@ -241,7 +241,7 @@ export default function SingleProduct12({ product }) {
               <label>Tags:</label>
               <span>biker, black, bomber, leather</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="product-single__details-tab">
@@ -331,7 +331,7 @@ export default function SingleProduct12({ product }) {
             role="tabpanel"
             aria-labelledby="tab-how-to-use-tab"
           >
-            <HowToUse ingredients={product.how_to_use} />
+            <HowToUse howToUse={product.how_to_use} />
           </div>
         </div>
       </div>
