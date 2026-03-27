@@ -3,8 +3,12 @@ import Link from "next/link";
 import Pagination1 from "../common/Pagination1";
 import { blogs13 } from "@/data/blogs";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Blog2({ blogs = blogs13 }) {
+  const INITIAL_VISIBLE_ITEMS = 9;
+  const LOAD_MORE_COUNT = 9;
+
   const ensureArray = (data) => {
     if (Array.isArray(data)) return data;
     if (data?.blogs && Array.isArray(data.blogs)) return data.blogs;
@@ -13,6 +17,17 @@ export default function Blog2({ blogs = blogs13 }) {
   };
 
   const blogsData = ensureArray(blogs) || blogs13;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_ITEMS);
+
+  const totalItems = blogsData.length;
+  const currentItems = Math.min(visibleCount, totalItems);
+  const visibleBlogs = blogsData.slice(0, currentItems);
+
+  const handleShowMore = (e) => {
+    e.preventDefault();
+    setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, totalItems));
+  };
+
   return (
     <>
       <section className="blog-page-title mb-4 mb-xl-5">
@@ -32,7 +47,7 @@ export default function Blog2({ blogs = blogs13 }) {
       <section className="blog-page container">
         <h2 className="d-none">The Blog</h2>
         <div className="blog-grid row row-cols-1 row-cols-md-2 row-cols-xl-3">
-          {blogsData.map((elm, i) => (
+          {visibleBlogs.map((elm, i) => (
             <div key={i} className="blog-grid__item">
               <div className="blog-grid__item-image">
                 <Image
@@ -67,11 +82,17 @@ export default function Blog2({ blogs = blogs13 }) {
             </div>
           ))}
         </div>
-        <p className="mb-5 text-center fw-medium">SHOWING 36 of 497 items</p>
-        <Pagination1 />
+        <p className="mb-5 text-center fw-medium">
+          SHOWING {currentItems} of {totalItems} items
+        </p>
+        <Pagination1 current={currentItems} total={totalItems} />
 
         <div className="text-center">
-          <a className="btn-link btn-link_lg text-uppercase fw-medium" href="#">
+          <a
+            className="btn-link btn-link_lg text-uppercase fw-medium"
+            href="#"
+            onClick={handleShowMore}
+          >
             Show More
           </a>
         </div>
