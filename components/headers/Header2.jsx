@@ -171,7 +171,7 @@ export default function Header2() {
             </a>
           </div>
 
-          <Link className="header-tools__item" href="/account_wishlist">
+          <Link className="header-tools__item" href="/wishlist">
             <svg
               className="d-block"
               width="20"

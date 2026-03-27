@@ -58,7 +58,7 @@ export default function MobileFooter1() {
 
         <div className="col-4">
           <Link
-            href="/account_wishlist"
+            href="/wishlist"
             className="footer-mobile__link d-flex flex-column align-items-center"
           >
             <div className="position-relative">

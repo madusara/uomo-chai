@@ -108,7 +108,7 @@ export default function Header9() {
             </a>
           </div> */}
 
-          <Link className="header-tools__item" href="/account_wishlist">
+          <Link className="header-tools__item" href="/wishlist">
             <svg
               width="20"
               height="20"
