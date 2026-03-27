@@ -127,7 +127,7 @@ export default function Shop6({ products: apiData }) {
           </div>
 
           <div className="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
-            <select
+            {/* <select
               className="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0"
               aria-label="Sort Items"
               name="total-number"
@@ -137,7 +137,7 @@ export default function Shop6({ products: apiData }) {
                   {option.label}
                 </option>
               ))}
-            </select>
+            </select> */}
 
             <div className="shop-asc__seprator mx-3 bg-light d-none d-md-block order-md-0"></div>
 
@@ -159,7 +159,7 @@ export default function Shop6({ products: apiData }) {
 
             <div className="shop-asc__seprator mx-3 bg-light d-none d-lg-block order-md-1"></div>
 
-            <div className="shop-filter d-flex align-items-center order-0 order-md-3">
+            {/* <div className="shop-filter d-flex align-items-center order-0 order-md-3">
               <button
                 className="btn-link btn-link_f d-flex align-items-center ps-0 js-open-aside"
                 onClick={openModalShopFilter}
@@ -178,7 +178,7 @@ export default function Shop6({ products: apiData }) {
                   Filter
                 </span>
               </button>
-            </div>
+            </div> */}
             {/* <!-- /.col-size d-flex align-items-center ms-auto ms-md-3 --> */}
           </div>
           {/* <!-- /.shop-acs --> */}

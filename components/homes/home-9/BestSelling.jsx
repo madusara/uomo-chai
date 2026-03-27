@@ -185,7 +185,7 @@ export default function BestSelling({ products = [] }) {
           <div className="text-center mt-2">
             <Link
               className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-              href="/shop-1"
+              href="/shop"
             >
               See All Products
             </Link>
