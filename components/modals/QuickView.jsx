@@ -6,7 +6,7 @@ import Size from "../singleProduct/Size";
 import Colors from "../singleProduct/Colors";
 import Image from "next/image";
 import ShareComponent from "../common/ShareComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function QuickView() {
   const { quickViewItem } = useContextElement();
@@ -33,6 +33,29 @@ export default function QuickView() {
   ];
   const { cartProducts, setCartProducts } = useContextElement();
   const [quantity, setQuantity] = useState(1);
+  const sizes = quickViewItem.bottle_sizes;
+  const defaultSize = sizes && sizes.length > 0 ? sizes[0] : "500ml";
+  const [selectedSize, setSelectedSize] = useState(defaultSize);
+  const [displayPrice, setDisplayPrice] = useState(
+    quickViewItem.variants?.[defaultSize]?.price || quickViewItem.price
+  );
+
+  useEffect(() => {
+    const nextDefaultSize =
+      quickViewItem.bottle_sizes && quickViewItem.bottle_sizes.length > 0
+        ? quickViewItem.bottle_sizes[0]
+        : "500ml";
+
+    setSelectedSize(nextDefaultSize);
+    setDisplayPrice(
+      quickViewItem.variants?.[nextDefaultSize]?.price || quickViewItem.price
+    );
+  }, [quickViewItem]);
+
+  const handleSizeChange = (size) => {
+    setSelectedSize(size);
+    setDisplayPrice(quickViewItem.variants?.[size]?.price || quickViewItem.price);
+  };
 
   const isIncludeCard = () => {
     const item = cartProducts.filter((elm) => elm.id == quickViewItem.id)[0];
@@ -54,8 +77,12 @@ export default function QuickView() {
   };
   const addToCart = () => {
     if (!isIncludeCard()) {
-      const item = quickViewItem;
-      item.quantity = quantity;
+      const item = {
+        ...quickViewItem,
+        quantity,
+        size: selectedSize,
+        price: Number(displayPrice) || Number(quickViewItem.price) || 0,
+      };
       setCartProducts((pre) => [...pre, item]);
     }
   };
@@ -122,7 +149,7 @@ export default function QuickView() {
             <div className="product-single__detail">
               <h1 className="product-single__name">{quickViewItem.title}</h1>
               <div className="product-single__price">
-                <span className="current-price">LKR {quickViewItem.price}</span>
+                <span className="current-price">LKR {displayPrice}</span>
               </div>
               <div className="product-single__short-desc">
                 <div dangerouslySetInnerHTML={{ __html: quickViewItem.description }} />
@@ -132,11 +159,13 @@ export default function QuickView() {
                   <div className="product-swatch text-swatches">
                     <label>Sizes</label>
                     <div className="swatch-list">
-                      <Size />
+                      <Size
+                        sizes={sizes}
+                        selectedSize={selectedSize}
+                        onSizeChange={handleSizeChange}
+                      />
                     </div>
-                 
                   </div>
-                
                 </div>
                 <div className="product-single__addtocart">
                   <div className="qty-control position-relative">
@@ -210,16 +239,8 @@ export default function QuickView() {
               </div>
               <div className="product-single__meta-info mb-0">
                 <div className="meta-item">
-                  <label>SKU:</label>
-                  <span>N/A</span>
-                </div>
-                <div className="meta-item">
                   <label>Categories:</label>
-                  <span>Casual & Urban Wear, Jackets, Men</span>
-                </div>
-                <div className="meta-item">
-                  <label>Tags:</label>
-                  <span>biker, black, bomber, leather</span>
+                  <span>{quickViewItem.filterCategory}</span>
                 </div>
               </div>
             </div>
