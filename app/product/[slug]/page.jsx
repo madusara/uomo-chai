@@ -25,7 +25,12 @@ export default async function ProductDetailsPage1(props) {
   ]);
 
   const product = res.success ? res.product : null;
-  const relatedProducts = ensureArray(relatedRes);
+  const relatedProducts = ensureArray(relatedRes).filter((item) => {
+    if (!item) return false;
+    if (item.slug && item.slug === slug) return false;
+    if (product?.id && item.id && item.id === product.id) return false;
+    return true;
+  });
   //   const productId = params.id;
   //   const product =
   //     allProducts.filter((elm) => elm.id == productId)[0] || allProducts[0];
@@ -35,7 +40,9 @@ export default async function ProductDetailsPage1(props) {
       <main className="page-wrapper">
         <div className="mb-md-1 pb-md-3"></div>
         <SingleProduct12 product={product} />
-        <RelatedSlider products={relatedProducts} />
+        {relatedProducts.length > 0 ? (
+          <RelatedSlider products={relatedProducts} />
+        ) : null}
       </main>
       <Footer1 />
     </>
