@@ -102,11 +102,11 @@ export default function Header9() {
           <SearchPopup />
           {/* <!-- /.header-tools__item hover-container --> */}
 
-          <div className="header-tools__item hover-container">
+          {/* <div className="header-tools__item hover-container">
             <a className="header-tools__item js-open-aside" href="#">
               <User />
             </a>
-          </div>
+          </div> */}
 
           <Link className="header-tools__item" href="/account_wishlist">
             <svg
@@ -139,7 +139,7 @@ export default function Header9() {
             </span>
           </a>
 
-          <a
+          {/* <a
             className="header-tools__item"
             href="#"
             data-bs-toggle="modal"
@@ -156,7 +156,9 @@ export default function Header9() {
               <rect y="8" width="20" height="2" />
               <rect y="16" width="25" height="2" />
             </svg>
-          </a>
+          </a> */}
+
+
         </div>
         {/* <!-- /.header__tools --> */}
       </div>

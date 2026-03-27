@@ -76,11 +76,11 @@ export default function Header1() {
 
             {/* <!-- /.header-tools__item hover-container --> */}
 
-            <div className="header-tools__item hover-container">
+            {/* <div className="header-tools__item hover-container">
               <a className="header-tools__item js-open-aside" href="#">
                 <User />
               </a>
-            </div>
+            </div> */}
 
             <Link className="header-tools__item" href="/account_wishlist">
               <svg
@@ -113,7 +113,7 @@ export default function Header1() {
               </span>
             </a>
 
-            <a
+            {/* <a
               className="header-tools__item"
               href="#"
               data-bs-toggle="modal"
@@ -128,7 +128,7 @@ export default function Header1() {
               >
                 <use href="#icon_nav" />
               </svg>
-            </a>
+            </a> */}
           </div>
           {/* <!-- /.header__tools --> */}
         </div>
