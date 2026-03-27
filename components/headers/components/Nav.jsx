@@ -22,6 +22,17 @@ export default function Nav() {
       (menu) => menu.href.split("/")[1] == pathname.split("/")[1]
     );
   };
+  const isBlogActive =
+    pathname === "/blogs" ||
+    pathname.startsWith("/blog/") ||
+    isActiveParentMenu(blogmenuItems);
+
+  const isShopActive =
+    pathname === "/shop" ||
+    pathname.startsWith("/shop/") ||
+    isActiveParentMenu(shopList) ||
+    isActiveParentMenu(shopDetails) ||
+    isActiveParentMenu(additionalShopPageitems);
   useEffect(() => {
     function setBoxMenuPosition(menu) {
       const scrollBarWidth = 17; // You might need to calculate or define this value
@@ -139,9 +150,7 @@ export default function Nav() {
         <a
           href="/shop"
           className={`navigation__link
-           ${isActiveParentMenu(shopList) ? "menu-active" : ""}
-           ${isActiveParentMenu(shopDetails) ? "menu-active" : ""}
-           ${isActiveParentMenu(additionalShopPageitems) ? "menu-active" : ""}
+           ${isShopActive ? "menu-active" : ""}
           `}
         >
           Shop
@@ -237,9 +246,9 @@ export default function Nav() {
       </li>
       <li className="navigation__item">
         <a
-          href="blogs"
+          href="/blogs"
           className={`navigation__link ${
-            isActiveParentMenu(blogmenuItems) ? "menu-active" : ""
+            isBlogActive ? "menu-active" : ""
           }`}
         >
           Blog
