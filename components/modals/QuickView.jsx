@@ -7,6 +7,7 @@ import Colors from "../singleProduct/Colors";
 import Image from "next/image";
 import ShareComponent from "../common/ShareComponent";
 import { useEffect, useState } from "react";
+import { openCart } from "@/utlis/openCart";
 
 export default function QuickView() {
   const { quickViewItem } = useContextElement();
@@ -76,15 +77,35 @@ export default function QuickView() {
     }
   };
   const addToCart = () => {
-    if (!isIncludeCard()) {
-      const item = {
-        ...quickViewItem,
-        quantity,
+    const normalizedPrice = Number(displayPrice) || Number(quickViewItem.price) || 0;
+    const selectedQuantity = Number(isIncludeCard()?.quantity || quantity) || 1;
+
+    if (isIncludeCard()) {
+      const item = cartProducts.filter((elm) => elm.id == quickViewItem.id)[0];
+      const items = [...cartProducts];
+      const itemIndex = items.indexOf(item);
+
+      items[itemIndex] = {
+        ...item,
+        quantity: selectedQuantity,
         size: selectedSize,
-        price: Number(displayPrice) || Number(quickViewItem.price) || 0,
+        price: normalizedPrice,
       };
-      setCartProducts((pre) => [...pre, item]);
+
+      setCartProducts(items);
+      openCart();
+      return;
     }
+
+    const item = {
+      ...quickViewItem,
+      quantity: selectedQuantity,
+      size: selectedSize,
+      price: normalizedPrice,
+    };
+
+    setCartProducts((pre) => [...pre, item]);
+    openCart();
   };
   return (
     <div className="modal fade" id="quickView" tabIndex="-1">
@@ -207,6 +228,7 @@ export default function QuickView() {
                   </div>
 
                   <button
+                    type="button"
                     onClick={() => addToCart()}
                     className="btn btn-primary btn-addtocart js-open-aside"
                   >
