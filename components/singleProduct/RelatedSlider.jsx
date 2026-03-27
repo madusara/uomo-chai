@@ -8,6 +8,7 @@ import Image from "next/image";
 
 export default function RelatedSlider({ products = [] }) {
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
+  const { setQuickViewItem } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
 
   const relatedProducts = Array.isArray(products) && products.length > 0 ? products : products51;
@@ -90,6 +91,26 @@ export default function RelatedSlider({ products = [] }) {
                     className="pc__img pc__img-second"
                   />
                 </Link>
+                <div className="anim_appear-right position-absolute top-0 mt-2 me-2">
+                  <button
+                    className="btn btn-round-sm btn-hover-red d-block border-0 text-uppercase mb-2 js-quick-view"
+                    onClick={() => setQuickViewItem(elm)}
+                    title="Quick view"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quickView"
+                  >
+                    <svg
+                      className="d-inline-block"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <use href="#icon_view" />
+                    </svg>
+                  </button>
+                </div>
                 {/* <button
                   className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
                   onClick={() => addProductToCart(itemId)}
