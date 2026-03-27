@@ -1,22 +1,18 @@
 "use client";
 import Link from "next/link";
 import Pagination1 from "../common/Pagination1";
-import { blogs13, categories } from "@/data/blogs";
+import { blogs13 } from "@/data/blogs";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-export default function Blog2() {
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
-  const [filteredBlogs, setFilteredBlogs] = useState(blogs13);
-  useEffect(() => {
-    if (activeCategory == "ALL") {
-      setFilteredBlogs(blogs13);
-    } else {
-      setFilteredBlogs([
-        ...blogs13.filter((elm) => elm.category.includes(activeCategory)),
-      ]);
-    }
-  }, [activeCategory]);
+export default function Blog2({ blogs = blogs13 }) {
+  const ensureArray = (data) => {
+    if (Array.isArray(data)) return data;
+    if (data?.blogs && Array.isArray(data.blogs)) return data.blogs;
+    if (data?.data && Array.isArray(data.data)) return data.data;
+    return [];
+  };
+
+  const blogsData = ensureArray(blogs) || blogs13;
   return (
     <>
       <section className="blog-page-title mb-4 mb-xl-5">
@@ -31,25 +27,12 @@ export default function Blog2() {
         </div>
         <div className="container">
           <h2 className="page-title">The Blog</h2>
-          <div className="blog__filter">
-            {categories.map((elm, i) => (
-              <a
-                onClick={() => setActiveCategory(elm)}
-                key={i}
-                className={`menu-link menu-link_us-s ${
-                  activeCategory == elm ? "menu-link_active" : ""
-                }`}
-              >
-                {elm}
-              </a>
-            ))}
-          </div>
         </div>
       </section>
       <section className="blog-page container">
         <h2 className="d-none">The Blog</h2>
         <div className="blog-grid row row-cols-1 row-cols-md-2 row-cols-xl-3">
-          {filteredBlogs.map((elm, i) => (
+          {blogsData.map((elm, i) => (
             <div key={i} className="blog-grid__item">
               <div className="blog-grid__item-image">
                 <Image
@@ -69,12 +52,12 @@ export default function Blog2() {
                   <span className="blog-grid__item-meta__date">{elm.date}</span>
                 </div>
                 <div className="blog-grid__item-title">
-                  <Link href={`/blog_single/${elm.id}`}>{elm.title}</Link>
+                  <Link href={`/blog/${elm.slug}`}>{elm.title}</Link>
                 </div>
                 <div className="blog-grid__item-content">
                   <p>{elm.content}</p>
                   <Link
-                    href={`/blog_single/${elm.id}`}
+                    href={`/blog/${elm.slug}`}
                     className="readmore-link"
                   >
                     Continue Reading

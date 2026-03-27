@@ -7,13 +7,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 
 export default function Blogs({ blogs: apiBlogs }) {
-  const blogList = Array.isArray(apiBlogs)
-    ? apiBlogs
-    : Array.isArray(apiBlogs?.blogs)
-      ? apiBlogs.blogs
-      : Array.isArray(apiBlogs?.data)
-        ? apiBlogs.data
-        : blogs3;
+  const ensureArray = (data) => {
+    if (Array.isArray(data)) return data;
+    if (data?.blogs && Array.isArray(data.blogs)) return data.blogs;
+    if (data?.data && Array.isArray(data.data)) return data.data;
+    return [];
+  };
+
+  const blogList = ensureArray(apiBlogs) || blogs3;
 
   const swiperOptions = {
     autoplay: {
