@@ -86,7 +86,7 @@ export default function Footer12() {
       <div className="footer-bottom">
         <div className="d-md-flex align-items-center px-3">
           <span className="footer-copyright me-auto">
-            ©{new Date().getFullYear()} UOMO
+            ©{new Date().getFullYear()} endlessLk
           </span>
           <div className="footer-settings d-md-flex align-items-center">
             <select

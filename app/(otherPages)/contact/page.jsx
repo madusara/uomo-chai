@@ -7,8 +7,8 @@ import LocationMap from "@/components/otherPages/Contact/LocationMap";
 import React from "react";
 
 export const metadata = {
-  title: "Contact || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Contact || endlessLk eCommerce React Nextjs Template",
+  description: "endlessLk eCommerce React Nextjs Template",
 };
 export default function ContactPage() {
   return (

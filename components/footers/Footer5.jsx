@@ -20,7 +20,7 @@ export default function Footer5({ parentClass }) {
               <Link href="/">
                 <Image
                   src="/assets/images/logo-white.png"
-                  alt="Uomo"
+                  alt="endlessLk"
                   width={112}
                   height={28}
                   className="logo__image"
@@ -33,7 +33,7 @@ export default function Footer5({ parentClass }) {
             </p>
 
             <p className="m-0">
-              <strong className="fw-medium">sale@uomo.com</strong>
+              <strong className="fw-medium">sale@endlessLk.com</strong>
             </p>
             <p>
               <strong className="fw-medium">+1 246-345-0695</strong>
@@ -128,7 +128,7 @@ export default function Footer5({ parentClass }) {
       <div className="footer-bottom">
         <div className="container d-md-flex align-items-center">
           <span className="footer-copyright me-auto">
-            ©{new Date().getFullYear()} Uomo
+            ©{new Date().getFullYear()} endlessLk
           </span>
           <div className="footer-settings d-md-flex align-items-center">
             <select

@@ -85,7 +85,7 @@ export default function Footer21() {
 
       <div className="footer-bottom">
         <div className="d-block d-md-flex align-items-center container">
-          <span className="footer-copyright me-auto">©2024 Uomo</span>
+          <span className="footer-copyright me-auto">©2024 endlessLk</span>
           <div className="footer-settings d-block d-md-flex align-items-center">
             <div className="d-flex align-items-center">
               <label htmlFor="footerSettingsLanguage" className="me-2 d-none">

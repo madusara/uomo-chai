@@ -50,7 +50,7 @@ export default function Footer20() {
                   src="/assets/images/logo-baby.png"
                   width={112}
                   height={28}
-                  alt="Uomo"
+                  alt="endlessLk"
                   className="logo__image d-block"
                 />
               </Link>
@@ -61,7 +61,7 @@ export default function Footer20() {
             </p>
 
             <p className="m-0">
-              <strong className="fw-medium">sale@uomo.com</strong>
+              <strong className="fw-medium">sale@endlessLk.com</strong>
             </p>
             <p>
               <strong className="fw-medium">+1 246-345-0695</strong>
@@ -163,7 +163,7 @@ export default function Footer20() {
 
       <div className="footer-bottom">
         <div className="container d-md-flex align-items-center">
-          <span className="footer-copyright me-auto">©2024 Uomo</span>
+          <span className="footer-copyright me-auto">©2024 endlessLk</span>
           <div className="footer-settings d-md-flex align-items-center">
             <select
               id="footerSettingsLanguage"
