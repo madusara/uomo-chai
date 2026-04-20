@@ -60,9 +60,9 @@ export default function Header16() {
         <div className="logo">
           <Link href="/">
             <Image
-              src="/assets/images/logo-wine.png"
-              width={112}
-              height={28}
+              src="/assets/images/logo3.svg"
+              width={180}
+              height={42}
               alt="Uomo"
               className="logo__image d-block"
             />

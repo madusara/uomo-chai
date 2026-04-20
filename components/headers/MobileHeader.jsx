@@ -67,8 +67,8 @@ export default function MobileHeader() {
           <a href="/">
             <Image
               src="/assets/images/logo3.svg"
-              width={160}
-              height={38}
+              width={180}
+              height={42}
               alt="Uomo"
               className="logo__image d-block"
             />
