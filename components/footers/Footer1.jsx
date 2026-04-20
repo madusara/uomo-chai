@@ -31,7 +31,7 @@ export default function Footer1() {
             </div>
             {/* <!-- /.logo --> */}
             <p className="footer-address">
-              1418 River Drive, Suite 35 Cottonhall, CA 9622 United States
+              {companyContact.address}
             </p>
 
             <p className="m-0">

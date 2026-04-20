@@ -1,4 +1,5 @@
 export const companyContact = {
+  address: "Sri Lanka",
   instagram:
     "https://www.instagram.com/endless.greens?igsh=MXByNDg3MWx6ZTYzcw%3D%3D&utm_source=qr",
   facebook:
