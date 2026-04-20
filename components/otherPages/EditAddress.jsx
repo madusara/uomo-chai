@@ -1,4 +1,5 @@
 import React from "react";
+import { companyContact } from "@/data/siteInfo";
 
 export default function EditAddress() {
   return (
@@ -18,8 +19,8 @@ export default function EditAddress() {
               <p>1418 River Drive, Suite 35 Cottonhall, CA 9622</p>
               <p>United States</p>
               <br />
-              <p>sale@uomo.com</p>
-              <p>+1 246-345-0695</p>
+              <p>{companyContact.email}</p>
+              <p>{companyContact.phone}</p>
             </div>
           </div>
           <div className="my-account__address-item">
@@ -32,8 +33,8 @@ export default function EditAddress() {
               <p>1418 River Drive, Suite 35 Cottonhall, CA 9622</p>
               <p>United States</p>
               <br />
-              <p>sale@uomo.com</p>
-              <p>+1 246-345-0695</p>
+              <p>{companyContact.email}</p>
+              <p>{companyContact.phone}</p>
             </div>
           </div>
         </div>

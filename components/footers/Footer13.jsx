@@ -6,6 +6,7 @@ import {
   footerLinks1,
   footerLinks2,
   footerLinks3,
+  companyContact,
   socialLinks,
 } from "@/data/footer";
 
@@ -62,10 +63,18 @@ export default function Footer13() {
             </p>
 
             <p className="m-0">
-              <strong className="fw-medium">sale@endlessLk.com</strong>
+              <strong className="fw-medium">
+                <a href={`mailto:${companyContact.email}`}>
+                  {companyContact.email}
+                </a>
+              </strong>
             </p>
             <p>
-              <strong className="fw-medium">+1 246-345-0695</strong>
+              <strong className="fw-medium">
+                <a href={`tel:${companyContact.phone.replace(/\s+/g, "")}`}>
+                  {companyContact.phone}
+                </a>
+              </strong>
             </p>
 
             <ul className="social-links list-unstyled d-flex flex-wrap mb-0">

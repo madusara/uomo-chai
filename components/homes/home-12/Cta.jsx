@@ -1,4 +1,5 @@
 import React from "react";
+import { companyContact } from "@/data/siteInfo";
 
 export default function Cta() {
   return (
@@ -26,7 +27,12 @@ export default function Cta() {
           </div>
           <h3 className="mb-0 text-white fw-normal">
             <span>Place Your Orders At </span>
-            <span className="theme-color-secondary">+1 246-345-0695</span>
+            <a
+              className="theme-color-secondary"
+              href={`https://wa.me/${companyContact.phone.replace(/\D/g, "")}`}
+            >
+              {companyContact.phone}
+            </a>
           </h3>
         </div>
 
