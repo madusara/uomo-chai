@@ -6,8 +6,8 @@ import DashboardSidebar from "@/components/otherPages/DashboardSidebar";
 import React from "react";
 
 export const metadata = {
-  title: "Dashboard Account Orders || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Dashboard Account Orders | endlessLk",
+  description: "Explore Dashboard Account Orders on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function AccountOrderPage() {
   return (

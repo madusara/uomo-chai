@@ -10,8 +10,8 @@ import Testimonials from "@/components/homes/home-4/Testimonials";
 import TrendingProducts from "@/components/homes/home-4/TrendingProducts";
 
 export const metadata = {
-  title: "Home 4 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 4 | endlessLk",
+  description: "Explore Home 4 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage4() {
   return (

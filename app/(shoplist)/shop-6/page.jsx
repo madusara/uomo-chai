@@ -6,8 +6,8 @@ import Shop6 from "@/components/shoplist/Shop6";
 import React from "react";
 
 export const metadata = {
-  title: "Shop 6 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Shop 6 | endlessLk",
+  description: "Explore Shop 6 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function ShopPage6() {
   return (

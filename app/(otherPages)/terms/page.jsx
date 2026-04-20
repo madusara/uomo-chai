@@ -5,8 +5,8 @@ import Terms from "@/components/otherPages/Terms";
 import React from "react";
 
 export const metadata = {
-  title: "Terms || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Terms | endlessLk",
+  description: "Explore Terms on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function TermsPage() {
   return (

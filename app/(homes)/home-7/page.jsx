@@ -9,8 +9,8 @@ import TrendingProducts from "@/components/homes/home-7/TrendingProducts";
 import React from "react";
 
 export const metadata = {
-  title: "Home 7 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 7 | endlessLk",
+  description: "Explore Home 7 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage7() {
   return (

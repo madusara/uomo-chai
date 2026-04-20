@@ -5,8 +5,8 @@ import ResetPassword from "@/components/otherPages/ResetPassword";
 import React from "react";
 
 export const metadata = {
-  title: "Reset Password || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Reset Password | endlessLk",
+  description: "Explore Reset Password on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function ResetPasswordPage() {
   return (

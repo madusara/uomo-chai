@@ -6,8 +6,8 @@ import EditAccount from "@/components/otherPages/EditAccount";
 import React from "react";
 
 export const metadata = {
-  title: "Dashboard Account Edit || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Dashboard Account Edit | endlessLk",
+  description: "Explore Dashboard Account Edit on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function AccountEditPage() {
   return (

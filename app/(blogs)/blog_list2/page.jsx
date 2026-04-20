@@ -6,8 +6,8 @@ import Header1 from "@/components/headers/Header1";
 import React from "react";
 
 export const metadata = {
-  title: "Blog 2 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Blog 2 | endlessLk",
+  description: "Explore Blog 2 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function BlogPage2() {
   return (

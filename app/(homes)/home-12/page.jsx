@@ -12,8 +12,8 @@ import TopSelling from "@/components/homes/home-12/TopSelling";
 import React from "react";
 
 export const metadata = {
-  title: "Home 12 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 12 | endlessLk",
+  description: "Explore Home 12 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage12() {
   return (

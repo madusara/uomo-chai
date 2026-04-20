@@ -13,8 +13,8 @@ import HospitalEquipment from "@/components/homes/home-14/HospitalEquipment";
 import React from "react";
 
 export const metadata = {
-  title: "Home 14 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 14 | endlessLk",
+  description: "Explore Home 14 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage14() {
   return (

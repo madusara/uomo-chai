@@ -12,8 +12,8 @@ import VideoBanner from "@/components/homes/home-10/VideoBanner";
 import React from "react";
 
 export const metadata = {
-  title: "Home 10 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 10 | endlessLk",
+  description: "Explore Home 10 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage10() {
   return (

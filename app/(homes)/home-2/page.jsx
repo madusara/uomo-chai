@@ -12,8 +12,8 @@ import Products2 from "@/components/homes/home-2/Products2";
 import React from "react";
 
 export const metadata = {
-  title: "Home 2 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 2 | endlessLk",
+  description: "Explore Home 2 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage2() {
   return (

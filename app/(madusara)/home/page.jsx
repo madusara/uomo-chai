@@ -18,8 +18,8 @@ import {
 import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
 
 export const metadata = {
-  title: "Home 9 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 9 | endlessLk",
+  description: "Explore Home 9 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage8() {
   const categoryData = await getCategoryData();

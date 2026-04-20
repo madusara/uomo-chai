@@ -13,8 +13,8 @@ import WeekDeals from "@/components/homes/home-5/WeekDeals";
 import React from "react";
 
 export const metadata = {
-  title: "Home 5 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 5 | endlessLk",
+  description: "Explore Home 5 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage5() {
   return (

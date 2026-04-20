@@ -7,8 +7,8 @@ import React from "react";
 import { allProducts } from "@/data/products";
 
 export const metadata = {
-  title: "Shop Single 11 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Shop Single 11 | endlessLk",
+  description: "Explore Shop Single 11 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function ProductDetailsPage16(props) {
   const params = await props.params;

@@ -5,8 +5,8 @@ import LoginRegister from "@/components/otherPages/LoginRegister";
 import React from "react";
 
 export const metadata = {
-  title: "Login Register || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Login Register | endlessLk",
+  description: "Explore Login Register on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function LoginPage() {
   return (

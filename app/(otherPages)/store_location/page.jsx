@@ -6,8 +6,8 @@ import StoreLocator from "@/components/otherPages/StoreLocator";
 import React from "react";
 
 export const metadata = {
-  title: "Store Location || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Store Location | endlessLk",
+  description: "Explore Store Location on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function StoreLocationPage() {
   return (

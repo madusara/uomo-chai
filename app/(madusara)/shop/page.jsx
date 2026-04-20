@@ -7,8 +7,8 @@ import { getAllProducts } from "@/lib/api/home";
 import React from "react";
 
 export const metadata = {
-  title: "Shop 6 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Shop 6 | endlessLk",
+  description: "Explore Shop 6 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function ShopPage6() {
   const data = await getAllProducts();

@@ -13,8 +13,8 @@ import PopulerProducts from "@/components/homes/home-15/PopulerProducts";
 import React from "react";
 
 export const metadata = {
-  title: "Home 15 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 15 | endlessLk",
+  description: "Explore Home 15 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage15() {
   return (

@@ -13,8 +13,8 @@ import NewArrival from "@/components/homes/home-13/NewArival";
 import React from "react";
 
 export const metadata = {
-  title: "Home 13 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 13 | endlessLk",
+  description: "Explore Home 13 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage13() {
   return (

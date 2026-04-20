@@ -8,8 +8,8 @@ import { getCategoryData } from "@/lib/api/home";
 import React from "react";
 
 export const metadata = {
-  title: "Home 6 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 6 | endlessLk",
+  description: "Explore Home 6 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage6() {
   const categoryData = await getCategoryData();

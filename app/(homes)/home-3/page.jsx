@@ -10,8 +10,8 @@ import Instagram from "@/components/homes/home-3/Instagram";
 import React from "react";
 
 export const metadata = {
-  title: "Home 3 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 3 | endlessLk",
+  description: "Explore Home 3 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage3() {
   return (

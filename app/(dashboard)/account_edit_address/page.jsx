@@ -6,8 +6,8 @@ import EditAddress from "@/components/otherPages/EditAddress";
 import React from "react";
 
 export const metadata = {
-  title: "Dashboard Edit Address || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Dashboard Edit Address | endlessLk",
+  description: "Explore Dashboard Edit Address on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function AccountEditAddressPage() {
   return (

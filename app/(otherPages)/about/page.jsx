@@ -7,8 +7,8 @@ import Services from "@/components/otherPages/about/Services";
 import React from "react";
 
 export const metadata = {
-  title: "About || endlessLk eCommerce React Nextjs Template",
-  description: "endlessLk eCommerce React Nextjs Template",
+  title: "About | endlessLk",
+  description: "Explore About on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function AboutPage() {
   return (

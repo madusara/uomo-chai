@@ -12,8 +12,8 @@ import React from "react";
 import { getBlogsData } from "@/lib/api/home";
 
 export const metadata = {
-  title: "Home 9 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 9 | endlessLk",
+  description: "Explore Home 9 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage8() {
   const blogsData = await getBlogsData();

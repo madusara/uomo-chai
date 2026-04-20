@@ -13,8 +13,8 @@ import Instagram from "@/components/homes/home-20/Instagram";
 import Footer20 from "@/components/footers/Footer20";
 
 export const metadata = {
-  title: "Home 20 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 20 | endlessLk",
+  description: "Explore Home 20 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage20() {
   return (

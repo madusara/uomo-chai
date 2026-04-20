@@ -8,8 +8,8 @@ import SingleProduct from "@/components/homes/home-22/SingleProduct";
 import React from "react";
 
 export const metadata = {
-  title: "Home 22 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 22 | endlessLk",
+  description: "Explore Home 22 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage22() {
   return (

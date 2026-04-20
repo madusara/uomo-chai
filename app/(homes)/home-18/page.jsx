@@ -11,8 +11,8 @@ import Trending from "@/components/homes/home-18/Trending";
 import React from "react";
 
 export const metadata = {
-  title: "Home 18 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 18 | endlessLk",
+  description: "Explore Home 18 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage18() {
   return (

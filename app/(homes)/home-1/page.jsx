@@ -13,8 +13,8 @@ import Products5 from "@/components/homes/home-1/Products5";
 import { getCategoryData } from "@/lib/api/home";
 
 export const metadata = {
-  title: "Home 1 || Uomo eCommerce React Nextjs Template",
-  description: "Uomo eCommerce React Nextjs Template",
+  title: "Home 1 | endlessLk",
+  description: "Explore Home 1 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage1() {
   const homeData = await getCategoryData();
