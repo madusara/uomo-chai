@@ -47,9 +47,9 @@ export default function Footer20() {
             <div className="logo">
               <Link href="/">
                 <Image
-                  src="/assets/images/logo-baby.png"
-                  width={112}
-                  height={28}
+                  src="/assets/images/logo3.svg"
+                  width={160}
+                  height={38}
                   alt="endlessLk"
                   className="logo__image d-block"
                 />

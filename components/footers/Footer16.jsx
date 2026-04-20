@@ -49,9 +49,9 @@ export default function Footer16() {
             <div className="logo">
               <Link href="/">
                 <Image
-                  src="/assets/images/logo-black-wine.png"
-                  width={112}
-                  height={28}
+                  src="/assets/images/logo3.svg"
+                  width={160}
+                  height={38}
                   alt="endlessLk"
                   className="logo__image"
                 />

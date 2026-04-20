@@ -20,9 +20,9 @@ export default function Footer9() {
             <div className="logo">
               <Link href="/">
                 <Image
-                  width={112}
-                  height={28}
-                  src="/assets/images/logo-black.png"
+                  width={160}
+                  height={38}
+                  src="/assets/images/logo3.svg"
                   alt="endlessLk"
                   className="logo__image d-block"
                 />

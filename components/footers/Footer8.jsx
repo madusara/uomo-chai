@@ -42,10 +42,10 @@ export default function Footer8() {
             <div className="logo">
               <Link href="/">
                 <Image
-                  src="/assets/images/logo-dark-blue.png"
+                  src="/assets/images/logo3.svg"
                   alt="endlessLk"
-                  width={113}
-                  height={28}
+                  width={160}
+                  height={38}
                   className="logo__image d-block"
                 />
               </Link>

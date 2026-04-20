@@ -19,10 +19,10 @@ export default function Footer5({ parentClass }) {
             <div className="logo">
               <Link href="/">
                 <Image
-                  src="/assets/images/logo-white.png"
+                  src="/assets/images/logo3.svg"
                   alt="endlessLk"
-                  width={112}
-                  height={28}
+                  width={160}
+                  height={38}
                   className="logo__image"
                 />
               </Link>

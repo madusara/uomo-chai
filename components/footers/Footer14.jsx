@@ -98,9 +98,9 @@ export default function Footer14() {
             <div className="logo">
               <Link href="/">
                 <Image
-                  src="/assets/images/logo-white-cosmetics.png"
-                  width={112}
-                  height={28}
+                  src="/assets/images/logo3.svg"
+                  width={160}
+                  height={38}
                   alt="endlessLk"
                   className="logo__image d-block"
                 />
