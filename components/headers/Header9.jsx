@@ -55,9 +55,9 @@ export default function Header9() {
         <div className="logo">
           <Link href="/">
             <Image
-              src="/assets/images/logo.svg"
-              width={112}
-              height={28}
+              src="/assets/images/logo3.svg"
+              width={220}
+              height={52}
               alt="Uomo"
               className="logo__image d-block"
             />

@@ -54,11 +54,12 @@ export default function Header1() {
           <div className="logo">
             <Link href="/">
               <Image
-                src="/assets/images/logo.png"
-                width={112}
-                height={28}
+                src="/assets/images/logo3.svg"
+                width={123}
+                height={123}
                 alt="Uomo"
                 className="logo__image d-block"
+                style={{ width: "68px", height: "68px" }}
               />
             </Link>
           </div>
