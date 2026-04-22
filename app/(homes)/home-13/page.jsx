@@ -13,7 +13,7 @@ import NewArrival from "@/components/homes/home-13/NewArival";
 import React from "react";
 
 export const metadata = {
-  title: "Home 13 | endlessLk",
+  title: "Home 13 | EndlessLk",
   description: "Explore Home 13 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage13() {

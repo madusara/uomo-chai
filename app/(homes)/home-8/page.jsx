@@ -4,7 +4,7 @@ import Hero from "@/components/homes/home-8/Hero";
 import React from "react";
 
 export const metadata = {
-  title: "Home 8 | endlessLk",
+  title: "Home 8 | EndlessLk",
   description: "Explore Home 8 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage8() {

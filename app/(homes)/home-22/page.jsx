@@ -8,7 +8,7 @@ import SingleProduct from "@/components/homes/home-22/SingleProduct";
 import React from "react";
 
 export const metadata = {
-  title: "Home 22 | endlessLk",
+  title: "Home 22 | EndlessLk",
   description: "Explore Home 22 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage22() {

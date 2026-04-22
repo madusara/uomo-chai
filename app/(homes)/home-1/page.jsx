@@ -13,7 +13,7 @@ import Products5 from "@/components/homes/home-1/Products5";
 import { getCategoryData } from "@/lib/api/home";
 
 export const metadata = {
-  title: "Home 1 | endlessLk",
+  title: "Home 1 | EndlessLk",
   description: "Explore Home 1 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage1() {

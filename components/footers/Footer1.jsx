@@ -87,7 +87,7 @@ export default function Footer1() {
           </div>
           {/* <!-- /.footer-column --> */}
           <div className="footer-column footer-menu mb-4 mb-lg-0">
-            <h5 className="sub-menu__title text-uppercase">Shop</h5>
+            <h5 className="sub-menu__title text-uppercase">Categoroies</h5>
             <ul className="sub-menu__list list-unstyled">
               {footerLinks2.map((elm, i) => (
                 <li key={i} className="sub-menu__item">

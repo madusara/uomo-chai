@@ -18,7 +18,7 @@ import {
 import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
 
 export const metadata = {
-  title: "Home 9 | endlessLk",
+  title: "Home | EndlessLk",
   description: "Explore Home 9 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage8() {
@@ -31,7 +31,7 @@ export default async function HomePage8() {
 
 
 
-  console.log(showAreaProducts);
+  // console.log(showAreaProducts);
 
   return (
     <>

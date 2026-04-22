@@ -12,7 +12,7 @@ import React from "react";
 import { getBlogsData } from "@/lib/api/home";
 
 export const metadata = {
-  title: "Home 9 | endlessLk",
+  title: "Home 9 | EndlessLk",
   description: "Explore Home 9 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default async function HomePage8() {

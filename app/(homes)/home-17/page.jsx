@@ -13,7 +13,7 @@ import Testimonials from "@/components/homes/home-17/Testimonials";
 import React from "react";
 
 export const metadata = {
-  title: "Home 17 | endlessLk",
+  title: "Home 17 | EndlessLk",
   description: "Explore Home 17 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage17() {

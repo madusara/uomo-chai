@@ -12,7 +12,7 @@ import TrendyItems from "@/components/homes/home-19/TrendyItems";
 import React from "react";
 
 export const metadata = {
-  title: "Home 19 | endlessLk",
+  title: "Home 19 | EndlessLk",
   description: "Explore Home 19 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage19() {

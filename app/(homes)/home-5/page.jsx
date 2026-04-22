@@ -13,7 +13,7 @@ import WeekDeals from "@/components/homes/home-5/WeekDeals";
 import React from "react";
 
 export const metadata = {
-  title: "Home 5 | endlessLk",
+  title: "Home 5 | EndlessLk",
   description: "Explore Home 5 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage5() {

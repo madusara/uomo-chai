@@ -12,7 +12,7 @@ import VideoBanner from "@/components/homes/home-16/VideoBanner";
 import React from "react";
 
 export const metadata = {
-  title: "Home 16 | endlessLk",
+  title: "Home 16 | EndlessLk",
   description: "Explore Home 16 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage16() {

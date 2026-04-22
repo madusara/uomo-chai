@@ -10,7 +10,7 @@ import Instagram from "@/components/homes/home-3/Instagram";
 import React from "react";
 
 export const metadata = {
-  title: "Home 3 | endlessLk",
+  title: "Home 3 | EndlessLk",
   description: "Explore Home 3 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage3() {

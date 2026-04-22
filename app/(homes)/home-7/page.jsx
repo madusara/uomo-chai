@@ -9,7 +9,7 @@ import TrendingProducts from "@/components/homes/home-7/TrendingProducts";
 import React from "react";
 
 export const metadata = {
-  title: "Home 7 | endlessLk",
+  title: "Home 7 | EndlessLk",
   description: "Explore Home 7 on endlessLk. Discover quality products, latest collections, and secure online shopping.",
 };
 export default function HomePage7() {
