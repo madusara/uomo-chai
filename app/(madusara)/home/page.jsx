@@ -55,7 +55,10 @@ export default async function HomePage8() {
         <div className="mb-3 mb-xl-5"></div>
         <Features />
       </main>
-      <Footer8 />
+
+
+
+      <Footer8 collections={collections} />
     </>
   );
 }

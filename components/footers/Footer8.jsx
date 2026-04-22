@@ -12,7 +12,9 @@ import {
   socialLinks,
 } from "@/data/footer";
 
-export default function Footer8() {
+export default function Footer8({ collections = [] }) {
+  const hasCollections = Array.isArray(collections) && collections.length > 0;
+
   return (
     <footer id="footer" className="footer footer_type_2 bordered">
       <div className="footer-top container">
@@ -110,15 +112,26 @@ export default function Footer8() {
           {/* <!-- /.footer-column --> */}
 
           <div className="footer-column footer-menu mb-4 mb-lg-0">
-            <h6 className="sub-menu__title text-uppercase">Shop</h6>
+            <h6 className="sub-menu__title text-uppercase">Collections</h6>
             <ul className="sub-menu__list list-unstyled">
-              {footerLinks2.map((elm, i) => (
-                <li key={i} className="sub-menu__item">
-                  <Link href={elm.href} className="menu-link menu-link_us-s">
-                    {elm.text}
-                  </Link>
-                </li>
-              ))}
+              {hasCollections
+                ? collections.map((elm, i) => (
+                    <li key={elm?.id || elm?.slug || i} className="sub-menu__item">
+                      <Link
+                        href={elm?.slug ? `/shop/${elm.slug}` : "/shop"}
+                        className="menu-link menu-link_us-s"
+                      >
+                        {elm?.name || elm?.title}
+                      </Link>
+                    </li>
+                  ))
+                : footerLinks2.map((elm, i) => (
+                    <li key={i} className="sub-menu__item">
+                      <Link href={elm.href} className="menu-link menu-link_us-s">
+                        {elm.text}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
           {/* <!-- /.footer-column --> */}
