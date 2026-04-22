@@ -12,7 +12,9 @@ import {
   socialLinks,
 } from "@/data/footer";
 
-export default function Footer1() {
+export default function Footer1({ collections = [] }) {
+  const hasCollections = Array.isArray(collections) && collections.length > 0;
+
   return (
     <footer className="footer footer_type_1">
       <div className="footer-middle container">
@@ -74,7 +76,7 @@ export default function Footer1() {
           {/* <!-- /.footer-column --> */}
 
           <div className="footer-column footer-menu mb-4 mb-lg-0">
-            <h5 className="sub-menu__title text-uppercase">Company</h5>
+            <h5 className="sub-menu__title text-uppercase">About Us</h5>
             <ul className="sub-menu__list list-unstyled">
               {footerLinks1.map((elm, i) => (
                 <li key={i} className="sub-menu__item">
@@ -87,15 +89,26 @@ export default function Footer1() {
           </div>
           {/* <!-- /.footer-column --> */}
           <div className="footer-column footer-menu mb-4 mb-lg-0">
-            <h5 className="sub-menu__title text-uppercase">Categoroies</h5>
+            <h5 className="sub-menu__title text-uppercase">Collections</h5>
             <ul className="sub-menu__list list-unstyled">
-              {footerLinks2.map((elm, i) => (
-                <li key={i} className="sub-menu__item">
-                  <Link href={elm.href} className="menu-link menu-link_us-s">
-                    {elm.text}
-                  </Link>
-                </li>
-              ))}
+              {hasCollections
+                ? collections.map((elm, i) => (
+                    <li key={elm?.id || elm?.slug || i} className="sub-menu__item">
+                      <Link
+                        href={elm?.slug ? `/shop/${elm.slug}` : "/shop"}
+                        className="menu-link menu-link_us-s"
+                      >
+                        {elm?.name || elm?.title}
+                      </Link>
+                    </li>
+                  ))
+                : footerLinks2.map((elm, i) => (
+                    <li key={i} className="sub-menu__item">
+                      <Link href={elm.href} className="menu-link menu-link_us-s">
+                        {elm.text}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
           {/* <!-- /.footer-column --> */}

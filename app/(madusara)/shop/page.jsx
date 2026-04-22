@@ -3,7 +3,7 @@ import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 
 import Shop6 from "@/components/shoplist/Shop6";
-import { getAllProducts } from "@/lib/api/home";
+import { getAllProducts, getCategoryData } from "@/lib/api/home";
 import React from "react";
 
 export const metadata = {
@@ -12,6 +12,9 @@ export const metadata = {
 };
 export default async function ShopPage6() {
   const data = await getAllProducts();
+  const categoryData = await getCategoryData();
+    const collections = categoryData.collections || [];
+
 
   console.log(data);
 
@@ -22,7 +25,7 @@ export default async function ShopPage6() {
         <Shop6 products={data} />
       </main>
       <div className="mb-5 pb-xl-5"></div>
-      <Footer1 />
+      <Footer1 collections={collections} />
     </>
   );
 }
