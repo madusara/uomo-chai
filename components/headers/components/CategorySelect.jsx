@@ -3,10 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 
 const categories = ["All Category", "Men", "Women", "Kids"];
-export default function CategorySelect() {
+export default function CategorySelect({ collections = [] }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const containerRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const hasCollections = Array.isArray(collections) && collections.length > 0;
+  const categoryItems = hasCollections
+    ? ["All Category", ...collections.map((item) => item?.name || item?.title).filter(Boolean)]
+    : categories;
 
   const handleClickOutside = (event) => {
     if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -45,7 +49,7 @@ export default function CategorySelect() {
       </div>
       <div className="header-search__category-list js-hidden-content mt-2">
         <ul className="search-suggestion list-unstyled">
-          {categories.map((category, index) => (
+          {categoryItems.map((category, index) => (
             <li
               onClick={() => {
                 setSelectedCategory(category);

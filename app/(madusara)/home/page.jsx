@@ -35,7 +35,7 @@ export default async function HomePage8() {
 
   return (
     <>
-      <Header9 />
+      <Header9 collections={collections}/>
       <main className="page-wrapper">
         <Hero />
         <div className="mb-3 pb-1 mt-4 pb-xl-5"></div>

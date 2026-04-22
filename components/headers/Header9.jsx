@@ -11,7 +11,7 @@ import User from "./components/User";
 import SearchPopup from "./components/SearchPopup";
 import CategorySelect from "./components/CategorySelect";
 
-export default function Header9() {
+export default function Header9({ collections = [] }) {
   const [scrollDirection, setScrollDirection] = useState("down");
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function Header9() {
             name="search-keyword"
             placeholder="Search products..."
           />
-          <CategorySelect />
+          <CategorySelect collections={collections} />
         </form>
         {/* <!-- /.header-search --> */}
 
