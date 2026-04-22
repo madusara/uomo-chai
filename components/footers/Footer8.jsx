@@ -98,7 +98,7 @@ export default function Footer8({ collections = [] }) {
           {/* <!-- /.footer-column --> */}
 
           <div className="footer-column footer-menu mb-4 mb-lg-0">
-            <h6 className="sub-menu__title text-uppercase">Company</h6>
+            <h6 className="sub-menu__title text-uppercase">About Us</h6>
             <ul className="sub-menu__list list-unstyled">
               {footerLinks1.map((elm, i) => (
                 <li key={i} className="sub-menu__item">
@@ -154,13 +154,7 @@ export default function Footer8({ collections = [] }) {
             <h6 className="sub-menu__title text-uppercase">Opening Time</h6>
             <ul className="list-unstyled">
               <li>
-                <span className="menu-link">Mon - Fri: 8AM - 9PM</span>
-              </li>
-              <li>
-                <span className="menu-link">Sat: 9AM - 8PM</span>
-              </li>
-              <li>
-                <span className="menu-link">Sun: Closed</span>
+                <span className="menu-link">Always Open</span>
               </li>
             </ul>
           </div>
