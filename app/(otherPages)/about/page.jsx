@@ -7,9 +7,11 @@ import Services from "@/components/otherPages/about/Services";
 import React from "react";
 
 export const metadata = {
-  title: "About | endlessLk",
-  description: "Explore About on endlessLk. Discover quality products, latest collections, and secure online shopping.",
+  title: "About Endless Greens | Sri Lankan Botanicals & Natural Innovation",
+  description:
+    "Endless Greens is a women-owned Sri Lankan brand blending tea, spices, and Ayurveda with modern science to create innovative plant-based products like Infusio and Dropit Liquid Spices.",
 };
+
 export default function AboutPage() {
   return (
     <>
@@ -18,7 +20,7 @@ export default function AboutPage() {
         <div className="mb-4 pb-4"></div>
         <About />
         <Services />
-        <Clients />
+        {/* <Clients /> */}
       </main>
       <div className="mb-5 pb-xl-5"></div>
       <Footer1 />
