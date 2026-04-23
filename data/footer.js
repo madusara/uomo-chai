@@ -24,7 +24,7 @@ export const footerLinks3 = [
 ];
 
 export const languageOptions = [
-  { value: "", text: "United Kingdom | English", selected: true },
+  { value: "", text: "Sri Lanka | English", selected: true },
   { value: "1", text: "United States | English" },
   { value: "2", text: "German" },
   { value: "3", text: "French" },
