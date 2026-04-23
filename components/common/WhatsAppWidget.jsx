@@ -9,20 +9,36 @@ export default function WhatsAppWidget() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true);
-      setShowTooltip(true);
+    let retriggerTimeout;
+    let animationTimeout;
+    let hideTooltipTimeout;
 
-      setTimeout(() => {
+    const runCycle = () => {
+      setIsAnimating(true);
+      // Force class re-toggle so tooltip animation reliably restarts each cycle.
+      setShowTooltip(false);
+
+      retriggerTimeout = setTimeout(() => {
+        setShowTooltip(true);
+      }, 50);
+
+      animationTimeout = setTimeout(() => {
         setIsAnimating(false);
       }, 1000);
 
-      setTimeout(() => {
+      hideTooltipTimeout = setTimeout(() => {
         setShowTooltip(false);
       }, 5000);
-    }, WHATSAPP_CONFIG.animationInterval);
+    };
 
-    return () => clearInterval(interval);
+    const interval = setInterval(runCycle, WHATSAPP_CONFIG.animationInterval);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(retriggerTimeout);
+      clearTimeout(animationTimeout);
+      clearTimeout(hideTooltipTimeout);
+    };
   }, []);
 
   const handleClick = () => {
