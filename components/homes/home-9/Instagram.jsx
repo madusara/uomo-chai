@@ -6,7 +6,7 @@ export default function Instagram({ instagramImages = instagramImages2 }) {
   return (
     <section className="instagram px-1 position-relative full-width_padding-20">
       <h2 className="d-none">Instagram</h2>
-      <div className="row row-cols-2 row-cols-md-4 row-cols-xl-8">
+      <div className="row row-cols-2 row-cols-md-4 row-cols-xl-8 justify-content-center">
         {instagramImages.map((elm, i) => (
           <div key={i} className="instagram__tile">
             <a
