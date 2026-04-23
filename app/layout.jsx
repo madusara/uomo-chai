@@ -23,6 +23,7 @@ import ProductDescription from "@/components/asides/ProductDescription";
 import ProductAdditionalInformation from "@/components/asides/ProductAdditionalInformation";
 import ProductReviews from "@/components/asides/ProductReviews";
 import MobileFooter1 from "@/components/footers/MobileFooter1";
+import WhatsAppWidget from "@/components/common/WhatsAppWidget";
 
 export default function RootLayout({ children }) {
   useEffect(() => {
@@ -98,6 +99,7 @@ export default function RootLayout({ children }) {
           <ProductDescription />
           <ProductAdditionalInformation />
           <ProductReviews />
+          <WhatsAppWidget />
         </Context>
         <div className="page-overlay" id="pageOverlay"></div>
         <ScrollTop />
