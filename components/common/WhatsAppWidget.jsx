@@ -19,7 +19,7 @@ export default function WhatsAppWidget() {
 
       setTimeout(() => {
         setShowTooltip(false);
-      }, 4000);
+      }, 5000);
     }, WHATSAPP_CONFIG.animationInterval);
 
     return () => clearInterval(interval);

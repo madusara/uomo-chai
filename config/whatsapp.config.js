@@ -19,7 +19,7 @@ export const WHATSAPP_CONFIG = {
   showOnMobile: true,
 
   // Animation interval in milliseconds (default: 30000 = 30 seconds)
-  animationInterval: 3000,
+  animationInterval: 5000,
 };
 
 export default WHATSAPP_CONFIG;

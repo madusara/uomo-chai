@@ -54,6 +54,8 @@ export default function Footer11() {
                 <li key={index}>
                   <a
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="footer__social-link d-block text-white"
                   >
                     <svg

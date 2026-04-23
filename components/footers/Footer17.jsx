@@ -61,7 +61,7 @@ export default function Footer17() {
         <ul className="social-links list-unstyled d-flex flex-wrap mb-0 align-items-center justify-content-center">
           {socialLinks.map((link, index) => (
             <li key={index}>
-              <a href={link.href} className="footer__social-link d-block">
+              <a href={link.href} target="_blank" rel="noopener noreferrer" className="footer__social-link d-block">
                 <svg
                   className={link.className}
                   width={link.width}
