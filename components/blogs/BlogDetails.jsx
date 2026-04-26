@@ -57,7 +57,7 @@ export default function BlogDetails({ blog }) {
               <p>
                 <Image
                   loading="lazy"
-                  className="w-100 h-auto d-block"
+                  className="w-100  d-block"
                   src={secondaryImageOne}
                   width="570"
                   height="697"
@@ -69,7 +69,7 @@ export default function BlogDetails({ blog }) {
               <p>
                 <Image
                   loading="lazy"
-                  className="w-100 h-auto d-block"
+                  className="w-100 d-block"
                   src={secondaryImageTwo}
                   width="570"
                   height="697"
@@ -157,7 +157,9 @@ export default function BlogDetails({ blog }) {
           <span>Share on Pinterest</span>
         </a>
       </div>
-      <div className="blog-single__item-pagination mw-930">
+
+
+      {/* <div className="blog-single__item-pagination mw-930">
         <div className="row">
           {blog.prevSlug && (
             <div className="col-lg-6">
@@ -199,12 +201,15 @@ export default function BlogDetails({ blog }) {
             </div>
           )}
         </div>
-      </div>
-      <div className="blog-single__reviews mw-930">
+      </div> */}
+
+
+
+      {/* <div className="blog-single__reviews mw-930">
         <h2 className="blog-single__reviews-title">Reviews</h2>
         <Reviews />
         <ReviewForm />
-      </div>
+      </div> */}
     </section>
   );
 }
