@@ -4,6 +4,7 @@ import Header1 from "@/components/headers/Header1";
 import About from "@/components/otherPages/about/About";
 import Clients from "@/components/otherPages/about/Clients";
 import Services from "@/components/otherPages/about/Services";
+import { getCategoryData } from "@/lib/api/home";
 import React from "react";
 
 export const metadata = {
@@ -12,10 +13,13 @@ export const metadata = {
     "Endless Greens is a women-owned Sri Lankan brand blending tea, spices, and Ayurveda with modern science to create innovative plant-based products like Infusio and Dropit Liquid Spices.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const categoryData = await getCategoryData();
+  const collections = categoryData.collections || [];
+
   return (
     <>
-      <Header1 />
+      <Header1 collections={collections} />
       <main className="page-wrapper">
         <div className="mb-4 pb-4"></div>
         <About />
@@ -23,7 +27,7 @@ export default function AboutPage() {
         {/* <Clients /> */}
       </main>
       <div className="mb-5 pb-xl-5"></div>
-      <Footer1 />
+      <Footer1 collections={collections} />
     </>
   );
 }
