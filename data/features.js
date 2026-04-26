@@ -2,8 +2,8 @@ export const servicePromotions = [
   {
     id: 1,
     icon: "#icon_shipping",
-    title: "Fast And Free Delivery",
-    content: "Free delivery for all orders over $140",
+    title: "Fast And Delivery",
+    content: "Premium Quality Delivery with care",
   },
   {
     id: 2,
@@ -22,8 +22,8 @@ export const servicesData = [
   {
     id: 1,
     icon: "#icon_shipping",
-    title: "Fast And Free Delivery",
-    content: "Free delivery for all orders over $140",
+    title: "Fast And Delivery",
+    content: "Premium Quality Delivery with care",
   },
   {
     id: 2,
@@ -49,8 +49,8 @@ export const servicePromotions2 = [
   {
     id: 1,
     icon: "icon_shipping",
-    title: "Fast And Free Delivery",
-    content: "Free delivery for all orders over $140",
+    title: "Fast And Delivery",
+    content: "Premium Quality Delivery with care",
   },
   {
     id: 2,
@@ -75,8 +75,8 @@ export const servicePromotions2 = [
 export const servicePromotionsData3 = [
   {
     id: 1,
-    title: "Fast And Free Delivery",
-    content: "Free delivery for all orders over $140",
+    title: "Fast And Delivery",
+    content: "Premium Quality Delivery with care",
     color: "#e3766a",
     icon: "#icon_shipping",
   },
@@ -121,7 +121,7 @@ export const serviceData = [
   {
     id: 3,
     icon: "#icon_shipping",
-    title: "Fast and Free Delivery",
+    title: "Fast And Delivery",
     content:
       "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.",
   },

@@ -32,10 +32,10 @@ export default function Footer14() {
               </div>
               <div className="service-promotion__content-wrap">
                 <h3 className="service-promotion__title h6 text-uppercase mb-1 text-white">
-                  Fast And Free Delivery
+                  Fast And Delivery
                 </h3>
                 <p className="service-promotion__content text-secondary mb-0 text-white">
-                  Free delivery for all orders over $140
+                  Premium Quality Delivery with care
                 </p>
               </div>
             </div>
