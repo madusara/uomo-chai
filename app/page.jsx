@@ -117,7 +117,7 @@ export default async function Home() {
         </section>
 
         <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
-        <Brands />
+        {/* <Brands /> */}
 
         <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>
         <Instagram instagramImages={instagramImages} />
