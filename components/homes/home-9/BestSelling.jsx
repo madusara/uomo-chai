@@ -156,7 +156,7 @@ export default function BestSelling({ products = [] }) {
                     <p className="pc__category">{product.category}</p>
 
                     <h6 className="pc__title mb-2">
-                      <Link href={`/product1_simple/${product.id}`}>
+                      <Link href={`/product/${product.slug}`}>
                         {product.title}
                       </Link>
                     </h6>

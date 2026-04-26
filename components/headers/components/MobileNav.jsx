@@ -21,6 +21,17 @@ export default function MobileNav() {
       (menu) => menu.href.split("/")[1] == pathname.split("/")[1]
     );
   };
+  const isBlogActive =
+    pathname === "/blogs" ||
+    pathname.startsWith("/blog/") ||
+    isActiveParentMenu(blogmenuItems);
+
+  const isShopActive =
+    pathname === "/shop" ||
+    pathname.startsWith("/shop/") ||
+    isActiveParentMenu(shopList) ||
+    isActiveParentMenu(shopDetails) ||
+    isActiveParentMenu(additionalShopPageitems);
 
   useEffect(() => {
     const selectors = {
@@ -156,13 +167,13 @@ export default function MobileNav() {
     <>
       <li className="navigation__item">
         <a
-          href="#"
+          href="/"
           className={`navigation__link js-nav-right d-flex align-items-center ${
             isActiveParentMenu(homePages) ? "menu-active" : ""
           }`}
         >
           Home
-          <svg
+          {/* <svg
             className="ms-auto"
             width="7"
             height="11"
@@ -170,8 +181,10 @@ export default function MobileNav() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <use href="#icon_next_sm" />
-          </svg>
+          </svg> */}
         </a>
+
+        
         <div className="sub-menu position-absolute top-0 start-100 w-100 d-none">
           <a
             href="#"
@@ -188,7 +201,7 @@ export default function MobileNav() {
             </svg>
             Home
           </a>
-          <ul className="list-unstyled">
+          <ul className="list-unstyled d-none">
             {homePages.map((elm, i) => (
               <li key={i} className="sub-menu__item">
                 <Link
@@ -204,18 +217,15 @@ export default function MobileNav() {
           </ul>
           {/* <!-- /.box-menu --> */}
         </div>
+
+
+
       </li>
       <li className="navigation__item">
         <a
           href="#"
           className={`navigation__link js-nav-right d-flex align-items-center ${
-            isActiveParentMenu([
-              ...shopList,
-              ...shopDetails,
-              ...additionalShopPageitems,
-            ])
-              ? "menu-active"
-              : ""
+            isShopActive ? "menu-active" : ""
           }`}
         >
           Shop
@@ -405,7 +415,7 @@ export default function MobileNav() {
         <a
           href="#"
           className={`navigation__link js-nav-right d-flex align-items-center ${
-            isActiveParentMenu(blogmenuItems) ? "menu-active" : ""
+            isBlogActive ? "menu-active" : ""
           }`}
         >
           Blog
@@ -452,7 +462,7 @@ export default function MobileNav() {
         </div>
       </li>
 
-      <li className="navigation__item">
+      <li className="navigation__item d-none">
         <a
           href="#"
           className={`navigation__link js-nav-right d-flex align-items-center ${
