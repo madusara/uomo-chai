@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const toSlug = (value = "") =>
@@ -21,7 +22,9 @@ const fallbackQuicklinks = [
 
 export default function SearchPopup({ collections = [] }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
   const containerRef = useRef(null);
+  const router = useRouter();
   const hasCollections = Array.isArray(collections) && collections.length > 0;
   const quicklinks = hasCollections
     ? collections
@@ -53,6 +56,22 @@ export default function SearchPopup({ collections = [] }) {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    const keyword = searchKeyword.trim();
+    if (!keyword) {
+      router.push("/shop");
+      setIsPopupOpen(false);
+      return;
+    }
+
+    const params = new URLSearchParams({ q: keyword });
+    router.push(`/shop?${params.toString()}`);
+    setIsPopupOpen(false);
+  };
+
   return (
     <div
       ref={containerRef}
@@ -82,7 +101,7 @@ export default function SearchPopup({ collections = [] }) {
 
       <div className="search-popup js-hidden-content">
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSearchSubmit}
           className="search-field container"
         >
           <p className="text-uppercase text-secondary fw-medium mb-4">
@@ -94,6 +113,8 @@ export default function SearchPopup({ collections = [] }) {
               type="text"
               name="search-keyword"
               placeholder="Search products"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
             />
             <button className="btn-icon search-popup__submit" type="submit">
               <svg
@@ -110,6 +131,7 @@ export default function SearchPopup({ collections = [] }) {
             <button
               className="btn-icon btn-close-lg search-popup__reset"
               type="reset"
+              onClick={() => setSearchKeyword("")}
             ></button>
           </div>
 
