@@ -9,7 +9,7 @@ import User from "./components/User";
 import SearchPopup from "./components/SearchPopup";
 import WishlistLength from "./components/WishlistLength";
 
-export default function Header1() {
+export default function Header1({ collections = [] }) {
   const [scrollDirection, setScrollDirection] = useState("down");
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function Header1() {
           {/* <!-- /.navigation --> */}
 
           <div className="header-tools d-flex align-items-center">
-            <SearchPopup />
+            <SearchPopup collections={collections} />
 
             {/* <!-- /.header-tools__item hover-container --> */}
 

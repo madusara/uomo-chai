@@ -26,7 +26,7 @@ export default async function ShopPage6() {
 
   return (
     <>
-      <Header1 />
+      <Header1 collections={collections} />
       <main className="page-wrapper">
         <Shop6 products={data} />
       </main>

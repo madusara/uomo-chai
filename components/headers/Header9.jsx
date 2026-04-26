@@ -126,7 +126,7 @@ export default function Header9({ collections = [] }) {
         {/* <!-- /.navigation --> */}
 
         <div className="header-tools d-flex align-items-center">
-          <SearchPopup />
+          <SearchPopup collections={collections} />
           {/* <!-- /.header-tools__item hover-container --> */}
 
           {/* <div className="header-tools__item hover-container">

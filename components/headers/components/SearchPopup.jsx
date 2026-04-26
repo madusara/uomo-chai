@@ -2,9 +2,41 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-export default function SearchPopup() {
+const toSlug = (value = "") =>
+  value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+const fallbackQuicklinks = [
+  { label: "New Arrivals", slug: "new-arrivals" },
+  { label: "Dresses", slug: "dresses" },
+  { label: "Accessories", slug: "accessories" },
+  { label: "Footwear", slug: "footwear" },
+  { label: "Sweatshirt", slug: "sweatshirt" },
+];
+
+export default function SearchPopup({ collections = [] }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const containerRef = useRef(null);
+  const hasCollections = Array.isArray(collections) && collections.length > 0;
+  const quicklinks = hasCollections
+    ? collections
+        .map((item) => {
+          const label = item?.name || item?.title;
+          if (!label) return null;
+
+          return {
+            label,
+            slug: item?.slug || toSlug(label),
+          };
+        })
+        .filter(Boolean)
+        .slice(0, 5)
+    : fallbackQuicklinks;
 
   const handleClickOutside = (event) => {
     if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -85,31 +117,16 @@ export default function SearchPopup() {
             <div className="sub-menu search-suggestion">
               <h6 className="sub-menu__title fs-base">Quicklinks</h6>
               <ul className="sub-menu__list list-unstyled">
-                <li className="sub-menu__item">
-                  <Link href="/shop-2" className="menu-link menu-link_us-s">
-                    New Arrivals
-                  </Link>
-                </li>
-                <li className="sub-menu__item">
-                  <a href="#" className="menu-link menu-link_us-s">
-                    Dresses
-                  </a>
-                </li>
-                <li className="sub-menu__item">
-                  <Link href="/shop-3" className="menu-link menu-link_us-s">
-                    Accessories
-                  </Link>
-                </li>
-                <li className="sub-menu__item">
-                  <a href="#" className="menu-link menu-link_us-s">
-                    Footwear
-                  </a>
-                </li>
-                <li className="sub-menu__item">
-                  <a href="#" className="menu-link menu-link_us-s">
-                    Sweatshirt
-                  </a>
-                </li>
+                {quicklinks.map((item, index) => (
+                  <li key={index} className="sub-menu__item">
+                    <Link
+                      href={`/shop/${item.slug}`}
+                      className="menu-link menu-link_us-s"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
