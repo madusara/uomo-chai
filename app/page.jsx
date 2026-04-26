@@ -63,6 +63,8 @@ export default async function Home() {
   const instagramImages = await getInstagramProducts();
   const blogsData = await getBlogsData();
 
+  // console.log(showAreaProducts)
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Store",
@@ -109,7 +111,7 @@ export default async function Home() {
         </section>
 
         <div className="mb-5 pb-4"></div>
-        <Lookbook />
+        <Lookbook products={showAreaProducts} />
 
         <div className="pt-1 pb-5 mt-4 mt-xl-5"></div>
 

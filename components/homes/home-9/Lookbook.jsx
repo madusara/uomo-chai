@@ -5,7 +5,12 @@ import React from "react";
 import { Tooltip } from "react-tooltip";
 import Image from "next/image";
 
-export default function Lookbook() {
+export default function Lookbook({ products = [] }) {
+  // Keep the original hotspot positions/styles while swapping product content.
+  const lookbookProducts = products.length
+    ? products17.map((item, index) => ({ ...item, ...(products[index] || {}) }))
+    : products17;
+
   return (
     <section className="lookbook-products position-relative">
       <Image
@@ -25,21 +30,25 @@ export default function Lookbook() {
         <br />
         <span className="h2 fw-normal">Natural Wellness</span>
       </h2>
-      {products17.map(({ id, style, imgSrc, price, title }) => (
-        <React.Fragment key={id}>
+      {lookbookProducts.map(({ id, style, imgSrc, price, title, slug }, index) => {
+        const tooltipId = `${id}-${index}`;
+        const productHref = slug ? `/product/${slug}` : `/product1_simple/${id}`;
+
+        return (
+        <React.Fragment key={tooltipId}>
           <button
             className="popover-point type2 position-absolute"
             style={style}
-            data-tooltip-id={id.toString()}
+            data-tooltip-id={tooltipId}
           >
             <span>+</span>
           </button>
           <Tooltip
             place="right-start"
             className="example"
-            render={({ content, activeAnchor }) => (
+            render={() => (
               <div className="popover-product">
-                <Link href={`/product1_simple/${id}`}>
+                <Link href={productHref}>
                   <Image
                     width={330}
                     height={400}
@@ -50,16 +59,17 @@ export default function Lookbook() {
                   />
                 </Link>
                 <p className="fw-medium mb-0">
-                  <Link href={`/product1_simple/${id}`}>{title}</Link>
+                  <Link href={productHref}>{title}</Link>
                 </p>
-                <p className="mb-0">${price}</p>
+                <p className="mb-0">LKR {price}</p>
               </div>
             )}
             openOnClick
-            id={id.toString()}
+            id={tooltipId}
           />
         </React.Fragment>
-      ))}
+      );
+      })}
     </section>
   );
 }
