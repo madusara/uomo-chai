@@ -3,6 +3,11 @@
 import { storesLocations } from "@/data/storeLocations";
 
 export default function Contact() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.currentTarget.reset();
+  };
+
   return (
     <section className="contact-us container">
       <div className="mw-930">
@@ -24,10 +29,7 @@ export default function Contact() {
           ))}
         </div>
         <div className="contact-us__form">
-          <form
-            className="needs-validation"
-            onSubmit={(e) => e.preventDefault()}
-          >
+          <form className="needs-validation" onSubmit={handleSubmit}>
             <h3 className="mb-5">Get In Touch</h3>
             <div className="form-floating my-4">
               <input
