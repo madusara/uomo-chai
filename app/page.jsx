@@ -20,11 +20,35 @@ import {
 } from "@/lib/api/home";
 import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
 
-export const metadata = {
-  title: "Endless Greens | Authentic Ceylon Spices & Herbal Wellness Solutions",
-  description:
-    "Discover premium Sri Lankan plant-based innovation. From organic liquid spices to functional herbal infusions, Endless Greens brings the heritage of Ceylon to global kitchens.",
-};
+// DYNAMIC SEO GENERATION
+export async function generateMetadata() {
+  const categoryData = await getCategoryData();
+  const showAreaProducts = await getShowAreaProducts();
+
+  const productKeywords = showAreaProducts.map(p => p.title);
+  
+  const categoryKeywords = categoryData.collections?.map(c => c.title) || [];
+
+  const allKeywords = [
+    ...productKeywords,
+    ...categoryKeywords,
+    "Ceylon Spice Drops",
+    "Liquid Spices Sri Lanka",
+    "Plant-Based Innovation",
+    "Endless Greens",
+    "Authentic Ceylon Tea extracts"
+  ];
+
+  return {
+    title: "Endless Greens | Pure Ceylon Spice Drops & Herbal Wellness Elixirs",
+    description: "Premium Sri Lankan plant-based innovation. Shop " + categoryKeywords.join(" & ") + ". Featuring science-backed " + productKeywords.slice(0, 3).join(", ") + " for modern lifestyles.",
+    keywords: allKeywords.join(", "),
+    openGraph: {
+      title: "Endless Greens | Authentic Sri Lankan Extracts",
+      description: "Rooted in heritage, powered by science. Discover our range of plant-based elixirs and spice drops.",
+    }
+  };
+}
 
 export default async function Home() {
   const categoryData = await getCategoryData();
