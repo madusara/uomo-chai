@@ -15,6 +15,7 @@ import {
   getShowAreaProducts,
 } from "@/lib/api/home";
 import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
+import NewsLetter from "@/components/modals/NewsLetter";
 
 export async function generateMetadata() {
   const [categoryData, showAreaProducts, blogsData] = await Promise.all([
@@ -124,6 +125,7 @@ export default async function Home() {
 
         <div className="mb-3 mb-xl-5"></div>
         <Features />
+        <NewsLetter />
       </main>
 
       <Footer8 collections={collections} />
