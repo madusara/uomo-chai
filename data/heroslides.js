@@ -286,19 +286,28 @@ export const slidesData3 = [
 export const slidesData4 = [
   {
     id: 1,
-    imageSrc: "/assets/images/home/demo9/slider1.webp",
+    // imageSrc: "/assets/images/home/demo9/slider1.webp",
+    imageSrc: "/assets/images/home/endless/carousel-compressed-1.png",
     imageAlt: "TRENDING 2026",
     subtitle: "First Steps in Chai",
-    description: "The perfect packs for beginners are thoughtfully designed to make your first steps simple and stress-free.",
+    description: "Add infusio chai elixir to your morning cup of milk to spice up your tea ritual.",
   },
 
   {
     id: 2,
-    imageSrc: "/assets/images/home/demo9/slider2.webp",
-    imageAlt: "TRENDING 2026",
-    subtitle: "First Steps in Chai",
+    imageSrc: "/assets/images/home/endless/carousel-compressed-3.png",
+    imageAlt: "PREMIUM AND PURE",
+    subtitle: "REAL GINGER KICK",
     description:
-      "The perfect packs for beginners are thoughtfully designed to make your first steps simple and stress-free.",
+      "A perfect gourmet ginger syrup for cocktails, mocktails and frizzy drinks. Crafted with bold ceylon ginger.",
+  },
+  {
+    id: 2,
+    imageSrc: "/assets/images/home/endless/carousel-compressed-2.png",
+    imageAlt: "TRENDING 2026",
+    subtitle: "Need a tea upgrade?",
+    description:
+      "Elevate your tea menu and keep your customers coming back for that comforting, aromatic sip! No brewing hassles, no inconsistencies.",
   },
   // {
   //   id: 3,
