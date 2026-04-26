@@ -25,7 +25,7 @@ export default function BlogDetails({ blog }) {
       <div className="mw-930">
         <h2 className="page-title">{blog.title}</h2>
         <div className="blog-single__item-meta">
-          <span className="blog-single__item-meta__author">By Admin</span>
+          <span className="blog-single__item-meta__author">By Endless Green</span>
           <span className="blog-single__item-meta__date">{blog.date}</span>
           <span className="blog-single__item-meta__category">Trends</span>
         </div>
