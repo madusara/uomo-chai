@@ -18,7 +18,7 @@ export default function Footer20() {
       <div className="footer-top container">
         <div className="block-newsletter">
           <h3 className="block__title text-uppercase fw-bold theme-color">
-            DON'T MISS THE CHANGE TO GET 40% OFF
+            JOIN THE EVOLUTION OF FLAVOR
           </h3>
           <p>Get the latest products and news update daily in fastest.</p>
           <form

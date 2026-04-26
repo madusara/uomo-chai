@@ -18,7 +18,7 @@ export default function Cta() {
       </div>
       <div className="block-newsletter text-center position-relative mt-2 mb-2">
         <h3 className="block__title fs-35 fw-semi-bold mb-2">
-          DON'T MISS THE CHANGE TO GET 40% OFF
+          JOIN THE EVOLUTION OF FLAVOR
         </h3>
         <p>Get the latest products and news update daily in fastest.</p>
         <form

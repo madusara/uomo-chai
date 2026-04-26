@@ -19,7 +19,7 @@ export default function Footer8({ collections = [] }) {
     <footer id="footer" className="footer footer_type_2 bordered">
       <div className="footer-top container">
         <div className="block-newsletter">
-          <h3 className="block__title">DON'T MISS THE CHANGE TO GET 40% OFF</h3>
+          <h3 className="block__title">JOIN THE EVOLUTION OF FLAVOR</h3>
           <p>Get the latest products and news update daily in fastest.</p>
           <form
             onSubmit={(e) => e.preventDefault()}

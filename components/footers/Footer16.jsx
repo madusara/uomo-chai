@@ -18,7 +18,7 @@ export default function Footer16() {
       <div className="footer-top container">
         <div className="block-newsletter">
           <h3 className="block__title fs-35 fw-bold text-uppercase mb-2">
-            DON'T MISS THE CHANGE TO GET 40% OFF
+            JOIN THE EVOLUTION OF FLAVOR
           </h3>
           <p className="fs-13">
             Get the latest products and news update daily in fastest.
