@@ -2,7 +2,7 @@ import Blog2 from "@/components/blogs/Blog2";
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 import React from "react";
-import { getBlogsData } from "@/lib/api/home";
+import { getBlogsData, getCategoryData } from "@/lib/api/home";
 
 export async function generateMetadata() {
   const blogsData = await getBlogsData();
@@ -30,8 +30,12 @@ export async function generateMetadata() {
 }
 
 export default async function Blogs() {
-  const blogsData = await getBlogsData();
+  const [blogsData, categoryData] = await Promise.all([
+    getBlogsData(),
+    getCategoryData(),
+  ]);
   const blogList = blogsData.blogs || [];
+  const collections = categoryData.collections || [];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -58,13 +62,13 @@ return (
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header1 />
+      <Header1 collections={collections} />
       <main className="page-wrapper">
         <h1 className="visually-hidden">Endless Greens Wellness & Spice Blog</h1>
         <Blog2 blogs={blogsData} />
       </main>
       <div className="mb-5 pb-xl-5"></div>
-      <Footer1 />
+      <Footer1 collections={collections} />
     </>
   );
 }

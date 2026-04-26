@@ -3,7 +3,11 @@ import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 import RelatedSlider from "@/components/singleProduct/RelatedSlider";
 import SingleProduct12 from "@/components/singleProduct/SingleProduct12";
-import { getProductDetails, getRelatedProducts } from "@/lib/api/home";
+import {
+  getCategoryData,
+  getProductDetails,
+  getRelatedProducts,
+} from "@/lib/api/home";
 import React from "react";
 
 
@@ -53,10 +57,12 @@ export default async function ProductDetailsPage1(props) {
     return [];
   };
 
-  const [res, relatedRes] = await Promise.all([
+  const [res, relatedRes, categoryData] = await Promise.all([
     getProductDetails(slug),
     getRelatedProducts(),
+    getCategoryData(),
   ]);
+  const collections = categoryData.collections || [];
 
   const product = res.success ? res.product : null;
 
@@ -72,7 +78,7 @@ export default async function ProductDetailsPage1(props) {
   //     allProducts.filter((elm) => elm.id == productId)[0] || allProducts[0];
   return (
     <>
-      <Header1 />
+      <Header1 collections={collections} />
       <main className="page-wrapper">
         <div className="mb-md-1 pb-md-3"></div>
         <SingleProduct12 product={product} />
@@ -80,7 +86,7 @@ export default async function ProductDetailsPage1(props) {
           <RelatedSlider products={relatedProducts} />
         ) : null}
       </main>
-      <Footer1 />
+      <Footer1 collections={collections} />
     </>
   );
 }

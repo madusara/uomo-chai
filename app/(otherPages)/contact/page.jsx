@@ -22,12 +22,12 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="google-map mb-5">
+        {/* <section className="google-map mb-5">
           <h2 className="d-none">Contact US</h2>
           <div id="map" className="google-map__wrapper">
             <LocationMap />
           </div>
-        </section>
+        </section> */}
         <Contact />
       </main>
       <div className="mb-5 pb-xl-5"></div>
