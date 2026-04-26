@@ -78,10 +78,10 @@ export default function Footer14() {
               </div>
               <div className="service-promotion__content-wrap">
                 <h3 className="service-promotion__title h6 text-uppercase mb-1 text-white">
-                  Money Back Guarantee
+                  Pure Quality Assured
                 </h3>
                 <p className="service-promotion__content text-secondary mb-0 text-white">
-                  We return money within 30 days
+                  We ensure purity in every drop
                 </p>
               </div>
             </div>

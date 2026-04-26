@@ -78,10 +78,10 @@ export default function Footer18() {
               </div>
               <div className="service-promotion__content-wrap">
                 <h3 className="service-promotion__title h6 text-uppercase text-white fw-semi-bold mb-1">
-                  Money Back Guarantee
+                  Pure Quality Assured
                 </h3>
                 <p className="service-promotion__content text-secondary text-white fs-13 mb-0">
-                  We return money within 30 days
+                  We ensure purity in every drop
                 </p>
               </div>
             </div>

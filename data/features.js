@@ -14,8 +14,8 @@ export const servicePromotions = [
   {
     id: 3,
     icon: "#icon_shield",
-    title: "Money Back Guarantee",
-    content: "We return money within 30 days",
+    title: "Pure Quality Assured",
+    content: "We ensure purity in every drop",
   },
 ];
 export const servicesData = [
@@ -34,8 +34,8 @@ export const servicesData = [
   {
     id: 3,
     icon: "#icon_shield",
-    title: "Money Back Guarantee",
-    content: "We return money within 30 days",
+    title: "Pure Quality Assured",
+    content: "We ensure purity in every drop",
   },
   {
     id: 4,
@@ -61,8 +61,8 @@ export const servicePromotions2 = [
   {
     id: 3,
     icon: "icon_shield",
-    title: "Money Back Guarantee",
-    content: "We return money within 30 days",
+    title: "Pure Quality Assured",
+    content: "We ensure purity in every drop",
   },
   {
     id: 4,
@@ -89,8 +89,8 @@ export const servicePromotionsData3 = [
   },
   {
     id: 3,
-    title: "Money Back Guarantee",
-    content: "We return money within 30 days",
+    title: "Pure Quality Assured",
+    content: "We ensure purity in every drop",
     color: "#f3bccc",
     icon: "#icon_shield",
   },
