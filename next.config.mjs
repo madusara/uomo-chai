@@ -14,10 +14,16 @@ const nextConfig = {
       "legacy-js-api",
     ],
   },
-    images: {
-    domains: [
-      'pub-860b96fb3f4b4c8aafe4f645234dd20f.r2.dev',
-      'pub-82664a84eabd402db7a9aa963e98cc10.r2.dev',
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pub-860b96fb3f4b4c8aafe4f645234dd20f.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "pub-82664a84eabd402db7a9aa963e98cc10.r2.dev",
+      },
     ],
   },
 };
