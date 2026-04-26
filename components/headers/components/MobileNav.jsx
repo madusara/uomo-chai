@@ -168,7 +168,7 @@ export default function MobileNav() {
       <li className="navigation__item">
         <a
           href="/"
-          className={`navigation__link js-nav-right d-flex align-items-center ${
+          className={`navigation__link  d-flex align-items-center ${
             isActiveParentMenu(homePages) ? "menu-active" : ""
           }`}
         >
@@ -223,13 +223,13 @@ export default function MobileNav() {
       </li>
       <li className="navigation__item">
         <a
-          href="#"
-          className={`navigation__link js-nav-right d-flex align-items-center ${
+          href="shop"
+          className={`navigation__link d-flex align-items-center ${
             isShopActive ? "menu-active" : ""
           }`}
         >
           Shop
-          <svg
+          {/* <svg
             className="ms-auto"
             width="7"
             height="11"
@@ -237,14 +237,14 @@ export default function MobileNav() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <use href="#icon_next_sm" />
-          </svg>
+          </svg> */}
         </a>
         <div className="sub-menu position-absolute top-0 start-100 w-100 d-none">
           <a
             href="#"
             className="navigation__link js-nav-left d-flex align-items-center border-bottom mb-3"
           >
-            <svg
+            {/* <svg
               className="me-2"
               width="7"
               height="11"
@@ -252,7 +252,7 @@ export default function MobileNav() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <use href="#icon_prev_sm" />
-            </svg>
+            </svg> */}
             Shop
           </a>
           <div className="sub-menu__wrapper">
@@ -413,13 +413,13 @@ export default function MobileNav() {
 
       <li className="navigation__item">
         <a
-          href="#"
-          className={`navigation__link js-nav-right d-flex align-items-center ${
+          href="blogs"
+          className={`navigation__link  d-flex align-items-center ${
             isBlogActive ? "menu-active" : ""
           }`}
         >
           Blog
-          <svg
+          {/* <svg
             className="ms-auto"
             width="7"
             height="11"
@@ -427,7 +427,7 @@ export default function MobileNav() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <use href="#icon_next_sm" />
-          </svg>
+          </svg> */}
         </a>
         <div className="sub-menu position-absolute top-0 start-100 w-100 d-none">
           <a
