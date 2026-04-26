@@ -16,9 +16,9 @@ export const footerLinks2 = [
 ];
 export const footerLinks3 = [
   { href: "/about", text: "Privacy Policy" },
-  { href: "/account_dashboard", text: "Returns + Exchanges" },
-  { href: "/store_location", text: "Terms & Conditions" },
-  { href: "/terms", text: "My Wishlist" },
+  { href: "/about", text: "Returns + Exchanges" },
+  { href: "/about", text: "Terms & Conditions" },
+  { href: "/wishlist", text: "My Wishlist" },
   // { href: "/contact", text: "Contact" },
   // { href: "/about", text: "Gift Card" },
 ];

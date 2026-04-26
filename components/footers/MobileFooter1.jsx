@@ -38,18 +38,37 @@ export default function MobileFooter1() {
 
         <div className="col-4">
           <Link
-            href="/shop-1"
+            href="/shop"
             className="footer-mobile__link d-flex flex-column align-items-center"
           >
             <svg
               className="d-block"
               width="18"
               height="18"
-              viewBox="0 0 18 18"
+              viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <use href="#icon_hanger" />
+              <path
+                d="M10 3H14V6H10V3Z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M8.5 6H15.5L16.5 10V18.5C16.5 19.8807 15.3807 21 14 21H10C8.61929 21 7.5 19.8807 7.5 18.5V10L8.5 6Z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M10 11.5H14"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </svg>
             <span>Shop</span>
           </Link>
@@ -66,7 +85,7 @@ export default function MobileFooter1() {
                 className="d-block"
                 width="18"
                 height="18"
-                viewBox="0 0 20 20"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
