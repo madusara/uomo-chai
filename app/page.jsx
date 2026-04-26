@@ -24,9 +24,18 @@ export async function generateMetadata() {
     getBlogsData(),
   ]);
 
+  const siteUrl = "https://endlesslk.com";
+  const canonicalUrl = `${siteUrl}/`;
+  const fallbackShareImage = `${siteUrl}/assets/images/home/demo9/lookbook2.png`;
+
   const productKeywords = showAreaProducts.map((p) => p.title);
   const categoryKeywords = categoryData.collections?.map((c) => c.title) || [];
   const blogKeywords = blogsData.blogs?.map((b) => b.title) || [];
+  const socialTitle =
+    "Endless Greens | Authentic Ceylon Spice Drops & Herbal Wellness Elixirs";
+  const socialDescription =
+    "Rooted in heritage, shaped by science. Discover premium Sri Lankan liquid spices and plant-based wellness elixirs.";
+  const socialImage = showAreaProducts?.[0]?.imgSrc || fallbackShareImage;
 
   const allKeywords = [
     ...productKeywords,
@@ -40,18 +49,33 @@ export async function generateMetadata() {
   ];
 
   return {
-    title:
-      "Endless Greens | Authentic Ceylon Spice Drops & Herbal Wellness Elixirs",
+    title: socialTitle,
     description: `Discover Endless Greens: Sri Lanka's finest ${categoryKeywords.join(", ")}. Explore our ${blogKeywords[0] || "heritage"} and shop pure ${productKeywords.slice(0, 3).join(", ")}.`,
     keywords: allKeywords.join(", "),
     alternates: {
-      canonical: "https://endlesslk.com",
+      canonical: canonicalUrl,
     },
     openGraph: {
-      title: "Endless Greens | Plant-Based Innovation from Sri Lanka",
-      description:
-        "Rooted in heritage, shaped by science. Premium liquid spices and wellness elixirs.",
+      title: socialTitle,
+      description: socialDescription,
+      url: canonicalUrl,
+      siteName: "Endless Greens",
       type: "website",
+      locale: "en_US",
+      images: [
+        {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: "Endless Greens - Ceylon Spice Drops and Wellness Elixirs",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description: socialDescription,
+      images: [socialImage],
     },
   };
 }
