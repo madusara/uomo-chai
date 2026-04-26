@@ -2,6 +2,7 @@
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Nav from "./components/Nav";
 import { openCart } from "@/utlis/openCart";
 import CartLength from "./components/CartLength";
@@ -13,6 +14,26 @@ import CategorySelect from "./components/CategorySelect";
 
 export default function Header9({ collections = [] }) {
   const [scrollDirection, setScrollDirection] = useState("down");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
+  const router = useRouter();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+
+    const keyword = searchKeyword.trim();
+    const basePath = selectedCategorySlug
+      ? `/shop/${selectedCategorySlug}`
+      : "/shop";
+
+    if (!keyword) {
+      router.push(basePath);
+      return;
+    }
+
+    const params = new URLSearchParams({ q: keyword });
+    router.push(`${basePath}?${params.toString()}`);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +87,7 @@ export default function Header9({ collections = [] }) {
         {/* <!-- /.logo --> */}
 
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSearchSubmit}
           className="header-search search-field d-none d-xxl-flex"
         >
           <button className="btn header-search__btn" type="submit">
@@ -86,8 +107,13 @@ export default function Header9({ collections = [] }) {
             type="text"
             name="search-keyword"
             placeholder="Search products..."
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
           />
-          <CategorySelect collections={collections} />
+          <CategorySelect
+            collections={collections}
+            onCategoryChange={setSelectedCategorySlug}
+          />
         </form>
         {/* <!-- /.header-search --> */}
 
