@@ -87,6 +87,22 @@ export default async function Home() {
   const instagramImages = await getInstagramProducts();
   const blogsData = await getBlogsData();
 
+  const toAbsoluteUrl = (path) => {
+    if (!path) return undefined;
+    if (typeof path !== "string") return undefined;
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    return `https://endlesslk.com${path.startsWith("/") ? "" : "/"}${path}`;
+  };
+
+  const toValidPrice = (value) => {
+    if (value === null || value === undefined) return undefined;
+    const normalized = String(value).replace(/[^\d.]/g, "");
+    if (!normalized) return undefined;
+    const numericPrice = Number.parseFloat(normalized);
+    if (!Number.isFinite(numericPrice) || numericPrice <= 0) return undefined;
+    return numericPrice.toFixed(2);
+  };
+
   // console.log(showAreaProducts)
 
   const jsonLd = {
@@ -104,8 +120,16 @@ export default async function Home() {
         item: {
           "@type": "Product",
           name: p.title,
-          image: p.imgSrc,
+          image: toAbsoluteUrl(p.imgSrc),
           description: p.category,
+          url: toAbsoluteUrl(`/product/${p.slug}`),
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "LKR",
+            price: toValidPrice(p.price),
+            availability: "https://schema.org/InStock",
+            url: toAbsoluteUrl(`/product/${p.slug}`),
+          },
         },
       })),
     },
