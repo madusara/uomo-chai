@@ -16,6 +16,24 @@ export default function Checkout() {
   const [searchQuery, setSearchQuery] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("bank_transfer");
   const [bankSlip, setBankSlip] = useState(null);
+  const [shippingOpen, setShippingOpen] = useState(true);
+
+  // Dynamic weight calculation based on cart items (defaulting to 2.40 kg if demo)
+  const totalWeight =
+    cartProducts && cartProducts.length > 0
+      ? cartProducts
+          .reduce(
+            (acc, elm) => acc + (elm.weight || 1.2) * (elm.quantity || 1),
+            0
+          )
+          .toFixed(2)
+      : "2.40";
+
+  // Dynamic weight-based shipping cost calculation (Weight * Shipping Rate per kg)
+  const calculatedShippingCost =
+    cartProducts && cartProducts.length > 0
+      ? Math.round(parseFloat(totalWeight) * 5)
+      : 12;
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -349,23 +367,216 @@ export default function Checkout() {
                   ))}
                 </tbody>
               </table>
-              <table className="checkout-totals">
+              <table className="checkout-totals mb-2">
                 <tbody>
                   <tr>
                     <th>SUBTOTAL</th>
-                    <td>${totalPrice}</td>
+                    <td>${totalPrice || 2000}</td>
                   </tr>
-                  <tr>
-                    <th>SHIPPING</th>
-                    <td>Free shipping</td>
-                  </tr>
+                </tbody>
+              </table>
+
+              {/* EXPANDABLE WEIGHT-BASED SHIPPING BREAKDOWN */}
+              <div
+                className="shipping-calculation-card mb-3 p-3 rounded-3"
+                style={{
+                  backgroundColor: "#f7f5ff",
+                  border: "1px solid #eae5f7",
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  className="d-flex justify-content-between align-items-center cursor-pointer"
+                  onClick={() => setShippingOpen(!shippingOpen)}
+                  style={{ cursor: "pointer", userSelect: "none" }}
+                >
+                  <span
+                    className="fw-semibold text-uppercase"
+                    style={{ fontSize: "0.875rem", letterSpacing: "0.03em" }}
+                  >
+                    SHIPPING
+                  </span>
+                  <div className="d-flex align-items-center gap-2">
+                    <span
+                      className="fw-bold text-dark"
+                      style={{ fontSize: "0.95rem" }}
+                    >
+                      ${calculatedShippingCost}
+                    </span>
+                    <span
+                      className="text-secondary"
+                      style={{
+                        fontSize: "0.75rem",
+                        display: "inline-block",
+                        transition: "transform 0.2s ease",
+                        transform: shippingOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                      }}
+                    >
+                      ▲
+                    </span>
+                  </div>
+                </div>
+
+                {shippingOpen && (
+                  <div
+                    className="shipping-breakdown mt-3 pt-2"
+                    style={{ borderTop: "1px solid #e6e0f5" }}
+                  >
+                    {/* Total Weight Box */}
+                    <div
+                      className="p-3 mb-2 rounded-3 bg-white d-flex align-items-center justify-content-between"
+                      style={{
+                        padding: "0.75rem 1rem",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #efecf9",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <div className="d-flex align-items-center gap-3">
+                        <div
+                          className="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                          style={{
+                            width: "36px",
+                            height: "36px",
+                            backgroundColor: "#f0edfd",
+                            color: "#6c5ce7",
+                          }}
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="d-flex align-items-center gap-1">
+                            <span
+                              className="fw-medium text-dark"
+                              style={{ fontSize: "0.85rem" }}
+                            >
+                              Total Weight
+                            </span>
+                            <span
+                              className="text-secondary ms-1 cursor-pointer"
+                              title="Shipping is calculated: Total Weight * Shipping Rate per kg"
+                              style={{ fontSize: "0.8rem", cursor: "help" }}
+                            >
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#6c5ce7"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line
+                                  x1="12"
+                                  y1="8"
+                                  x2="12.01"
+                                  y2="8"
+                                ></line>
+                              </svg>
+                            </span>
+                          </div>
+                          <span
+                            className="text-secondary d-block"
+                            style={{ fontSize: "0.8rem", fontWeight: "600" }}
+                          >
+                            {totalWeight} kg
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Shipping Cost Box */}
+                    <div
+                      className="p-3 rounded-3 bg-white d-flex align-items-center justify-content-between"
+                      style={{
+                        padding: "0.75rem 1rem",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #efecf9",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <div className="d-flex align-items-center gap-3">
+                        <div
+                          className="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                          style={{
+                            width: "36px",
+                            height: "36px",
+                            backgroundColor: "#f0edfd",
+                            color: "#6c5ce7",
+                          }}
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                          </svg>
+                        </div>
+                        <div>
+                          <span
+                            className="fw-medium text-dark d-block"
+                            style={{ fontSize: "0.85rem" }}
+                          >
+                            Shipping Cost
+                          </span>
+                          <span
+                            className="text-secondary d-block"
+                            style={{ fontSize: "0.75rem" }}
+                          >
+                            Calculated based on total weight
+                          </span>
+                        </div>
+                      </div>
+                      <span
+                        className="fw-bold text-dark ms-2"
+                        style={{ fontSize: "0.9rem" }}
+                      >
+                        ${calculatedShippingCost}
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <table className="checkout-totals">
+                <tbody>
                   <tr>
                     <th>VAT</th>
-                    <td>${totalPrice && 19}</td>
+                    <td>${totalPrice ? 19 : 19}</td>
                   </tr>
                   <tr>
                     <th>TOTAL</th>
-                    <td>${totalPrice && totalPrice + 19}</td>
+                    <td>
+                      $
+                      {(totalPrice || 2000) + calculatedShippingCost + 19}
+                    </td>
                   </tr>
                 </tbody>
               </table>
