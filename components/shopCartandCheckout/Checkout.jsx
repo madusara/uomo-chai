@@ -15,6 +15,7 @@ export default function Checkout() {
   const [idDDActive, setIdDDActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("bank_transfer");
+  const [bankSlip, setBankSlip] = useState(null);
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -139,6 +140,35 @@ export default function Checkout() {
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+
+                      {/* ATTACH BANK SLIP SECTION */}
+                      <div className="bank-slip-upload mt-3 pt-3 border-top">
+                        <label
+                          htmlFor="bank_slip_file"
+                          className="form-label fw-medium text-dark mb-2"
+                          style={{ fontSize: "0.875rem" }}
+                        >
+                          Attach Bank Slip <span className="text-danger">*</span>
+                        </label>
+                        <input
+                          type="file"
+                          className="form-control"
+                          id="bank_slip_file"
+                          accept=".jpg,.jpeg,.png,.pdf"
+                          onChange={(e) => setBankSlip(e.target.files[0])}
+                          style={{
+                            fontSize: "0.875rem",
+                            backgroundColor: "#fff",
+                            borderColor: "#ced4da",
+                          }}
+                        />
+                        <span
+                          className="d-block text-secondary mt-1"
+                          style={{ fontSize: "0.75rem" }}
+                        >
+                          Accepted formats: JPG, PNG, PDF (Max: 5MB)
+                        </span>
                       </div>
                     </div>
                   </>
@@ -314,7 +344,7 @@ export default function Checkout() {
                       <td>
                         {elm.title} x {elm.quantity}
                       </td>
-                      <td>${elm.price * elm.quantity}</td>
+                      <td>Rs {elm.price * elm.quantity}</td>
                     </tr>
                   ))}
                 </tbody>
