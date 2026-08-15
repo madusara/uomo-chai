@@ -76,7 +76,7 @@ export default function Cart() {
                     </td>
                     <td>
                       <span className="shopping-cart__product-price">
-                        ${elm.price}
+                        Rs {elm.price}
                       </span>
                     </td>
                     <td>

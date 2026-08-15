@@ -61,7 +61,7 @@ export default function OrderCompleted() {
         </div>
         <div className="order-info__item">
           <label>Total</label>
-          <span>${finalTotal}</span>
+          <span>Rs {finalTotal}</span>
         </div>
         <div className="order-info__item">
           <label>Payment Method</label>
@@ -84,7 +84,7 @@ export default function OrderCompleted() {
                   <td>
                     {elm.title} x {elm.quantity}
                   </td>
-                  <td>${elm.price * elm.quantity}</td>
+                  <td>Rs {elm.price * elm.quantity}</td>
                 </tr>
               ))}
             </tbody>
@@ -93,7 +93,7 @@ export default function OrderCompleted() {
             <tbody>
               <tr>
                 <th>SUBTOTAL</th>
-                <td>${totalPrice || 2000}</td>
+                <td>Rs {totalPrice || 2000}</td>
               </tr>
               <tr>
                 <th>PAYMENT STATUS</th>

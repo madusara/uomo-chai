@@ -179,7 +179,7 @@ export default function Checkout() {
                                 Colombo 07 Branch
                               </td>
                             </tr>
-                            <tr>
+                            {/* <tr>
                               <td
                                 className="text-secondary ps-0 py-1"
                                 style={{ fontWeight: "500" }}
@@ -189,8 +189,8 @@ export default function Checkout() {
                               <td className="fw-semibold py-1 text-dark">
                                 BOCALKLX
                               </td>
-                            </tr>
-                            <tr>
+                            </tr> */}
+                            {/* <tr>
                               <td
                                 className="text-secondary ps-0 py-1"
                                 style={{ fontWeight: "500" }}
@@ -200,7 +200,7 @@ export default function Checkout() {
                               <td className="fw-semibold py-1 text-dark">
                                 Use your Order ID as reference
                               </td>
-                            </tr>
+                            </tr> */}
                           </tbody>
                         </table>
                       </div>
@@ -240,7 +240,7 @@ export default function Checkout() {
             </div>
 
             {/* Check Payments */}
-            <div className="form-check mb-3">
+            <div className="form-check mb-3 d-none">
               <input
                 className="form-check-input form-check-input_fill"
                 type="radio"
@@ -292,7 +292,7 @@ export default function Checkout() {
             </div>
 
             {/* Paypal */}
-            <div className="form-check mb-3">
+            <div className="form-check mb-3 d-none">
               <input
                 className="form-check-input form-check-input_fill"
                 type="radio"
@@ -405,7 +405,19 @@ export default function Checkout() {
                   {cartProducts.map((elm, i) => (
                     <tr key={i}>
                       <td>
-                        {elm.title} x {elm.quantity}
+                        <span className="fw-medium">{elm.title}</span>
+                        <span
+                          className="d-block text-secondary"
+                          style={{ fontSize: "0.75rem" }}
+                        >
+                          Weight: {elm.weight || 1.2} kg{" "}
+                          {elm.quantity > 1
+                            ? `(${((elm.weight || 1.2) * elm.quantity).toFixed(
+                                2
+                              )} kg total)`
+                            : ""}
+                        </span>
+                        x {elm.quantity}
                       </td>
                       <td>Rs {elm.price * elm.quantity}</td>
                     </tr>

@@ -29,6 +29,7 @@ export default function Context({ children }) {
     imgSrc: getImageSrc(item),
     price: Number(item?.price) || 0,
     quantity: Number(item?.quantity) > 0 ? Number(item.quantity) : 1,
+    weight: Number(item?.weight || item?.variant_weight) > 0 ? Number(item?.weight || item?.variant_weight) : 1.2,
   });
 
   const [cartProducts, setCartProducts] = useState([]);
