@@ -111,6 +111,9 @@ export default function Context({ children }) {
     localStorage.setItem("wishlist", JSON.stringify(wishList));
   }, [wishList]);
 
+  const [orderCompleted, setOrderCompleted] = useState(false);
+  const [completedOrderData, setCompletedOrderData] = useState(null);
+
   const contextElement = {
     cartProducts,
     setCartProducts,
@@ -122,6 +125,10 @@ export default function Context({ children }) {
     quickViewItem,
     wishList,
     setQuickViewItem,
+    orderCompleted,
+    setOrderCompleted,
+    completedOrderData,
+    setCompletedOrderData,
   };
   return (
     <dataContext.Provider value={contextElement}>

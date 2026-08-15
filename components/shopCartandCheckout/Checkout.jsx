@@ -9,14 +9,25 @@ const countries = [
 import { useContextElement } from "@/context/Context";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 export default function Checkout() {
-  const { cartProducts, totalPrice } = useContextElement();
+  const {
+    cartProducts,
+    totalPrice,
+    setOrderCompleted,
+    setCompletedOrderData,
+  } = useContextElement();
+  const router = useRouter();
+
   const [selectedRegion, setSelectedRegion] = useState("");
   const [idDDActive, setIdDDActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("bank_transfer");
   const [bankSlip, setBankSlip] = useState(null);
   const [shippingOpen, setShippingOpen] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
 
   // Dynamic weight calculation based on cart items (defaulting to 2.40 kg if demo)
   const totalWeight =
@@ -35,8 +46,42 @@ export default function Checkout() {
       ? Math.round(parseFloat(totalWeight) * 5)
       : 12;
 
+  const handlePlaceOrder = async (e) => {
+    e.preventDefault();
+
+    if (paymentMethod === "bank_transfer" && !bankSlip) {
+      setCheckoutError("Please attach your bank slip file before placing the order.");
+      return;
+    }
+
+    setCheckoutError("");
+    setIsSubmitting(true);
+
+    try {
+      // Simulate backend API response for order placement
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const orderData = {
+        orderId: `ORD-${Math.floor(10000 + Math.random() * 90000)}`,
+        date: new Date().toLocaleDateString(),
+        totalAmount: (totalPrice || 2000) + calculatedShippingCost + 19,
+        paymentMethod: paymentMethod === "bank_transfer" ? "Direct Bank Transfer" : paymentMethod,
+        bankSlipName: bankSlip ? bankSlip.name : null,
+        items: cartProducts,
+      };
+
+      setCompletedOrderData(orderData);
+      setOrderCompleted(true);
+      router.push("/shop_order_complete");
+    } catch (err) {
+      setCheckoutError("An error occurred while processing your order. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={handlePlaceOrder}>
       <div className="checkout-form">
         <div className="billing-info__wrapper">
           {/* PAYMENT METHOD SECTION - TOP OF PAGE */}
@@ -275,7 +320,7 @@ export default function Checkout() {
 
           <h4 className="mt-5">BILLING DETAILS</h4>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <div className="form-floating my-3">
                 <input
                   type="text"
@@ -346,8 +391,8 @@ export default function Checkout() {
           </div>
         </div>
         <div className="checkout__totals-wrapper">
-          <div className="sticky-content">
-            <div className="checkout__totals">
+          <div className="sticky-content w-100">
+            <div className="checkout__totals w-100">
               <h3>Your Order</h3>
               <table className="checkout-cart-items">
                 <thead>
@@ -592,8 +637,32 @@ export default function Checkout() {
               .
             </div>
 
-            <button className="btn btn-primary btn-checkout">
-              PLACE ORDER
+            {checkoutError && (
+              <div
+                className="alert alert-danger my-3 p-2 text-center"
+                style={{ fontSize: "0.85rem", borderRadius: "6px" }}
+              >
+                {checkoutError}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="btn btn-primary btn-checkout d-flex align-items-center justify-content-center gap-2"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  PROCESSING ORDER...
+                </>
+              ) : (
+                "PLACE ORDER"
+              )}
             </button>
           </div>
         </div>

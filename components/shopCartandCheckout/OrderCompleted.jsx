@@ -2,13 +2,34 @@
 
 import { useContextElement } from "@/context/Context";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function OrderCompleted() {
-  const { cartProducts, totalPrice } = useContextElement();
+  const { cartProducts, totalPrice, orderCompleted, completedOrderData } =
+    useContextElement();
+  const router = useRouter();
   const [showDate, setShowDate] = useState(false);
+
   useEffect(() => {
     setShowDate(true);
-  }, []);
+    // Protection: Redirect to cart if order has not been completed via checkout backend response
+    if (!orderCompleted && typeof window !== "undefined") {
+      router.push("/shop_cart");
+    }
+  }, [orderCompleted, router]);
+
+  if (!orderCompleted) {
+    return (
+      <div className="text-center py-5">
+        <p className="text-secondary">Redirecting to cart...</p>
+      </div>
+    );
+  }
+
+  const orderId = completedOrderData?.orderId || "ORD-13119";
+  const orderDate = completedOrderData?.date || new Date().toLocaleDateString();
+  const paymentMethodName = completedOrderData?.paymentMethod || "Direct Bank Transfer";
+  const finalTotal = completedOrderData?.totalAmount || (totalPrice ? totalPrice + 19 : 2031);
 
   return (
     <div className="order-complete">
@@ -27,29 +48,28 @@ export default function OrderCompleted() {
           />
         </svg>
         <h3>Your order is completed!</h3>
-        <p>Thank you. Your order has been received.</p>
+        <p>Thank you. Your order has been received and verified.</p>
       </div>
       <div className="order-info">
         <div className="order-info__item">
           <label>Order Number</label>
-          <span>13119</span>
+          <span>{orderId}</span>
         </div>
         <div className="order-info__item">
           <label>Date</label>
-          {showDate && <span>{new Date().toLocaleDateString()}</span>}
+          {showDate && <span>{orderDate}</span>}
         </div>
         <div className="order-info__item">
           <label>Total</label>
-
-          <span>${totalPrice && totalPrice + 19}</span>
+          <span>${finalTotal}</span>
         </div>
         <div className="order-info__item">
-          <label>Paymetn Method</label>
-          <span>Direct Bank Transfer</span>
+          <label>Payment Method</label>
+          <span className="text-capitalize">{paymentMethodName}</span>
         </div>
       </div>
       <div className="checkout__totals-wrapper">
-        <div className="checkout__totals">
+        <div className="checkout__totals w-100">
           <h3>Order Details</h3>
           <table className="checkout-cart-items">
             <thead>
@@ -64,7 +84,7 @@ export default function OrderCompleted() {
                   <td>
                     {elm.title} x {elm.quantity}
                   </td>
-                  <td>${elm.price}</td>
+                  <td>${elm.price * elm.quantity}</td>
                 </tr>
               ))}
             </tbody>
@@ -73,19 +93,15 @@ export default function OrderCompleted() {
             <tbody>
               <tr>
                 <th>SUBTOTAL</th>
-                <td>${totalPrice}</td>
+                <td>${totalPrice || 2000}</td>
               </tr>
               <tr>
-                <th>SHIPPING</th>
-                <td>Free shipping</td>
-              </tr>
-              <tr>
-                <th>VAT</th>
-                <td>${totalPrice && 19}</td>
+                <th>PAYMENT STATUS</th>
+                <td className="text-success fw-bold">Confirmed</td>
               </tr>
               <tr>
                 <th>TOTAL</th>
-                <td>${totalPrice && totalPrice + 19}</td>
+                <td className="fw-bold">${finalTotal}</td>
               </tr>
             </tbody>
           </table>
