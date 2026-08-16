@@ -29,22 +29,34 @@ export default function Checkout() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
 
-  // Dynamic weight calculation based on cart items (defaulting to 2.40 kg if demo)
-  const totalWeight =
-    cartProducts && cartProducts.length > 0
-      ? cartProducts
-          .reduce(
-            (acc, elm) => acc + (elm.weight || 1.2) * (elm.quantity || 1),
-            0
-          )
-          .toFixed(2)
-      : "2.40";
+  // Configurable Shipping Cost Variables
+  const BASE_SHIPPING_COST = 450; // Base cost (Rs 450) for first 1000g (1kg)
+  const BASE_WEIGHT_GRAMS = 1000; // Base included weight limit in grams
+  const STEP_WEIGHT_GRAMS = 1000; // Step increment in grams (1000g)
+  const STEP_COST = 100; // Cost per 1000g step increment in Rs
 
-  // Dynamic weight-based shipping cost calculation (Weight * Shipping Rate per kg)
-  const calculatedShippingCost =
+  // Dynamic weight calculation based on cart items (in kg)
+  const totalWeightInKg =
     cartProducts && cartProducts.length > 0
-      ? Math.round(parseFloat(totalWeight) * 5)
-      : 12;
+      ? cartProducts.reduce(
+          (acc, elm) => acc + (elm.weight || 1.2) * (elm.quantity || 1),
+          0
+        )
+      : 2.4;
+
+  const totalWeight = totalWeightInKg.toFixed(2);
+  const totalWeightGrams = Math.round(totalWeightInKg * 1000);
+
+  // Weight-based shipping cost formula:
+  // First 1000g = Rs 450; every additional 100g = +Rs 100
+  const calculatedShippingCost = (() => {
+    if (totalWeightGrams <= 0) return 0;
+    if (totalWeightGrams <= BASE_WEIGHT_GRAMS) return BASE_SHIPPING_COST;
+
+    const extraGrams = totalWeightGrams - BASE_WEIGHT_GRAMS;
+    const extraSteps = Math.ceil(extraGrams / STEP_WEIGHT_GRAMS);
+    return BASE_SHIPPING_COST + extraSteps * STEP_COST;
+  })();
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
@@ -526,7 +538,7 @@ export default function Checkout() {
                             </span>
                             <span
                               className="text-secondary ms-1 cursor-pointer"
-                              title="Shipping is calculated: Total Weight * Shipping Rate per kg"
+                              title="Shipping Rate: Rs 450 for first 1000g + Rs 100 per additional 1000g"
                               style={{ fontSize: "0.8rem", cursor: "help" }}
                             >
                               <svg
@@ -554,7 +566,7 @@ export default function Checkout() {
                             className="text-secondary d-block"
                             style={{ fontSize: "0.8rem", fontWeight: "600" }}
                           >
-                            {totalWeight} kg
+                            {totalWeight} kg ({totalWeightGrams}g)
                           </span>
                         </div>
                       </div>
@@ -607,7 +619,7 @@ export default function Checkout() {
                             className="text-secondary d-block"
                             style={{ fontSize: "0.75rem" }}
                           >
-                            Calculated based on total weight
+                            Rs {BASE_SHIPPING_COST} (first {BASE_WEIGHT_GRAMS}g){totalWeightGrams > BASE_WEIGHT_GRAMS ? ` + Rs ${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS) * STEP_COST} (${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS)} x ${STEP_WEIGHT_GRAMS}g extra)` : ""}
                           </span>
                         </div>
                       </div>
@@ -625,14 +637,13 @@ export default function Checkout() {
               <table className="checkout-totals">
                 <tbody>
                   <tr>
-                    <th> Shipping Cost</th>
-                    <td>Rs{totalPrice ? 19 : 19}</td>
+                    <th>SHIPPING COST</th>
+                    <td>Rs {calculatedShippingCost}</td>
                   </tr>
                   <tr>
                     <th>TOTAL</th>
-                    <td>
-                      Rs 
-                      {(totalPrice) + calculatedShippingCost + 19}
+                    <td className="fw-bold">
+                      Rs {totalPrice + calculatedShippingCost}
                     </td>
                   </tr>
                 </tbody>
