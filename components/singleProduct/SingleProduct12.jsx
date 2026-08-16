@@ -127,7 +127,7 @@ export default function SingleProduct12({ product }) {
             </span>
           </div> */}
           <div className="product-single__price">
-            <span className="current-price">LKR {displayPrice}</span>
+            <span className="current-price">Rs {displayPrice}</span>
           </div>
           <div className="product-single__short-desc">
             <div dangerouslySetInnerHTML={{ __html: product.description }} />

@@ -288,14 +288,14 @@ export default function Shop6({ products: apiData }) {
                       <>
                         {" "}
                         <span className="money price price-old">
-                          LKR {elm.priceOld}
+                          Rs {elm.priceOld}
                         </span>
                         <span className="money price price-sale">
-                          LKR {elm.price}
+                          Rs {elm.price}
                         </span>
                       </>
                     ) : (
-                      <span className="money price">LKR {elm.price}</span>
+                      <span className="money price">Rs {elm.price}</span>
                     )}
                   </div>
                   {elm.colors && (

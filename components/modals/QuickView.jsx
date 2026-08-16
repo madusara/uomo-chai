@@ -233,7 +233,7 @@ export default function QuickView() {
             <div className="product-single__detail">
               <h1 className="product-single__name">{quickViewItem.title}</h1>
               <div className="product-single__price">
-                <span className="current-price">LKR {displayPrice}</span>
+                <span className="current-price">Rs {displayPrice}</span>
               </div>
               <div className="product-single__short-desc">
                 <div dangerouslySetInnerHTML={{ __html: quickViewItem.description }} />

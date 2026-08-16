@@ -61,7 +61,7 @@ export default function Lookbook({ products = [] }) {
                 <p className="fw-medium mb-0">
                   <Link href={productHref}>{title}</Link>
                 </p>
-                <p className="mb-0">LKR {price}</p>
+                <p className="mb-0">Rs {price}</p>
               </div>
             )}
             openOnClick

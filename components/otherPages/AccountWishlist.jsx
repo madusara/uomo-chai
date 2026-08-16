@@ -148,7 +148,7 @@ export default function AccountWishlist() {
                     <p className="pc__category">{elm.category}</p>
                     <h6 className="pc__title">{elm.title}</h6>
                     <div className="product-card__price d-flex">
-                      <span className="money price">LKR {elm.price}</span>
+                      <span className="money price">Rs {elm.price}</span>
                     </div>
 
                     <button

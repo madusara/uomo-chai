@@ -132,7 +132,7 @@ export default function RelatedSlider({ products = [] }) {
                   <Link href={productHref}>{elm.title || elm.name}</Link>
                 </h6>
                 <div className="product-card__price d-flex">
-                  <span className="money price">LKR {displayPrice}</span>
+                  <span className="money price">Rs {displayPrice}</span>
                 </div>
 
                 <button
