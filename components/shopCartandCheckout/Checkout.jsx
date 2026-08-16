@@ -428,7 +428,7 @@ export default function Checkout() {
                 <tbody>
                   <tr>
                     <th>SUBTOTAL</th>
-                    <td>${totalPrice || 2000}</td>
+                    <td>Rs {totalPrice}</td>
                   </tr>
                 </tbody>
               </table>
@@ -458,7 +458,7 @@ export default function Checkout() {
                       className="fw-bold text-dark"
                       style={{ fontSize: "0.95rem" }}
                     >
-                      ${calculatedShippingCost}
+                    Rs {calculatedShippingCost}
                     </span>
                     <span
                       className="text-secondary"
@@ -615,7 +615,7 @@ export default function Checkout() {
                         className="fw-bold text-dark ms-2"
                         style={{ fontSize: "0.9rem" }}
                       >
-                        ${calculatedShippingCost}
+                        Rs {calculatedShippingCost}
                       </span>
                     </div>
                   </div>
@@ -625,14 +625,14 @@ export default function Checkout() {
               <table className="checkout-totals">
                 <tbody>
                   <tr>
-                    <th>VAT</th>
-                    <td>${totalPrice ? 19 : 19}</td>
+                    <th> Shipping Cost</th>
+                    <td>Rs{totalPrice ? 19 : 19}</td>
                   </tr>
                   <tr>
                     <th>TOTAL</th>
                     <td>
-                      $
-                      {(totalPrice || 2000) + calculatedShippingCost + 19}
+                      Rs 
+                      {(totalPrice) + calculatedShippingCost + 19}
                     </td>
                   </tr>
                 </tbody>
