@@ -10,10 +10,12 @@ import { useContextElement } from "@/context/Context";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { apiFetch } from "@/lib/api/client";
 
 export default function Checkout() {
   const {
     cartProducts,
+    setCartProducts,
     totalPrice,
     setOrderCompleted,
     setCompletedOrderData,
@@ -29,9 +31,15 @@ export default function Checkout() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
 
+  const [firstName, setFirstName] = useState("");
+  const [city, setCity] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
   // Configurable Shipping Cost Variables
-  const BASE_SHIPPING_COST = 450; // Base cost (Rs 450) for first 1000g (1kg)
-  const BASE_WEIGHT_GRAMS = 1000; // Base included weight limit in grams
+  const BASE_SHIPPING_COST = 425; // Base cost (Rs 425) for weights < 2000g
+  const BASE_WEIGHT_GRAMS = 2000; // Threshold weight in grams where step cost begins
   const STEP_WEIGHT_GRAMS = 1000; // Step increment in grams (1000g)
   const STEP_COST = 100; // Cost per 1000g step increment in Rs
 
@@ -48,18 +56,22 @@ export default function Checkout() {
   const totalWeightGrams = Math.round(totalWeightInKg * 1000);
 
   // Weight-based shipping cost formula:
-  // First 1000g = Rs 450; every additional 100g = +Rs 100
+  // < 2000g = Rs 425; 2000g-2999g = Rs 525; 3000g-3999g = Rs 625...
   const calculatedShippingCost = (() => {
     if (totalWeightGrams <= 0) return 0;
-    if (totalWeightGrams <= BASE_WEIGHT_GRAMS) return BASE_SHIPPING_COST;
+    if (totalWeightGrams < BASE_WEIGHT_GRAMS) return BASE_SHIPPING_COST;
 
-    const extraGrams = totalWeightGrams - BASE_WEIGHT_GRAMS;
-    const extraSteps = Math.ceil(extraGrams / STEP_WEIGHT_GRAMS);
+    const extraSteps = Math.floor(totalWeightGrams / STEP_WEIGHT_GRAMS) - 1;
     return BASE_SHIPPING_COST + extraSteps * STEP_COST;
   })();
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+
+    if (!firstName || !streetAddress || !phone || !city) {
+      setCheckoutError("Please fill in all required billing details.");
+      return;
+    }
 
     if (paymentMethod === "bank_transfer" && !bankSlip) {
       setCheckoutError("Please attach your bank slip file before placing the order.");
@@ -70,13 +82,32 @@ export default function Checkout() {
     setIsSubmitting(true);
 
     try {
-      // Simulate backend API response for order placement
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const payload = {
+        customer_name: firstName,
+        customer_email: email,
+        customer_phone: phone,
+        shipping_address: streetAddress,
+        city: city,
+        postal_code: "",
+        country: "Sri Lanka",
+        items: cartProducts.map((elm) => ({
+          product_id: elm.product_id || elm.id,
+          product_variant_id: elm.variant_id || elm.product_variant_id || elm.id,
+          quantity: elm.quantity,
+        })),
+        shipping_cost: calculatedShippingCost,
+        payment_method: paymentMethod,
+      };
+
+      const data = await apiFetch("/checkout", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
 
       const orderData = {
-        orderId: `ORD-${Math.floor(10000 + Math.random() * 90000)}`,
+        orderId: data.data.order_number,
         date: new Date().toLocaleDateString(),
-        totalAmount: (totalPrice || 2000) + calculatedShippingCost + 19,
+        totalAmount: data.data.total_amount,
         paymentMethod: paymentMethod === "bank_transfer" ? "Direct Bank Transfer" : paymentMethod,
         bankSlipName: bankSlip ? bankSlip.name : null,
         items: cartProducts,
@@ -84,9 +115,17 @@ export default function Checkout() {
 
       setCompletedOrderData(orderData);
       setOrderCompleted(true);
+      
+      // Clear cart
+      setCartProducts([]);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cartList", JSON.stringify([]));
+      }
+
       router.push("/shop_order_complete");
     } catch (err) {
-      setCheckoutError("An error occurred while processing your order. Please try again.");
+      console.error(err);
+      setCheckoutError(err.message || "An error occurred while processing your order. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -339,8 +378,11 @@ export default function Checkout() {
                   className="form-control"
                   id="checkout_first_name"
                   placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
                 />
-                <label htmlFor="checkout_first_name">First Name</label>
+                <label htmlFor="checkout_first_name">First Name *</label>
               </div>
             </div>
 
@@ -351,6 +393,9 @@ export default function Checkout() {
                   className="form-control"
                   id="checkout_city"
                   placeholder="Town / City *"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  required
                 />
                 <label htmlFor="checkout_city">Town / City *</label>
               </div>
@@ -363,8 +408,11 @@ export default function Checkout() {
                   className="form-control"
                   id="checkout_street_address"
                   placeholder="Street Address *"
+                  value={streetAddress}
+                  onChange={(e) => setStreetAddress(e.target.value)}
+                  required
                 />
-                <label htmlFor="checkout_company_name">Street Address *</label>
+                <label htmlFor="checkout_street_address">Street Address *</label>
               </div>
             </div>
 
@@ -375,6 +423,9 @@ export default function Checkout() {
                   className="form-control"
                   id="checkout_phone"
                   placeholder="Phone *"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
                 <label htmlFor="checkout_phone">Phone *</label>
               </div>
@@ -386,8 +437,10 @@ export default function Checkout() {
                   className="form-control"
                   id="checkout_email"
                   placeholder="Your Mail *"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <label htmlFor="checkout_email">Your Mail *</label>
+                <label htmlFor="checkout_email">Your Mail (Optional)</label>
               </div>
             </div>
           </div>

@@ -5,7 +5,8 @@ import BestSelling from "@/components/homes/home-9/BestSelling";
 import Blogs from "@/components/homes/home-9/Blogs";
 import Brands from "@/components/common/brands/Brands";
 import Hero from "@/components/homes/home-9/Hero";
-import Instagram from "@/components/homes/home-9/Instagram";
+import Instagram from "@/components/homes/home-19/Instagram";
+import InstagramAlternate from "@/components/homes/home-9/Instagram";
 import Lookbook from "@/components/homes/home-9/Lookbook";
 import React from "react";
 import {
@@ -16,6 +17,7 @@ import {
 } from "@/lib/api/home";
 import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
 import NewsLetter from "@/components/modals/NewsLetter";
+import Banner from "@/components/homes/home-18/Banner";
 
 export async function generateMetadata() {
   const [categoryData, showAreaProducts, blogsData] = await Promise.all([
@@ -159,7 +161,9 @@ export default async function Home() {
         </section>
 
         <div className="mb-5 pb-4"></div>
-        <Lookbook products={showAreaProducts} />
+        {/* <Lookbook products={showAreaProducts} /> */}
+
+        <Instagram />
 
         <div className="pt-1 pb-5 mt-4 mt-xl-5"></div>
 
@@ -170,8 +174,10 @@ export default async function Home() {
         <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
         {/* <Brands /> */}
 
+        <Banner />
+
         <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>
-        <Instagram instagramImages={instagramImages} />
+        <InstagramAlternate instagramImages={instagramImages} />
 
         <div className="mb-3 mb-xl-5"></div>
         <Features />
