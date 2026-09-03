@@ -194,7 +194,7 @@ export default function Checkout() {
                                 Bank Name
                               </td>
                               <td className="fw-semibold py-1 text-dark">
-                                Bank of Ceylon
+                                Commercial Bank of Ceylon PLC
                               </td>
                             </tr>
                             <tr>
@@ -205,7 +205,7 @@ export default function Checkout() {
                                 Account Name
                               </td>
                               <td className="fw-semibold py-1 text-dark">
-                                Your Company (Pvt) Ltd
+                                Endless Greens (PVT) LTD
                               </td>
                             </tr>
                             <tr>
@@ -216,7 +216,7 @@ export default function Checkout() {
                                 Account Number
                               </td>
                               <td className="fw-semibold py-1 text-dark">
-                                1234 5678 9012
+                                1001040897
                               </td>
                             </tr>
                             <tr>
@@ -227,7 +227,7 @@ export default function Checkout() {
                                 Branch
                               </td>
                               <td className="fw-semibold py-1 text-dark">
-                                Colombo 07 Branch
+                                Piliyandala
                               </td>
                             </tr>
                             {/* <tr>
