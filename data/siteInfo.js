@@ -1,10 +1,10 @@
 export const companyContact = {
-  address: "Sri Lanka",
+  address: "Endless Greens (Pvt) Ltd. No.416, Old Kottawa Road, Udahamulla, Nugegoda, Sri Lanka.",
   instagram:
     "https://www.instagram.com/endless.greens?igsh=MXByNDg3MWx6ZTYzcw%3D%3D&utm_source=qr",
   facebook:
     "https://www.facebook.com/share/17WFhjJqYT/?mibextid=wwXIfr",
-  phone: "+94 777 530 354",
+  phone: "0777 530 354",
   email: "endlessgreensgourmet@gmail.com",
 };
 

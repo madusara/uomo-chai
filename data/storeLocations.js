@@ -3,14 +3,14 @@ import { companyContact } from "./siteInfo";
 export const storesLocations = [
   {
     id: 1,
-    city: "Sri Lanka",
-    // address: "1418 River Drive, Suite 35 Cottonhall, CA 9622",
+    city: "Nugegoda",
+    address: companyContact.address,
     country: "Sri Lanka",
     phone: companyContact.phone,
     hours: "10 am - 10 pm EST, 7 days a week",
     emailAddress: companyContact.email,
-    lat: 51.5074,
-    lng: -0.1278,
+    lat: 6.8741,
+    lng: 79.8974,
   }
   // {
   //   id: 2,
