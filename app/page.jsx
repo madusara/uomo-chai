@@ -18,6 +18,7 @@ import {
 import CategoryMassonry from "@/components/homes/home-6/CategoryMassonry";
 import NewsLetter from "@/components/modals/NewsLetter";
 import Banner from "@/components/homes/home-18/Banner";
+import ScrollReveal from "@/components/common/ScrollReveal";
 
 export async function generateMetadata() {
   const [categoryData, showAreaProducts, blogsData] = await Promise.all([
@@ -146,44 +147,60 @@ export default async function Home() {
 
       <Header9 collections={collections} />
       <main className="page-wrapper">
-        <Hero />
+        <ScrollReveal variant="fade" duration={0.8}>
+          <Hero />
+        </ScrollReveal>
 
         <div className="mb-3 pb-1 mt-4 pb-xl-5"></div>
 
         <section id="collections" aria-label="Our Collections">
-          <CategoryMassonry collections={collections} />
+          <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
+            <CategoryMassonry collections={collections} />
+          </ScrollReveal>
         </section>
 
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
 
         <section id="best-sellers" aria-label="Best Selling Products">
-          <BestSelling products={showAreaProducts} />
+          <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
+            <BestSelling products={showAreaProducts} />
+          </ScrollReveal>
         </section>
 
         <div className="mb-5 pb-4"></div>
         {/* <Lookbook products={showAreaProducts} /> */}
 
-        <Instagram />
+        <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
+          <Instagram />
+        </ScrollReveal>
 
         <div className="pt-1 pb-5 mt-4 mt-xl-5"></div>
 
         <section id="blog" aria-label="Wellness and Spice Stories">
-          <Blogs blogs={blogsData} />
+          <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
+            <Blogs blogs={blogsData} />
+          </ScrollReveal>
         </section>
 
         <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
         {/* <Brands /> */}
 
-        <Banner />
+        <ScrollReveal variant="zoom-in" duration={0.85} threshold={0.12}>
+          <Banner />
+        </ScrollReveal>
 
         <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>
-        <InstagramAlternate instagramImages={instagramImages} />
+        <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
+          <InstagramAlternate instagramImages={instagramImages} />
+        </ScrollReveal>
 
         <div className="mb-3 mb-xl-5"></div>
-        <Features />
-        <NewsLetter />
+        <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
+          <Features />
+        </ScrollReveal>
       </main>
 
+      <NewsLetter />
       <Footer8 collections={collections} />
     </>
   );

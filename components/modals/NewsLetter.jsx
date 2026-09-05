@@ -11,6 +11,7 @@ export default function NewsLetter() {
       document.getElementById("newsletterPopup"),
       {
         keyboard: false,
+        focus: false,
       }
     );
 
