@@ -672,7 +672,7 @@ export default function Checkout() {
                             className="text-secondary d-block"
                             style={{ fontSize: "0.75rem" }}
                           >
-                            Rs {BASE_SHIPPING_COST} (first {BASE_WEIGHT_GRAMS}g){totalWeightGrams > BASE_WEIGHT_GRAMS ? ` + Rs ${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS) * STEP_COST} (${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS)} x ${STEP_WEIGHT_GRAMS}g extra)` : ""}
+                            Rs {BASE_SHIPPING_COST} (first 1kg){totalWeightGrams > BASE_WEIGHT_GRAMS ? ` + Rs ${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS) * STEP_COST} (${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS)} x ${STEP_WEIGHT_GRAMS}g extra)` : ""}
                           </span>
                         </div>
                       </div>
