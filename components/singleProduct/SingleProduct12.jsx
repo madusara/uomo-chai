@@ -13,19 +13,31 @@ import ShareComponent from "../common/ShareComponent";
 import { useContextElement } from "@/context/Context";
 import HowToUse from "./HowToUse";
 import { openCart } from "@/utlis/openCart";
+import { parseWeightInGrams } from "@/utlis/shipping";
+
 export default function SingleProduct12({ product }) {
   const { cartProducts, setCartProducts, toggleWishlist, isAddedtoWishlist } =
     useContextElement();
   const [quantity, setQuantity] = useState(1);
 
-  const sizes = product.bottle_sizes;
+  if (!product) return null;
+
+  const sizes = product.bottle_sizes || [];
 
   const [selectedSize, setSelectedSize] = useState(
     sizes && sizes.length > 0 ? sizes[0] : "500ml",
   );
 
+  const selectedVariant = product.variants?.[selectedSize];
+
   const [displayPrice, setDisplayPrice] = useState(
-    product.variants?.[selectedSize]?.price || product.price,
+    selectedVariant?.price || product.price,
+  );
+
+  const currentWeight = parseWeightInGrams(
+    selectedVariant?.weight ?? product.weight,
+    selectedSize,
+    200
   );
 
   const allImages = [
@@ -39,39 +51,59 @@ export default function SingleProduct12({ product }) {
 
   const handleSizeChange = (size) => {
     setSelectedSize(size);
-    setDisplayPrice(product.variants?.[size]?.price || product.price);
+    const variant = product.variants?.[size];
+    setDisplayPrice(variant?.price || product.price);
   };
 
   const isIncludeCard = () => {
-    const item = cartProducts.filter((elm) => elm.id == product.id)[0];
-    return item;
+    const variant = product.variants?.[selectedSize];
+    const variantId = variant?.id || product.variant_id;
+    return cartProducts.find((elm) => {
+      if (elm.id != product.id) return false;
+      if (variantId && elm.variant_id) return elm.variant_id == variantId;
+      return elm.size === selectedSize;
+    });
   };
-  const setQuantityCartItem = (id, quantity) => {
-    if (isIncludeCard()) {
-      if (quantity >= 1) {
-        const item = cartProducts.filter((elm) => elm.id == id)[0];
-        const items = [...cartProducts];
-        const itemIndex = items.indexOf(item);
-        item.quantity = quantity;
-        items[itemIndex] = item;
-        setCartProducts(items);
-      }
+
+  const setQuantityCartItem = (id, newQuantity) => {
+    const qty = Math.max(1, Number(newQuantity) || 1);
+    const existing = isIncludeCard();
+    if (existing) {
+      const items = cartProducts.map((elm) =>
+        elm === existing ? { ...elm, quantity: qty } : elm
+      );
+      setCartProducts(items);
     } else {
-      setQuantity(quantity - 1 ? quantity : 1);
+      setQuantity(qty);
     }
   };
+
   const addToCart = () => {
-    if (isIncludeCard()) {
+    const existing = isIncludeCard();
+    if (existing) {
       openCart();
       return;
     }
 
+    const variant = product.variants?.[selectedSize];
+    const variantId = variant?.id || product.variant_id || product.id;
+    const variantWeight = parseWeightInGrams(
+      variant?.weight ?? product.weight,
+      selectedSize,
+      200
+    );
+
     const item = {
       ...product,
+      id: product.id,
+      variant_id: variantId,
+      product_variant_id: variantId,
       imgSrc: allImages[0] || product.imgSrc || "/assets/images/products/product_0.jpg",
       quantity,
       size: selectedSize,
       price: Number(displayPrice) || Number(product.price) || 0,
+      weight: variantWeight,
+      weight_grams: variantWeight,
     };
     setCartProducts((pre) => [...pre, item]);
     openCart();

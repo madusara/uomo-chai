@@ -11,6 +11,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { apiFetch } from "@/lib/api/client";
+import {
+  BASE_SHIPPING_COST,
+  BASE_WEIGHT_GRAMS,
+  STEP_WEIGHT_GRAMS,
+  STEP_COST,
+  parseWeightInGrams,
+  calculateTotalWeightGrams,
+  calculateShippingCost,
+} from "@/utlis/shipping";
 
 export default function Checkout() {
   const {
@@ -37,33 +46,18 @@ export default function Checkout() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  // Configurable Shipping Cost Variables
-  const BASE_SHIPPING_COST = 425; // Base cost (Rs 425) for weights < 2000g
-  const BASE_WEIGHT_GRAMS = 2000; // Threshold weight in grams where step cost begins
-  const STEP_WEIGHT_GRAMS = 1000; // Step increment in grams (1000g)
-  const STEP_COST = 100; // Cost per 1000g step increment in Rs
-
-  // Dynamic weight calculation based on cart items (in kg)
-  const totalWeightInKg =
-    cartProducts && cartProducts.length > 0
-      ? cartProducts.reduce(
-          (acc, elm) => acc + (elm.weight || 1.2) * (elm.quantity || 1),
-          0
-        )
-      : 2.4;
-
-  const totalWeight = totalWeightInKg.toFixed(2);
-  const totalWeightGrams = Math.round(totalWeightInKg * 1000);
+  // Dynamic weight calculation based on cart items (in grams)
+  const totalWeightGrams = calculateTotalWeightGrams(cartProducts);
+  const totalWeightInKg = (totalWeightGrams / 1000).toFixed(2);
+  const totalWeight = totalWeightInKg;
 
   // Weight-based shipping cost formula:
   // < 2000g = Rs 425; 2000g-2999g = Rs 525; 3000g-3999g = Rs 625...
-  const calculatedShippingCost = (() => {
-    if (totalWeightGrams <= 0) return 0;
-    if (totalWeightGrams < BASE_WEIGHT_GRAMS) return BASE_SHIPPING_COST;
-
-    const extraSteps = Math.floor(totalWeightGrams / STEP_WEIGHT_GRAMS) - 1;
-    return BASE_SHIPPING_COST + extraSteps * STEP_COST;
-  })();
+  const calculatedShippingCost = calculateShippingCost(totalWeightGrams);
+  const extraSteps =
+    totalWeightGrams >= BASE_WEIGHT_GRAMS
+      ? Math.max(0, Math.floor(totalWeightGrams / STEP_WEIGHT_GRAMS) - 1)
+      : 0;
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
@@ -475,12 +469,17 @@ export default function Checkout() {
                           className="d-block text-secondary"
                           style={{ fontSize: "0.75rem" }}
                         >
-                          Weight: {elm.weight || 1.2} kg{" "}
-                          {elm.quantity > 1
-                            ? `(${((elm.weight || 1.2) * elm.quantity).toFixed(
-                                2
-                              )} kg total)`
-                            : ""}
+                          {(() => {
+                            const itemGrams = parseWeightInGrams(elm.weight_grams ?? elm.weight, elm.size, 200);
+                            const itemKg = (itemGrams / 1000).toFixed(2);
+                            const totalItemKg = ((itemGrams * elm.quantity) / 1000).toFixed(2);
+                            return (
+                              <>
+                                Weight: {itemKg} kg ({itemGrams}g){" "}
+                                {elm.quantity > 1 ? `(${totalItemKg} kg total)` : ""}
+                              </>
+                            );
+                          })()}
                         </span>
                         x {elm.quantity}
                       </td>
@@ -672,7 +671,11 @@ export default function Checkout() {
                             className="text-secondary d-block"
                             style={{ fontSize: "0.75rem" }}
                           >
-                            Rs {BASE_SHIPPING_COST} (first 1kg){totalWeightGrams > BASE_WEIGHT_GRAMS ? ` + Rs ${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS) * STEP_COST} (${Math.ceil((totalWeightGrams - BASE_WEIGHT_GRAMS) / STEP_WEIGHT_GRAMS)} x ${STEP_WEIGHT_GRAMS}g extra)` : ""}
+                            {totalWeightGrams <= 0
+                              ? "No items in cart"
+                              : totalWeightGrams < BASE_WEIGHT_GRAMS
+                              ? `Rs ${BASE_SHIPPING_COST} (up to 2kg base rate)`
+                              : `Rs ${BASE_SHIPPING_COST} (first 2kg) + Rs ${extraSteps * STEP_COST} (${extraSteps} x ${STEP_WEIGHT_GRAMS}g extra)`}
                           </span>
                         </div>
                       </div>

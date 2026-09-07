@@ -2,6 +2,7 @@
 import { allProducts } from "@/data/products";
 import React, { useEffect } from "react";
 import { useContext, useState } from "react";
+import { parseWeightInGrams } from "@/utlis/shipping";
 const dataContext = React.createContext();
 export const useContextElement = () => {
   return useContext(dataContext);
@@ -24,13 +25,21 @@ export default function Context({ children }) {
     return defaultCartImage;
   };
 
-  const normalizeCartItem = (item) => ({
-    ...item,
-    imgSrc: getImageSrc(item),
-    price: Number(item?.price) || 0,
-    quantity: Number(item?.quantity) > 0 ? Number(item.quantity) : 1,
-    weight: Number(item?.weight || item?.variant_weight) > 0 ? Number(item?.weight || item?.variant_weight) : 1.2,
-  });
+  const normalizeCartItem = (item) => {
+    const weightGrams = parseWeightInGrams(
+      item?.weight_grams ?? item?.weight ?? item?.variant_weight,
+      item?.size,
+      200
+    );
+    return {
+      ...item,
+      imgSrc: getImageSrc(item),
+      price: Number(item?.price) || 0,
+      quantity: Number(item?.quantity) > 0 ? Number(item.quantity) : 1,
+      weight: weightGrams,
+      weight_grams: weightGrams,
+    };
+  };
 
   const [cartProducts, setCartProducts] = useState([]);
   const [wishList, setWishList] = useState([]);
