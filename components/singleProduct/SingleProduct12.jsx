@@ -9,6 +9,7 @@ import Description from "./Description";
 import AdditionalInfo from "./AdditionalInfo";
 import Reviews from "./Reviews";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ShareComponent from "../common/ShareComponent";
 import { useContextElement } from "@/context/Context";
 import HowToUse from "./HowToUse";
@@ -16,6 +17,7 @@ import { openCart } from "@/utlis/openCart";
 import { parseWeightInGrams } from "@/utlis/shipping";
 
 export default function SingleProduct12({ product }) {
+  const router = useRouter();
   const { cartProducts, setCartProducts, toggleWishlist, isAddedtoWishlist } =
     useContextElement();
   const [quantity, setQuantity] = useState(1);
@@ -108,6 +110,62 @@ export default function SingleProduct12({ product }) {
     setCartProducts((pre) => [...pre, item]);
     openCart();
   };
+
+  const handleBuyNow = (e) => {
+    if (e) e.preventDefault();
+    const existing = isIncludeCard();
+    let updatedCart = [...cartProducts];
+
+    const variant = product.variants?.[selectedSize];
+    const variantId = variant?.id || product.variant_id || product.id;
+    const variantWeight = parseWeightInGrams(
+      variant?.weight ?? product.weight,
+      selectedSize,
+      200
+    );
+
+    const chosenQty = Number(quantity) > 0 ? Number(quantity) : 1;
+
+    if (!existing) {
+      const item = {
+        ...product,
+        id: product.id,
+        variant_id: variantId,
+        product_variant_id: variantId,
+        imgSrc:
+          allImages[0] ||
+          product.imgSrc ||
+          "/assets/images/products/product_0.jpg",
+        quantity: chosenQty,
+        size: selectedSize,
+        price: Number(displayPrice) || Number(product.price) || 0,
+        weight: variantWeight,
+        weight_grams: variantWeight,
+      };
+      updatedCart = [...updatedCart, item];
+    } else {
+      updatedCart = updatedCart.map((elm) =>
+        elm === existing ? { ...elm, quantity: chosenQty } : elm
+      );
+    }
+
+    setCartProducts(updatedCart);
+    try {
+      localStorage.setItem("cartList", JSON.stringify(updatedCart));
+    } catch (err) {
+      console.error("Cart storage error:", err);
+    }
+
+    router.push("/shop_checkout");
+  };
+
+  const formattedPrice = Number(displayPrice || product.price || 0).toLocaleString(
+    "en-US",
+    {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }
+  );
   return (
     <section className="product-single container">
       <div className="row">
@@ -228,36 +286,219 @@ export default function SingleProduct12({ product }) {
               </div>
               {/* <!-- .qty-control --> */}
               <button
-                type="submit"
+                type="button"
                 className="btn btn-primary btn-addtocart js-open-aside"
                 onClick={() => addToCart()}
               >
-                {isIncludeCard() ? "Already Added" : "Add to Cart"}
+                {isIncludeCard() ? "Already Added" : "Add to Cart"} -LKR {formattedPrice}
+              </button>
+
+              <button
+                type="button"
+                className={`btn-wishlist-box ${
+                  isAddedtoWishlist(product.id) ? "active" : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleWishlist(product.id);
+                }}
+                title={
+                  isAddedtoWishlist(product.id)
+                    ? "Remove from Wishlist"
+                    : "Add to Wishlist"
+                }
+                aria-label="Wishlist"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill={isAddedtoWishlist(product.id) ? "#d6001c" : "none"}
+                  stroke={
+                    isAddedtoWishlist(product.id) ? "#d6001c" : "currentColor"
+                  }
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <use href="#icon_heart" />
+                </svg>
               </button>
             </div>
-          </form>
-          <div className="product-single__addtolinks">
-            <a
-              href="#"
-              className={`menu-link menu-link_us-s add-to-wishlist ${
-                isAddedtoWishlist(product.id) ? "active" : ""
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                toggleWishlist(product.id);
-              }}
+
+            <div className="product-single__payment-methods d-flex align-items-center flex-wrap gap-2 my-3 d-none">
+              <span className="payment-methods__title">
+                Pay via Bank Transfer or
+              </span>
+              <div className="payment-methods__badges d-flex align-items-center gap-2">
+                {/* COD Badge */}
+                <div
+                  className="payment-badge payment-badge--cod"
+                  title="Cash on Delivery"
+                >
+                  <svg
+                    width="48"
+                    height="22"
+                    viewBox="0 0 66 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <text
+                      x="0"
+                      y="13"
+                      fill="#D62828"
+                      fontFamily="Arial, sans-serif"
+                      fontWeight="900"
+                      fontSize="14"
+                      letterSpacing="0.5"
+                    >
+                      COD
+                    </text>
+                    <text
+                      x="0"
+                      y="22"
+                      fill="#D62828"
+                      fontFamily="Arial, sans-serif"
+                      fontWeight="700"
+                      fontSize="4.8"
+                      letterSpacing="0.2"
+                    >
+                      CASH ON DELIVERY
+                    </text>
+                    <g transform="translate(36, 3)">
+                      <rect
+                        x="1"
+                        y="3"
+                        width="13"
+                        height="9"
+                        rx="1"
+                        fill="#D62828"
+                      />
+                      <path d="M14 6h4l3 3.5v2.5h-7V6z" fill="#D62828" />
+                      <circle cx="5" cy="13" r="2.2" fill="#333" />
+                      <circle cx="17" cy="13" r="2.2" fill="#333" />
+                      <circle cx="5" cy="13" r="1" fill="#fff" />
+                      <circle cx="17" cy="13" r="1" fill="#fff" />
+                      <circle cx="7" cy="7.5" r="2.8" fill="#fff" />
+                      <text
+                        x="5.4"
+                        y="9.2"
+                        fill="#D62828"
+                        fontFamily="Arial, sans-serif"
+                        fontWeight="bold"
+                        fontSize="4.5"
+                      >
+                        C
+                      </text>
+                    </g>
+                  </svg>
+                </div>
+
+                {/* VISA Badge */}
+                <div
+                  className="payment-badge payment-badge--visa"
+                  title="Visa"
+                >
+                  <svg
+                    width="36"
+                    height="22"
+                    viewBox="0 0 44 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <text
+                      x="2"
+                      y="16"
+                      fill="#1A1F71"
+                      fontFamily="Arial, sans-serif"
+                      fontStyle="italic"
+                      fontWeight="900"
+                      fontSize="17"
+                      letterSpacing="-0.5"
+                    >
+                      VISA
+                    </text>
+                    <path d="M2 5 L7 5 L5 9 Z" fill="#F7B600" />
+                  </svg>
+                </div>
+
+                {/* MASTERCARD Badge */}
+                <div
+                  className="payment-badge payment-badge--mastercard"
+                  title="Mastercard"
+                >
+                  <svg
+                    width="36"
+                    height="22"
+                    viewBox="0 0 38 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="14" cy="11" r="7.5" fill="#EB001B" />
+                    <circle
+                      cx="24"
+                      cy="11"
+                      r="7.5"
+                      fill="#F79E1B"
+                      fillOpacity="0.95"
+                    />
+                    <path
+                      d="M19 5.5a7.5 7.5 0 0 1 0 11 7.5 7.5 0 0 1 0-11z"
+                      fill="#FF5F00"
+                    />
+                  </svg>
+                </div>
+
+                {/* KOKO Badge */}
+                <div
+                  className="payment-badge payment-badge--koko"
+                  title="Koko - Buy Now Pay Later"
+                >
+                  <svg
+                    width="46"
+                    height="22"
+                    viewBox="0 0 52 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="kokoGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                      >
+                        <stop offset="0%" stopColor="#4A00E0" />
+                        <stop offset="40%" stopColor="#8E2DE2" />
+                        <stop offset="100%" stopColor="#FF007F" />
+                      </linearGradient>
+                    </defs>
+                    <text
+                      x="3"
+                      y="16"
+                      fill="url(#kokoGradient)"
+                      stroke="url(#kokoGradient)"
+                      strokeWidth="0.8"
+                      fontFamily="Arial Rounded MT Bold, Arial, sans-serif"
+                      fontWeight="900"
+                      fontSize="14"
+                      letterSpacing="0.8"
+                    >
+                      KOKO
+                    </text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="btn btn-buy-now w-100"
+              onClick={handleBuyNow}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <use href="#icon_heart" />
-              </svg>
-              <span>Add to Wishlist</span>
-            </a>
+              Buy Now – Refresh Your Mind
+            </button>
+          </form>
+          <div className="product-single__addtolinks mt-3">
             <ShareComponent title={product.title} />
           </div>
           {/* <div className="product-single__meta-info">
