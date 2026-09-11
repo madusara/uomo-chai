@@ -10,10 +10,11 @@ const faqData = [
     question: "What are Infusio Elixirs?",
     answer:
       "Infusio Elixirs are concentrated gourmet syrups crafted using premium Ceylon tea and spices, with no artificial colors, flavors, or preservatives. They can be used to create a variety of specialty beverages, including hot and iced chai, chai lattes, cocktails, mocktails, and sparkling drinks.",
-    linkText: "Shop Now",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Infusion Elixirs",
+    badgeTitleLine1: "Infusion",
+    badgeTitleLine2: "Elixirs",
     badgeSubtitle: "PURE • NATURAL • REFRESHING",
   },
   {
@@ -21,10 +22,11 @@ const faqData = [
     question: "How do I use Infusio Elixirs?",
     answer:
       "Add 20 ml of Infusio Chai Elixir to 150 ml of hot milk and stir well for a comforting hot chai. For cold drinks, pour 30 ml over chilled or iced milk for a café-style iced latte, or mix 20 ml with sparkling soda and ice for a crisp spiced beverage. Sweeten to taste.",
-    linkText: "Shop Now",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Artisanal Chai",
+    badgeTitleLine1: "Artisanal",
+    badgeTitleLine2: "Chai Elixir",
     badgeSubtitle: "AUTHENTIC • SPICED • WARMING",
   },
   {
@@ -32,10 +34,11 @@ const faqData = [
     question: "Are the ingredients natural?",
     answer:
       "Yes, absolutely. All Infusio products are brewed exclusively using single-origin Ceylon tea, whole sun-dried spices, filtered water, and natural cane sugar. We never use artificial colors, chemical preservatives, or synthetic additives.",
-    linkText: "Shop Now",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Pure Ingredients",
+    badgeTitleLine1: "Pure",
+    badgeTitleLine2: "Ingredients",
     badgeSubtitle: "ZERO CHEMICALS • REAL BOTANICALS",
   },
   {
@@ -43,10 +46,11 @@ const faqData = [
     question: "Do you offer international shipping?",
     answer:
       "We provide prompt, secure islandwide delivery across Sri Lanka within 2–3 business days. For international shipping and hospitality export inquiries, please contact us directly via WhatsApp at +94 777 530 354.",
-    linkText: "Shop Now",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Global Shipping",
+    badgeTitleLine1: "Global",
+    badgeTitleLine2: "Shipping",
     badgeSubtitle: "ISLANDWIDE & INTERNATIONAL",
   },
   {
@@ -54,10 +58,11 @@ const faqData = [
     question: "How long does delivery take?",
     answer:
       "Islandwide orders across Sri Lanka are dispatched via trusted third-party courier partners and delivered within 2–3 business days following order confirmation.",
-    linkText: "Shop Now",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Islandwide Delivery",
+    badgeTitleLine1: "Islandwide",
+    badgeTitleLine2: "Delivery",
     badgeSubtitle: "2-3 BUSINESS DAYS ACROSS SRI LANKA",
   },
   {
@@ -65,10 +70,11 @@ const faqData = [
     question: "Can I use the Ceylon Cinnamon & Vanilla Elixir in desserts?",
     answer:
       "Absolutely! Our Ceylon Cinnamon & Vanilla Elixir can be used as a topping for desserts, smoothies, and breakfast bowls. It also works wonderfully as a glaze for baked goods and pastries.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Ceylon Cinnamon",
+    badgeTitleLine1: "Ceylon",
+    badgeTitleLine2: "Cinnamon",
     badgeSubtitle: "GOURMET • VERSATILE • PURE",
   },
   {
@@ -76,10 +82,11 @@ const faqData = [
     question: "How do I make a cup of chai?",
     answer:
       "Hot Masala Chai: Add 20 ml of Infusio Chai Elixir to 150 ml of hot milk and stir well. Alternatively, add 20 ml of Chai Elixir to 150 ml of milk and bring it to a gentle boil. Sweeten to taste.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Hot Masala Chai",
+    badgeTitleLine1: "Masala Chai",
+    badgeTitleLine2: "Brewing",
     badgeSubtitle: "AUTHENTIC • SPICED • WARMING",
   },
   {
@@ -87,10 +94,11 @@ const faqData = [
     question: "How do I make Iced Chai / Chai Latte?",
     answer:
       "Add 30 ml of Infusio Chai Elixir to chilled or iced milk and mix well. Sweeten according to your preference. For a stronger, spicier chai, simply add more Chai Elixir to suit your taste. For iced chai, we recommend using honey or another liquid sweetener for enhanced flavor.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Iced Chai Latte",
+    badgeTitleLine1: "Iced Chai",
+    badgeTitleLine2: "Latte",
     badgeSubtitle: "REFRESHING • BOLD • HANDCRAFTED",
   },
   {
@@ -98,10 +106,11 @@ const faqData = [
     question: "What makes Infusio different from other chai products?",
     answer:
       "There are many chai products available today, including powder blends, sticky chai, syrups, and concentrates. Powdered chai blends often require longer preparation times and may lose their flavor and aroma during storage. Some products also contain artificial flavors, colors, preservatives, or high levels of added sugar. Infusio Chai Elixir is brewed using Ceylon Black Tea, natural spices, water, and a small amount of cane sugar. We use minimal processing (brewing) to preserve the natural flavor, aroma, and beneficial compounds found in tea and spices. The result is a convenient, flavorful, and authentic cup of chai made with real ingredients.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Small Batch Brewed",
+    badgeTitleLine1: "Small Batch",
+    badgeTitleLine2: "Brewed",
     badgeSubtitle: "MINIMAL PROCESSING • REAL FLAVOR",
   },
   {
@@ -109,10 +118,11 @@ const faqData = [
     question: "How do I make a refreshing ginger drink with Infusio Ginger Elixir?",
     answer:
       "Simply add 20 ml of Infusio Ginger Elixir to 200 ml of chilled soda or sparkling water and mix well. For an extra refreshing twist, try it with lemon flavored sparkling beverages.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Ginger Elixir",
+    badgeTitleLine1: "Ginger",
+    badgeTitleLine2: "Sparkler",
     badgeSubtitle: "CRISP • DIGESTIVE • SPARKLING",
   },
   {
@@ -120,10 +130,11 @@ const faqData = [
     question: "Why is Infusio Ginger Elixir different from other ginger drinks?",
     answer:
       "Infusio Ginger Elixir is made from real ginger and contains no alcohol, artificial flavors, or artificial colors. Unlike many conventional soft drinks, it retains naturally occurring gingerol the active compound in ginger that is known for its anti-inflammatory properties and digestive benefits.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Real Gingerol",
+    badgeTitleLine1: "Real",
+    badgeTitleLine2: "Gingerol",
     badgeSubtitle: "NATURAL WELLNESS • ZERO ALCOHOL",
   },
   {
@@ -131,10 +142,11 @@ const faqData = [
     question: "How should I store my elixirs?",
     answer:
       "Once opened, all Infusio Elixirs should be refrigerated to maintain freshness and quality. Since our products contain no artificial preservatives, exposure to warm temperatures may affect their flavor, aroma, and shelf life.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Storage & Care",
+    badgeTitleLine1: "Storage &",
+    badgeTitleLine2: "Freshness",
     badgeSubtitle: "KEEP REFRIGERATED",
   },
   {
@@ -142,10 +154,11 @@ const faqData = [
     question: "Where can I purchase your products?",
     answer:
       "You can purchase our products directly through our website at www.endlesslk.com or place an order via WhatsApp at +94 777 530 354.",
-    linkText: "Shop Online",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-1.jpg",
-    badgeTitle: "Endless Greens",
+    badgeTitleLine1: "Endless",
+    badgeTitleLine2: "Greens",
     badgeSubtitle: "ONLINE & DIRECT ORDERING",
   },
   {
@@ -153,10 +166,11 @@ const faqData = [
     question: "What is Drop It?",
     answer:
       "Drop It is a range of liquid spice extracts designed to deliver authentic Sri Lankan flavors, functional plant compounds, and precise seasoning. It offers consistency, convenience, and elevated flavor for modern cooking applications.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Drop It Spices",
+    badgeTitleLine1: "Drop It",
+    badgeTitleLine2: "Extracts",
     badgeSubtitle: "AUTHENTIC SRI LANKAN EXTRACTS",
   },
   {
@@ -164,10 +178,11 @@ const faqData = [
     question: "Why should I choose Drop It instead of traditional spice powders?",
     answer:
       "Drop It Liquid Spices are highly concentrated extracts that capture the natural flavor and aroma of spices using innovative green extraction technologies. These methods avoid harsh chemicals and excessive heat, helping preserve the spices' aromatic compounds and bioactive components. As a result, Drop It products provide consistent flavor, longer lasting quality, and greater convenience compared to traditional spice powders, without requiring special storage conditions.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Liquid Spice Extracts",
+    badgeTitleLine1: "Liquid Spice",
+    badgeTitleLine2: "Extracts",
     badgeSubtitle: "GREEN EXTRACTION • MAXIMUM AROMA",
   },
   {
@@ -175,10 +190,11 @@ const faqData = [
     question: "We'd like to use your products in our café, restaurant, or hospitality business. How can we purchase?",
     answer:
       "We're always happy to collaborate with food service partners. Please contact us via WhatsApp at +94 777 530 354 to discuss wholesale purchasing and partnership opportunities.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Wholesale & Hospitality",
+    badgeTitleLine1: "Wholesale &",
+    badgeTitleLine2: "Hospitality",
     badgeSubtitle: "BARISTA & FOOD SERVICE PARTNERSHIPS",
   },
   {
@@ -186,10 +202,11 @@ const faqData = [
     question: "Do you offer private labeling or contract manufacturing?",
     answer:
       "Yes. Endless Greens offers private labeling and contract manufacturing solutions for businesses looking to develop high-quality food and beverage products tailored to their requirements. For more information, please contact us at endlessgreensgourmet@gmail.com. Or +94 777 530 354.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Contract Manufacturing",
+    badgeTitleLine1: "Contract",
+    badgeTitleLine2: "Manufacturing",
     badgeSubtitle: "BESPOKE PRIVATE LABEL SOLUTIONS",
   },
   {
@@ -197,10 +214,11 @@ const faqData = [
     question: "I think we could work together on something exciting. How can I get in touch?",
     answer:
       "We'd love to hear from you! Please email your inquiry to endlessgreensgourmet@gmail.com, and our team will get back to you as soon as possible.",
-    linkText: "Explore Collection",
+    linkText: "SHOP NOW",
     linkUrl: "/shop",
     imageSrc: "/assets/images/home/demo19/banner-2.jpg",
-    badgeTitle: "Partner With Us",
+    badgeTitleLine1: "Partner",
+    badgeTitleLine2: "With Us",
     badgeSubtitle: "CREATE SOMETHING EXCITING",
   },
 ];
@@ -241,131 +259,128 @@ export default function Banner() {
       {/* Botanical Tea Branch Watermark in Top Right */}
       <div className="faq-botanical-watermark" aria-hidden="true">
         <svg
-          viewBox="0 0 260 260"
+          viewBox="0 0 320 320"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M260,10 C210,40 160,100 130,170 C110,215 100,260 98,260"
-            stroke="#8c6d46"
-            strokeWidth="1.4"
+            d="M320,10 C260,50 190,120 150,200 C125,250 115,300 112,320"
+            stroke="#9e805a"
+            strokeWidth="1.2"
             strokeLinecap="round"
           />
           <path
-            d="M240,25 C200,10 165,30 180,55 C195,78 240,25 240,25 Z"
-            stroke="#8c6d46"
-            strokeWidth="1.2"
-            fill="none"
-          />
-          <path
-            d="M190,38 C215,30 230,26 230,26"
-            stroke="#8c6d46"
-            strokeWidth="0.8"
-          />
-          <path
-            d="M210,65 C170,55 140,85 160,110 C180,132 210,65 210,65 Z"
-            stroke="#8c6d46"
-            strokeWidth="1.2"
-            fill="none"
-          />
-          <path
-            d="M170,85 C190,75 205,68 205,68"
-            stroke="#8c6d46"
-            strokeWidth="0.8"
-          />
-          <path
-            d="M165,115 C120,95 85,130 115,160 C145,188 165,115 165,115 Z"
-            stroke="#8c6d46"
-            strokeWidth="1.2"
-            fill="none"
-          />
-          <path
-            d="M125,135 C145,120 160,118 160,118"
-            stroke="#8c6d46"
-            strokeWidth="0.8"
-          />
-          <path
-            d="M175,90 C140,75 105,70 80,75"
-            stroke="#8c6d46"
+            d="M290,30 C240,15 195,40 215,70 C235,95 290,30 290,30 Z"
+            stroke="#9e805a"
             strokeWidth="1"
+          />
+          <path
+            d="M225,52 C255,42 275,36 275,36"
+            stroke="#9e805a"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M250,75 C200,60 165,95 190,125 C215,150 250,75 250,75 Z"
+            stroke="#9e805a"
+            strokeWidth="1"
+          />
+          <path
+            d="M200,98 C225,88 245,82 245,82"
+            stroke="#9e805a"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M195,135 C140,110 95,155 130,190 C165,225 195,135 195,135 Z"
+            stroke="#9e805a"
+            strokeWidth="1"
+          />
+          <path
+            d="M145,158 C170,140 188,138 188,138"
+            stroke="#9e805a"
+            strokeWidth="0.7"
+          />
+          <path
+            d="M205,105 C165,90 120,85 90,90"
+            stroke="#9e805a"
+            strokeWidth="0.9"
             strokeLinecap="round"
           />
           <path
-            d="M110,73 C90,55 70,65 80,82 C90,98 110,73 110,73 Z"
-            stroke="#8c6d46"
-            strokeWidth="1"
-            fill="none"
+            d="M125,88 C100,68 75,80 88,100 C100,120 125,88 125,88 Z"
+            stroke="#9e805a"
+            strokeWidth="0.9"
           />
           <path
-            d="M80,75 C60,65 45,80 55,95 C65,108 80,75 80,75 Z"
-            stroke="#8c6d46"
-            strokeWidth="1"
-            fill="none"
+            d="M90,90 C68,78 50,95 62,112 C74,128 90,90 90,90 Z"
+            stroke="#9e805a"
+            strokeWidth="0.9"
           />
         </svg>
       </div>
 
       <div className="container">
-        <div className="row g-4 g-xl-5 align-items-center">
-          {/* Left Column: Header and Dynamic Showcase Card */}
-          <div className="col-lg-5">
-            <div className="faq-left-col">
-              {/* Header Block */}
-              <div className="faq-header-block">
-                <div className="faq-overline-wrap">
-                  <span className="faq-overline">Frequently Asked Questions</span>
-                  <span className="faq-overline-line"></span>
-                </div>
-                <h2 className="faq-main-title">
-                  Your Questions,
-                  <br />
-                  Our Answers
-                </h2>
-                <p className="faq-subtext">
-                  Find quick answers to common questions about our infusion
-                  elixirs, ingredients, brewing, and more.
-                </p>
+        <div className="faq-layout-grid">
+          {/* Left Column: Header and Large Showcase Card */}
+          <div className="faq-left-col">
+            {/* Header Block */}
+            <div className="faq-header-block">
+              <div className="faq-overline-wrap">
+                <span className="faq-overline">Frequently Asked Questions</span>
+                <span className="faq-overline-line"></span>
+              </div>
+              <h2 className="faq-main-title">
+                Your Questions,
+                <br />
+                Our Answers
+              </h2>
+              <p className="faq-subtext">
+                Find quick answers to common questions about our infusion
+                elixirs, ingredients, brewing, and more.
+              </p>
+            </div>
+
+            {/* Large Showcase Card */}
+            <div className="faq-showcase-card">
+              <div className="faq-image-container">
+                <Image
+                  src={currentItem.imageSrc}
+                  alt={`${currentItem.badgeTitleLine1} ${currentItem.badgeTitleLine2}`}
+                  fill
+                  sizes="(max-width: 991px) 100vw, 680px"
+                  priority
+                  style={{
+                    opacity: isTransitioning ? 0.35 : 1,
+                    transform: isTransitioning ? "scale(1.03)" : "scale(1)",
+                  }}
+                />
               </div>
 
-              {/* Dynamic Showcase Card */}
-              <div className="faq-showcase-card">
-                <div className="faq-image-container">
-                  <Image
-                    src={currentItem.imageSrc}
-                    alt={currentItem.badgeTitle}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 550px"
-                    priority
-                    style={{
-                      opacity: isTransitioning ? 0.35 : 1,
-                      transform: isTransitioning ? "scale(1.03)" : "scale(1)",
-                    }}
-                  />
-                </div>
+              {/* Subtle Dark Vignette Overlay */}
+              <div className="faq-card-overlay"></div>
 
-                {/* Dark Vignette Overlay for Text Legibility */}
-                <div className="faq-card-overlay"></div>
-
-                {/* Corner Topic Badge */}
-                <div
-                  className="faq-card-badge"
-                  style={{
-                    opacity: isTransitioning ? 0 : 1,
-                    transform: isTransitioning
-                      ? "translateY(5px)"
-                      : "translateY(0)",
-                  }}
-                >
-                  <span className="badge-tag">PREMIUM QUALITY</span>
-                  <span className="badge-title">{currentItem.badgeTitle}</span>
-                  <span className="badge-sub">{currentItem.badgeSubtitle}</span>
-                </div>
+              {/* Corner Topic Badge */}
+              <div
+                className="faq-card-badge"
+                style={{
+                  opacity: isTransitioning ? 0 : 1,
+                  transform: isTransitioning
+                    ? "translateY(5px)"
+                    : "translateY(0)",
+                }}
+              >
+                <span className="badge-tag">PREMIUM QUALITY</span>
+                <span className="badge-title">
+                  {currentItem.badgeTitleLine1}
+                  <br />
+                  {currentItem.badgeTitleLine2}
+                </span>
+                <span className="badge-sub">{currentItem.badgeSubtitle}</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Exact 5 Visible Initially + Smooth Scroll for Others */}
-          <div className="col-lg-7">
+          {/* Right Column: Numbered Accordion List (Side by Side) */}
+          <div className="faq-right-col">
             <div className="faq-accordion-scroll-container">
               <div className="faq-accordion-list">
                 {faqData.map((item, index) => {
@@ -385,16 +400,16 @@ export default function Banner() {
                         aria-controls={`faq-collapse-${item.id}`}
                       >
                         <span className="faq-item-number">{formattedNumber}</span>
-                        <span className="faq-item-divider">|</span>
+                        <span className="faq-item-vdivider" aria-hidden="true"></span>
                         <span className="faq-item-question">{item.question}</span>
 
-                        {/* Chevron Icon */}
+                        {/* Thin Chevron Icon */}
                         <svg
                           className="faq-chevron-icon"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.3"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           aria-hidden="true"
@@ -408,7 +423,7 @@ export default function Banner() {
                         id={`faq-collapse-${item.id}`}
                         className="faq-item-collapse"
                         style={{
-                          maxHeight: isActive ? "320px" : "0px",
+                          maxHeight: isActive ? "340px" : "0px",
                           opacity: isActive ? 1 : 0,
                         }}
                       >
@@ -418,16 +433,16 @@ export default function Banner() {
                           <div className="faq-item-inner-divider"></div>
 
                           <Link href={item.linkUrl} className="faq-action-link">
-                            {/* Botanical Tea Leaf Icon */}
+                            {/* Botanical Branch with Two Tea Leaves */}
                             <svg
                               className="leaf-icon"
                               viewBox="0 0 24 24"
                               fill="currentColor"
                               aria-hidden="true"
                             >
-                              <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+                              <path d="M17.8,2.8 C11.5,4.2 8.2,9.8 8.6,15.5 C4.5,13.2 2.8,9 3.2,5.2 C1.2,10.2 2.5,16.5 7.2,19.2 C6.2,20.8 4.8,22 4.8,22 C4.8,22 9.2,21.8 11.8,18.8 C17.8,18.2 22.2,12.5 21.8,5.8 C21.8,5.8 19.5,4.5 17.8,2.8 Z M11.2,16.8 C10.8,12.2 13.5,7.8 17.5,5.8 C17.2,9.8 14.8,14.5 11.2,16.8 Z" />
                             </svg>
-                            <span>{item.linkText}</span>
+                            <span className="faq-link-text">{item.linkText}</span>
                             <span className="arrow-icon">→</span>
                           </Link>
                         </div>
