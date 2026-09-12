@@ -501,6 +501,37 @@ export default function Checkout() {
                 rows="8"
               ></textarea>
             </div>
+
+            {/* Mobile Place Order Button */}
+            <div className="d-block d-xl-none mt-4 pt-2">
+              {checkoutError && (
+                <div
+                  className="alert alert-danger my-3 p-2 text-center"
+                  style={{ fontSize: "0.85rem", borderRadius: "6px" }}
+                >
+                  {checkoutError}
+                </div>
+              )}
+              <button
+                type="submit"
+                className="btn btn-primary btn-checkout w-100 d-flex align-items-center justify-content-center gap-2"
+                disabled={isSubmitting || cartProducts.length === 0}
+                style={{ height: "3.75rem", fontSize: "0.95rem", fontWeight: "600" }}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    PROCESSING ORDER...
+                  </>
+                ) : (
+                  "PLACE ORDER"
+                )}
+              </button>
+            </div>
           </div>
         </div>
         <div className="checkout__totals-wrapper">
@@ -1251,7 +1282,7 @@ export default function Checkout() {
 
             <button
               type="submit"
-              className="btn btn-primary btn-checkout d-flex align-items-center justify-content-center gap-2"
+              className="btn btn-primary btn-checkout d-none d-xl-flex align-items-center justify-content-center gap-2"
               disabled={isSubmitting || cartProducts.length === 0}
             >
               {isSubmitting ? (

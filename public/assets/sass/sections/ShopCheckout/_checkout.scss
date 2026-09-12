@@ -4,6 +4,21 @@
 
   @include media-breakpoint-down(xl) {
     flex-direction: column;
+    gap: 1.5rem;
+
+    .checkout__totals-wrapper {
+      order: -1;
+      width: 100%;
+
+      .sticky-content {
+        padding-top: 0;
+      }
+    }
+
+    .billing-info__wrapper {
+      order: 1;
+      padding-top: 0;
+    }
   }
 
   .billing-info__wrapper {
