@@ -7,26 +7,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function CartDrawer() {
-  const { cartProducts, setCartProducts, totalPrice } = useContextElement();
+  const { cartProducts, setCartProducts, setQuantity, removeItem, totalPrice } =
+    useContextElement();
   const pathname = usePathname();
   const closeCart = () => {
     document
       .getElementById("cartDrawerOverlay")
       .classList.remove("page-overlay_visible");
     document.getElementById("cartDrawer").classList.remove("aside_visible");
-  };
-  const setQuantity = (id, quantity) => {
-    if (quantity >= 1) {
-      const item = cartProducts.filter((elm) => elm.id == id)[0];
-      const items = [...cartProducts];
-      const itemIndex = items.indexOf(item);
-      item.quantity = quantity;
-      items[itemIndex] = item;
-      setCartProducts(items);
-    }
-  };
-  const removeItem = (id) => {
-    setCartProducts((pre) => [...pre.filter((elm) => elm.id != id)]);
   };
   useEffect(() => {
     closeCart();
@@ -82,24 +70,31 @@ export default function CartDrawer() {
                         <input
                           type="number"
                           name="quantity"
-                          onChange={(e) =>
-                            setQuantity(elm.id, e.target.value / 1)
-                          }
+                          onChange={(e) => {
+                            const val = parseInt(e.target.value, 10);
+                            if (!isNaN(val) && val >= 1) {
+                              setQuantity(elm.id, val, i);
+                            }
+                          }}
                           value={elm.quantity}
                           min="1"
                           className="qty-control__number border-0 text-center"
                         />
                         <div
                           onClick={() => {
-                            setQuantity(elm.id, elm.quantity - 1);
+                            if (elm.quantity > 1) {
+                              setQuantity(elm.id, elm.quantity - 1, i);
+                            }
                           }}
                           className="qty-control__reduce text-start"
+                          style={{ cursor: elm.quantity <= 1 ? "not-allowed" : "pointer" }}
                         >
                           -
                         </div>
                         <div
-                          onClick={() => setQuantity(elm.id, elm.quantity + 1)}
+                          onClick={() => setQuantity(elm.id, elm.quantity + 1, i)}
                           className="qty-control__increase text-end"
+                          style={{ cursor: "pointer" }}
                         >
                           +
                         </div>
@@ -112,7 +107,7 @@ export default function CartDrawer() {
                   </div>
 
                   <button
-                    onClick={() => removeItem(elm.id)}
+                    onClick={() => removeItem(elm.id, i)}
                     className="btn-close-xs position-absolute top-0 end-0 js-cart-item-remove"
                   ></button>
                 </div>

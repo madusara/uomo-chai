@@ -230,12 +230,12 @@ export default function OrderCompleted() {
                 return (
                   <tr key={i}>
                     <td style={{ padding: "14px 0" }}>
-                      <div className="d-flex align-items-center gap-3">
+                      <div className="d-flex align-items-start gap-3">
                         <div
                           style={{
-                            width: "56px",
-                            height: "56px",
-                            borderRadius: "8px",
+                            width: "76px",
+                            height: "76px",
+                            borderRadius: "10px",
                             overflow: "hidden",
                             flexShrink: 0,
                             backgroundColor: "#FAF8F4",
@@ -250,7 +250,7 @@ export default function OrderCompleted() {
                             }
                             alt={elm.title || "Product"}
                             fill
-                            sizes="56px"
+                            sizes="76px"
                             unoptimized
                             style={{ objectFit: "cover" }}
                           />

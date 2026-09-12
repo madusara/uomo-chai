@@ -11,27 +11,19 @@ import {
 } from "@/utlis/shipping";
 
 export default function Cart() {
-  const { cartProducts, setCartProducts, totalPrice } = useContextElement();
+  const {
+    cartProducts,
+    setCartProducts,
+    setQuantity,
+    removeItem,
+    totalPrice,
+  } = useContextElement();
   const [showWeightInfo, setShowWeightInfo] = useState(false);
 
   const totalWeightGrams = calculateTotalWeightGrams(cartProducts);
   const totalWeight = (totalWeightGrams / 1000).toFixed(2);
   const calculatedShippingCost = calculateShippingCost(totalWeightGrams);
   const orderTotal = totalPrice + calculatedShippingCost;
-
-  const setQuantity = (id, quantity) => {
-    if (quantity >= 1) {
-      const item = cartProducts.filter((elm) => elm.id == id)[0];
-      const items = [...cartProducts];
-      const itemIndex = items.indexOf(item);
-      item.quantity = quantity;
-      items[itemIndex] = item;
-      setCartProducts(items);
-    }
-  };
-  const removeItem = (id) => {
-    setCartProducts((pre) => [...pre.filter((elm) => elm.id != id)]);
-  };
   return (
     <div className="shopping-cart" style={{ minHeight: "calc(100vh - 300px)" }}>
       <div className="cart-table__wrapper">
@@ -94,20 +86,29 @@ export default function Cart() {
                           name="quantity"
                           value={elm.quantity}
                           min={1}
-                          onChange={(e) =>
-                            setQuantity(elm.id, e.target.value / 1)
-                          }
+                          onChange={(e) => {
+                            const val = parseInt(e.target.value, 10);
+                            if (!isNaN(val) && val >= 1) {
+                              setQuantity(elm.id, val, i);
+                            }
+                          }}
                           className="qty-control__number text-center"
                         />
                         <div
-                          onClick={() => setQuantity(elm.id, elm.quantity - 1)}
+                          onClick={() => {
+                            if (elm.quantity > 1) {
+                              setQuantity(elm.id, elm.quantity - 1, i);
+                            }
+                          }}
                           className="qty-control__reduce"
+                          style={{ cursor: elm.quantity <= 1 ? "not-allowed" : "pointer" }}
                         >
                           -
                         </div>
                         <div
-                          onClick={() => setQuantity(elm.id, elm.quantity + 1)}
+                          onClick={() => setQuantity(elm.id, elm.quantity + 1, i)}
                           className="qty-control__increase"
+                          style={{ cursor: "pointer" }}
                         >
                           +
                         </div>
@@ -120,8 +121,9 @@ export default function Cart() {
                     </td>
                     <td>
                       <a
-                        onClick={() => removeItem(elm.id)}
+                        onClick={() => removeItem(elm.id, i)}
                         className="remove-cart"
+                        style={{ cursor: "pointer" }}
                       >
                         <svg
                           width="10"

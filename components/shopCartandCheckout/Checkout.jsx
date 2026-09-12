@@ -613,12 +613,12 @@ export default function Checkout() {
                               : "1px solid #F0ECE4",
                         }}
                       >
-                        <div className="d-flex align-items-center gap-3">
+                        <div className="d-flex align-items-start gap-3">
                           <div
                             style={{
-                              width: "64px",
-                              height: "64px",
-                              borderRadius: "8px",
+                              width: "88px",
+                              height: "88px",
+                              borderRadius: "10px",
                               overflow: "hidden",
                               flexShrink: 0,
                               backgroundColor: "#FAF8F4",
@@ -630,7 +630,7 @@ export default function Checkout() {
                               src={elm.imgSrc || "/assets/images/products/product_0.jpg"}
                               alt={elm.title || "Product"}
                               fill
-                              sizes="64px"
+                              sizes="88px"
                               unoptimized
                               style={{ objectFit: "cover" }}
                             />

@@ -100,25 +100,47 @@ export default function Context({ children }) {
     }
     return false;
   };
+  const [isCartLoaded, setIsCartLoaded] = useState(false);
+
   useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartList"));
-    if (items?.length) {
-      setCartProducts(items.map(normalizeCartItem));
+    try {
+      const items = JSON.parse(localStorage.getItem("cartList"));
+      if (items?.length) {
+        setCartProducts(items.map(normalizeCartItem));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    setIsCartLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isCartLoaded) {
+      try {
+        localStorage.setItem("cartList", JSON.stringify(cartProducts));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [cartProducts, isCartLoaded]);
+
+  useEffect(() => {
+    try {
+      const items = JSON.parse(localStorage.getItem("wishlist"));
+      if (items?.length) {
+        setWishList(items);
+      }
+    } catch (e) {
+      console.error(e);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartList", JSON.stringify(cartProducts));
-  }, [cartProducts]);
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("wishlist"));
-    if (items?.length) {
-      setWishList(items);
+    try {
+      localStorage.setItem("wishlist", JSON.stringify(wishList));
+    } catch (e) {
+      console.error(e);
     }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishList));
   }, [wishList]);
 
   const [orderCompleted, setOrderCompleted] = useState(false);
@@ -152,26 +174,38 @@ export default function Context({ children }) {
   const setQuantity = (id, quantity, itemIndex = null) => {
     const qty = parseInt(quantity, 10);
     if (!isNaN(qty) && qty >= 1) {
-      setCartProducts((prev) =>
-        prev.map((item, idx) => {
+      setCartProducts((prev) => {
+        const updated = prev.map((item, idx) => {
           if (itemIndex !== null && itemIndex !== undefined) {
             return idx === itemIndex ? { ...item, quantity: qty } : item;
           }
           return item.id == id ? { ...item, quantity: qty } : item;
-        })
-      );
+        });
+        try {
+          localStorage.setItem("cartList", JSON.stringify(updated));
+        } catch (e) {
+          console.error(e);
+        }
+        return updated;
+      });
     }
   };
 
   const removeItem = (id, itemIndex = null) => {
-    setCartProducts((prev) =>
-      prev.filter((item, idx) => {
+    setCartProducts((prev) => {
+      const updated = prev.filter((item, idx) => {
         if (itemIndex !== null && itemIndex !== undefined) {
           return idx !== itemIndex;
         }
         return item.id != id;
-      })
-    );
+      });
+      try {
+        localStorage.setItem("cartList", JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
   };
 
   const contextElement = {
