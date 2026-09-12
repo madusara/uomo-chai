@@ -4,9 +4,21 @@ import { useContextElement } from "@/context/Context";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import {
+  calculateTotalWeightGrams,
+  calculateShippingCost,
+  parseWeightInGrams,
+} from "@/utlis/shipping";
 
 export default function Cart() {
   const { cartProducts, setCartProducts, totalPrice } = useContextElement();
+  const [showWeightInfo, setShowWeightInfo] = useState(false);
+
+  const totalWeightGrams = calculateTotalWeightGrams(cartProducts);
+  const totalWeight = (totalWeightGrams / 1000).toFixed(2);
+  const calculatedShippingCost = calculateShippingCost(totalWeightGrams);
+  const orderTotal = totalPrice + calculatedShippingCost;
+
   const setQuantity = (id, quantity) => {
     if (quantity >= 1) {
       const item = cartProducts.filter((elm) => elm.id == id)[0];
@@ -19,21 +31,6 @@ export default function Cart() {
   };
   const removeItem = (id) => {
     setCartProducts((pre) => [...pre.filter((elm) => elm.id != id)]);
-  };
-
-  const [checkboxes, setCheckboxes] = useState({
-    free_shipping: false,
-    flat_rate: false,
-    local_pickup: false,
-  });
-
-  // Step 2: Create a handler function
-  const handleCheckboxChange = (event) => {
-    const { id, checked } = event.target;
-    setCheckboxes((prevCheckboxes) => ({
-      ...prevCheckboxes,
-      [id]: checked,
-    }));
   };
   return (
     <div className="shopping-cart" style={{ minHeight: "calc(100vh - 300px)" }}>
@@ -71,6 +68,17 @@ export default function Cart() {
                         <ul className="shopping-cart__product-item__options">
                           {/* <li>Color: Yellow</li> */}
                           <li>Size: {elm.size || "L"}</li>
+                          <li>
+                            Weight:{" "}
+                            {(
+                              parseWeightInGrams(
+                                elm.weight ?? elm.variant_weight,
+                                elm.size,
+                                200
+                              ) / 1000
+                            ).toFixed(2)}{" "}
+                            kg
+                          </li>
                         </ul>
                       </div>
                     </td>
@@ -148,7 +156,7 @@ export default function Cart() {
                   defaultValue="APPLY COUPON"
                 /> */}
               </form>
-              <button className="btn btn-light">UPDATE CART</button>
+              <button className="btn btn-light d-none">UPDATE CART</button>
             </div>
           </>
         ) : (
@@ -173,71 +181,93 @@ export default function Cart() {
                     <td>Rs {totalPrice}</td>
                   </tr>
                   <tr>
-                    <th>Shipping</th>
-                    <td>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input form-check-input_fill"
-                          type="checkbox"
-                          id="free_shipping"
-                          checked={checkboxes.free_shipping}
-                          onChange={handleCheckboxChange}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="free_shipping"
+                    <th>
+                      <div className="d-flex align-items-center gap-2">
+                        <span>Total Weight</span>
+                        <div
+                          className="position-relative d-inline-flex align-items-center"
+                          onMouseEnter={() => setShowWeightInfo(true)}
+                          onMouseLeave={() => setShowWeightInfo(false)}
+                          onClick={() => setShowWeightInfo(!showWeightInfo)}
+                          style={{ cursor: "pointer" }}
                         >
-                          Free shipping
-                        </label>
+                          <svg
+                            width="15"
+                            height="15"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#8C7A5B"
+                            strokeWidth="2.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            style={{ transition: "stroke 0.2s" }}
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="16" x2="12" y2="12" />
+                            <line x1="12" y1="8" x2="12.01" y2="8" />
+                          </svg>
+
+                          {showWeightInfo && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                bottom: "calc(100% + 10px)",
+                                left: "50%",
+                                transform: "translateX(-50%)",
+                                backgroundColor: "#1E1B18",
+                                color: "#FAF8F4",
+                                padding: "10px 14px",
+                                borderRadius: "8px",
+                                fontSize: "0.78rem",
+                                lineHeight: 1.45,
+                                width: "240px",
+                                boxShadow: "0 6px 20px rgba(0,0,0,0.2)",
+                                zIndex: 100,
+                                pointerEvents: "none",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontWeight: "600",
+                                  marginBottom: "4px",
+                                  color: "#E7D8BA",
+                                }}
+                              >
+                                Shipping Rate Details
+                              </div>
+                              <div>
+                                • Base shipping: <strong>Rs 425</strong> (first 1 kg)
+                              </div>
+                              <div>
+                                • Each additional 1 kg: <strong>+Rs 100</strong>
+                              </div>
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: "100%",
+                                  left: "50%",
+                                  transform: "translateX(-50%)",
+                                  width: "0",
+                                  height: "0",
+                                  borderLeft: "6px solid transparent",
+                                  borderRight: "6px solid transparent",
+                                  borderTop: "6px solid #1E1B18",
+                                }}
+                              />
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input form-check-input_fill"
-                          type="checkbox"
-                          id="flat_rate"
-                          checked={checkboxes.flat_rate}
-                          onChange={handleCheckboxChange}
-                        />
-                        <label className="form-check-label" htmlFor="flat_rate">
-                          Flat rate: Rs 350
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input form-check-input_fill"
-                          type="checkbox"
-                          id="local_pickup"
-                          checked={checkboxes.local_pickup}
-                          onChange={handleCheckboxChange}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="local_pickup"
-                        >
-                          Local pickup: Rs 8
-                        </label>
-                      </div>
-                      <div>Shipping to AL.</div>
-                      <div>
-                        <a href="#" className="menu-link menu-link_us-s">
-                          CHANGE ADDRESS
-                        </a>
-                      </div>
-                    </td>
+                    </th>
+                    <td>{totalWeight} kg</td>
                   </tr>
                   <tr>
-                    <th>VAT</th>
-                    <td>Rs 19</td>
+                    <th>Shipping</th>
+                    <td>Rs {calculatedShippingCost}</td>
                   </tr>
                   <tr>
                     <th>Total</th>
-                    <td>
-                      Rs {" "}
-                      {49 * checkboxes.flat_rate +
-                        8 * checkboxes.local_pickup +
-                        totalPrice +
-                        19}
-                    </td>
+                    <td className="fw-bold">Rs {orderTotal}</td>
                   </tr>
                 </tbody>
               </table>
