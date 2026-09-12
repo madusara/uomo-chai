@@ -71,6 +71,7 @@ export default function Checkout() {
   const [shippingOpen, setShippingOpen] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
+  const [showWeightInfo, setShowWeightInfo] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [city, setCity] = useState("");
@@ -843,9 +844,119 @@ export default function Checkout() {
                 </span>
               </div>
 
+
+
+
+
+
+              {/* total weight Row */}
+              <div
+                className="d-flex justify-content-between align-items-center py-3 mb-3"
+                style={{
+                  borderTop: "1px solid #ECE7DE",
+                  borderBottom: "1px solid #ECE7DE",
+                }}
+              >
+                <div className="d-flex align-items-center gap-2">
+                  <span
+                    className="fw-semibold text-uppercase"
+                    style={{
+                      fontSize: "0.82rem",
+                      letterSpacing: "0.05em",
+                      color: "#1E1B18",
+                    }}
+                  >
+                    TOTAL WEIGHT
+                  </span>
+                  <div
+                    className="position-relative d-inline-flex align-items-center"
+                    onMouseEnter={() => setShowWeightInfo(true)}
+                    onMouseLeave={() => setShowWeightInfo(false)}
+                    onClick={() => setShowWeightInfo(!showWeightInfo)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#8C7A5B"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ transition: "stroke 0.2s" }}
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+
+                    {showWeightInfo && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: "calc(100% + 10px)",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          backgroundColor: "#1E1B18",
+                          color: "#FAF8F4",
+                          padding: "10px 14px",
+                          borderRadius: "8px",
+                          fontSize: "0.78rem",
+                          lineHeight: 1.45,
+                          width: "260px",
+                          boxShadow: "0 6px 20px rgba(0,0,0,0.2)",
+                          zIndex: 100,
+                          pointerEvents: "none",
+                        }}
+                      >
+                        <div
+                          style={{
+                            fontWeight: "600",
+                            marginBottom: "4px",
+                            color: "#E7D8BA",
+                          }}
+                        >
+                          Shipping Rate Details
+                        </div>
+                        <div>
+                          • Initial base shipping: <strong>Rs 425</strong> (first 1 kg)
+                        </div>
+                        <div>
+                          • Each additional 1 kg: <strong>+Rs 100</strong>
+                        </div>
+                        {/* Tooltip triangle indicator */}
+                        <div
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            width: "0",
+                            height: "0",
+                            borderLeft: "6px solid transparent",
+                            borderRight: "6px solid transparent",
+                            borderTop: "6px solid #1E1B18",
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <span
+                  className="fw-semibold text-dark"
+                  style={{ fontSize: "0.95rem", color: "#1E1B18" }}
+                >
+                  {totalWeight} kg
+                </span>
+              </div>
+
+
+
+
               {/* EXPANDABLE WEIGHT-BASED SHIPPING BREAKDOWN CARD */}
               <div
-                className="shipping-calculation-card mb-3 p-3"
+                className="shipping-calculation-card mb-3 p-3 d-none"
                 style={{
                   backgroundColor: "#FAF8F4",
                   border: "1px solid #EFEAE1",
@@ -899,9 +1010,7 @@ export default function Checkout() {
                       className="fw-bold text-dark"
                       style={{ fontSize: "0.95rem", color: "#1E1B18" }}
                     >
-                      {extraSteps > 0
-                        ? `Rs ${BASE_SHIPPING_COST} + Rs ${extraSteps * STEP_COST}`
-                        : `Rs ${calculatedShippingCost}`}
+                      Rs {calculatedShippingCost}
                     </span>
                     <span
                       style={{
@@ -1060,9 +1169,7 @@ export default function Checkout() {
                           >
                             {totalWeightGrams <= 0
                               ? "No items in cart"
-                              : totalWeightGrams < BASE_WEIGHT_GRAMS
-                                ? `Rs ${BASE_SHIPPING_COST} (up to 2kg base rate)`
-                                : `Rs ${BASE_SHIPPING_COST}  + Rs ${extraSteps * STEP_COST} (${extraSteps} x ${STEP_WEIGHT_GRAMS}g extra)`}
+                              : `Rs ${calculatedShippingCost}`}
                           </span>
                         </div>
                       </div>
@@ -1087,9 +1194,7 @@ export default function Checkout() {
                   className="fw-bold text-dark"
                   style={{ fontSize: "0.95rem", color: "#1E1B18" }}
                 >
-                  {extraSteps > 0
-                    ? `Rs ${BASE_SHIPPING_COST} + Rs ${extraSteps * STEP_COST}`
-                    : `Rs ${calculatedShippingCost}`}
+                  Rs {calculatedShippingCost}
                 </span>
               </div>
 
