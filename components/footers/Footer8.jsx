@@ -53,9 +53,24 @@ export default function Footer8({ collections = [] }) {
                 />
               </Link>
             </div>
-            {/* <!-- /.logo --> */}
             <p className="footer-address">
-              {companyContact.address}
+              {companyContact.addressLines ? (
+                companyContact.addressLines.map((line, idx) => (
+                  <span key={idx} className="d-block">
+                    {line}
+                  </span>
+                ))
+              ) : (
+                <>
+                  Endless Greens (Pvt) Ltd.
+                  <br />
+                  No. 416, Old Kottawa Road,
+                  <br />
+                  Udahamulla, Nugegoda,
+                  <br />
+                  Sri Lanka
+                </>
+              )}
             </p>
 
             <p className="m-0">

@@ -1,5 +1,12 @@
 export const companyContact = {
-  address: "Endless Greens (Pvt) Ltd. No.416, Old Kottawa Road, Udahamulla, Nugegoda, Sri Lanka.",
+  address:
+    "Endless Greens (Pvt) Ltd. No. 416, Old Kottawa Road, Udahamulla, Nugegoda, Sri Lanka.",
+  addressLines: [
+    "Endless Greens (Pvt) Ltd.",
+    "No. 416, Old Kottawa Road,",
+    "Udahamulla, Nugegoda,",
+    "Sri Lanka",
+  ],
   instagram:
     "https://www.instagram.com/endless.greens?igsh=MXByNDg3MWx6ZTYzcw%3D%3D&utm_source=qr",
   facebook:

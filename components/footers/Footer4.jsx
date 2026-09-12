@@ -109,7 +109,15 @@ export default function Footer4() {
             </div>
             {/* <!-- /.logo --> */}
             <p className="footer-address">
-              {companyContact.address}
+              {companyContact.addressLines ? (
+                companyContact.addressLines.map((line, idx) => (
+                  <span key={idx} className="d-block">
+                    {line}
+                  </span>
+                ))
+              ) : (
+                companyContact.address
+              )}
             </p>
 
             <p className="m-0">
