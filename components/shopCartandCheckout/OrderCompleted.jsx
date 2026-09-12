@@ -3,22 +3,63 @@
 import { useContextElement } from "@/context/Context";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import {
+  parseWeightInGrams,
+  calculateTotalWeightGrams,
+  calculateShippingCost,
+  BASE_SHIPPING_COST,
+  STEP_COST,
+  BASE_WEIGHT_GRAMS,
+  STEP_WEIGHT_GRAMS,
+} from "@/utlis/shipping";
 
 export default function OrderCompleted() {
-  const { cartProducts, totalPrice, orderCompleted, completedOrderData } =
+  const { cartProducts, totalPrice, orderCompleted, setOrderCompleted, completedOrderData } =
     useContextElement();
   const router = useRouter();
   const [showDate, setShowDate] = useState(false);
+  const [orderData, setOrderData] = useState(completedOrderData);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     setShowDate(true);
-    // Protection: Redirect to cart if order has not been completed via checkout backend response
-    if (!orderCompleted && typeof window !== "undefined") {
+    let current = completedOrderData;
+
+    if (!current && typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("lastCompletedOrder");
+        if (saved) {
+          current = JSON.parse(saved);
+          setOrderData(current);
+          if (!orderCompleted) {
+            setOrderCompleted(true);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    } else if (current) {
+      setOrderData(current);
+    }
+
+    setIsLoaded(true);
+
+    // Protection: Redirect to cart if order has not been completed and no saved order in localStorage
+    if (!current && !orderCompleted && typeof window !== "undefined") {
       router.push("/shop_cart");
     }
-  }, [orderCompleted, router]);
+  }, [completedOrderData, orderCompleted, router, setOrderCompleted]);
 
-  if (!orderCompleted) {
+  if (!isLoaded) {
+    return (
+      <div className="text-center py-5">
+        <p className="text-secondary">Loading order details...</p>
+      </div>
+    );
+  }
+
+  if (!orderCompleted && !orderData) {
     return (
       <div className="text-center py-5">
         <p className="text-secondary">Redirecting to cart...</p>
@@ -26,10 +67,107 @@ export default function OrderCompleted() {
     );
   }
 
-  const orderId = completedOrderData?.orderId || "ORD-13119";
-  const orderDate = completedOrderData?.date || new Date().toLocaleDateString();
-  const paymentMethodName = completedOrderData?.paymentMethod || "Direct Bank Transfer";
-  const finalTotal = completedOrderData?.totalAmount || (totalPrice ? totalPrice + 19 : 2031);
+  const currentOrder = orderData || completedOrderData;
+  const orderId = currentOrder?.orderId || "ORD-20260912-000003";
+  const orderDate =
+    currentOrder?.date ||
+    new Date().toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  const paymentMethodName =
+    currentOrder?.paymentMethod || "Direct Bank Transfer";
+
+  const items =
+    currentOrder?.items && currentOrder.items.length > 0
+      ? currentOrder.items
+      : cartProducts && cartProducts.length > 0
+      ? cartProducts
+      : [];
+
+  const orderSubtotal =
+    currentOrder?.subtotal ??
+    (items.length > 0
+      ? items.reduce(
+          (acc, item) =>
+            acc + (Number(item.price) || 0) * (Number(item.quantity) || 1),
+          0
+        )
+      : totalPrice || 100);
+
+  const totalWeightGrams =
+    currentOrder?.totalWeightGrams ??
+    calculateTotalWeightGrams(items);
+
+  const extraSteps =
+    totalWeightGrams >= BASE_WEIGHT_GRAMS
+      ? Math.max(0, Math.floor(totalWeightGrams / STEP_WEIGHT_GRAMS) - 1)
+      : 0;
+
+  const orderShippingCost =
+    currentOrder?.shippingCost ??
+    (items.length > 0
+      ? calculateShippingCost(totalWeightGrams)
+      : (currentOrder?.totalAmount && orderSubtotal
+          ? Math.max(0, currentOrder.totalAmount - orderSubtotal)
+          : 425));
+
+  const displayShippingCost = `Rs ${orderShippingCost}`;
+
+  const finalTotal =
+    currentOrder?.totalAmount ??
+    (orderSubtotal + (Number(orderShippingCost) || 0));
+
+  // Determine accurate payment status & styling
+  const rawPaymentStatus = (
+    currentOrder?.paymentStatus ||
+    currentOrder?.payment_status ||
+    currentOrder?.status ||
+    ""
+  ).toString().toLowerCase().trim();
+
+  const isBankTransfer =
+    paymentMethodName.toLowerCase().includes("bank") ||
+    paymentMethodName.toLowerCase().includes("transfer");
+
+  const isCod =
+    paymentMethodName.toLowerCase().includes("cash") ||
+    paymentMethodName.toLowerCase().includes("cod");
+
+  let displayPaymentStatus = isBankTransfer ? "Successful" : "Confirmed";
+  let isPending = false;
+
+  if (isBankTransfer) {
+    displayPaymentStatus = "Successful";
+    isPending = false;
+  } else if (
+    rawPaymentStatus === "paid" ||
+    rawPaymentStatus === "completed" ||
+    rawPaymentStatus === "success" ||
+    rawPaymentStatus === "successful"
+  ) {
+    displayPaymentStatus = "Successful";
+    isPending = false;
+  } else if (rawPaymentStatus === "confirmed") {
+    displayPaymentStatus = "Confirmed";
+    isPending = false;
+  } else if (
+    rawPaymentStatus === "pending" ||
+    rawPaymentStatus === "pending verification" ||
+    rawPaymentStatus === "unpaid"
+  ) {
+    displayPaymentStatus = isCod ? "Pending (COD)" : "Pending";
+    isPending = true;
+  } else if (rawPaymentStatus) {
+    displayPaymentStatus =
+      rawPaymentStatus.charAt(0).toUpperCase() + rawPaymentStatus.slice(1);
+    isPending =
+      rawPaymentStatus.includes("pend") || rawPaymentStatus.includes("unpaid");
+  } else {
+    displayPaymentStatus = isCod ? "Pending (COD)" : "Confirmed";
+    isPending = isCod;
+  }
 
   return (
     <div className="order-complete">
@@ -50,6 +188,7 @@ export default function OrderCompleted() {
         <h3>Your order is completed!</h3>
         <p>Thank you. Your order has been received and verified.</p>
       </div>
+
       <div className="order-info">
         <div className="order-info__item">
           <label>Order Number</label>
@@ -68,40 +207,184 @@ export default function OrderCompleted() {
           <span className="text-capitalize">{paymentMethodName}</span>
         </div>
       </div>
+
       <div className="checkout__totals-wrapper">
         <div className="checkout__totals w-100">
-          <h3>Order Details</h3>
-          <table className="checkout-cart-items">
+          <h3>ORDER DETAILS</h3>
+          <table className="checkout-cart-items w-100">
             <thead>
               <tr>
-                <th>PRODUCT</th>
-                <th>SUBTOTAL</th>
+                <th style={{ textAlign: "left" }}>PRODUCT</th>
+                <th style={{ textAlign: "right" }}>SUBTOTAL</th>
               </tr>
             </thead>
             <tbody>
-              {cartProducts.map((elm, i) => (
-                <tr key={i}>
-                  <td>
-                    {elm.title} x {elm.quantity}
-                  </td>
-                  <td>Rs {elm.price * elm.quantity}</td>
-                </tr>
-              ))}
+              {items.map((elm, i) => {
+                const itemGrams = parseWeightInGrams(
+                  elm.weight_grams ?? elm.weight,
+                  elm.size,
+                  200
+                );
+                const itemKg = (itemGrams / 1000).toFixed(2);
+
+                return (
+                  <tr key={i}>
+                    <td style={{ padding: "14px 0" }}>
+                      <div className="d-flex align-items-center gap-3">
+                        <div
+                          style={{
+                            width: "56px",
+                            height: "56px",
+                            borderRadius: "8px",
+                            overflow: "hidden",
+                            flexShrink: 0,
+                            backgroundColor: "#FAF8F4",
+                            border: "1px solid #ECE7DE",
+                            position: "relative",
+                          }}
+                        >
+                          <Image
+                            src={
+                              elm.imgSrc ||
+                              "/assets/images/products/product_0.jpg"
+                            }
+                            alt={elm.title || "Product"}
+                            fill
+                            sizes="56px"
+                            unoptimized
+                            style={{ objectFit: "cover" }}
+                          />
+                        </div>
+                        <div>
+                          <span
+                            className="d-block fw-medium text-dark"
+                            style={{ fontSize: "0.95rem", lineHeight: 1.3 }}
+                          >
+                            {elm.title}
+                          </span>
+                          {elm.size && (
+                            <span
+                              className="d-block text-secondary mt-1"
+                              style={{ fontSize: "0.8rem", color: "#777169" }}
+                            >
+                              Size: {elm.size}
+                            </span>
+                          )}
+                          <span
+                            className="d-block text-secondary mt-1"
+                            style={{ fontSize: "0.8rem", color: "#777169" }}
+                          >
+                            Weight: {itemKg} kg
+                          </span>
+                          <span
+                            className="d-block text-secondary mt-1"
+                            style={{ fontSize: "0.8rem", color: "#777169" }}
+                          >
+                            × {elm.quantity}
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td
+                      style={{
+                        textAlign: "right",
+                        verticalAlign: "middle",
+                        fontWeight: "600",
+                        fontSize: "0.95rem",
+                      }}
+                    >
+                      Rs {elm.price * elm.quantity}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          <table className="checkout-totals">
+          <table className="checkout-totals w-100">
             <tbody>
               <tr>
                 <th>SUBTOTAL</th>
-                <td>Rs {totalPrice || 2000}</td>
+                <td style={{ textAlign: "right" }}>Rs {orderSubtotal}</td>
               </tr>
               <tr>
-                <th>PAYMENT STATUS</th>
-                <td className="text-success fw-bold">Confirmed</td>
+                <th>SHIPPING COST</th>
+                <td style={{ textAlign: "right" }}>{displayShippingCost}</td>
+              </tr>
+              <tr>
+                <th style={{ verticalAlign: isBankTransfer ? "top" : "middle", paddingTop: isBankTransfer ? "14px" : "auto" }}>
+                  PAYMENT STATUS
+                </th>
+                <td style={{ textAlign: "right", padding: "10px 0" }}>
+                  <div className="d-flex flex-column align-items-end gap-2">
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        padding: "5px 14px",
+                        borderRadius: "20px",
+                        fontSize: "0.82rem",
+                        fontWeight: "600",
+                        letterSpacing: "0.02em",
+                        backgroundColor: isPending ? "#FEF3C7" : "#DCFCE7",
+                        color: isPending ? "#92400E" : "#166534",
+                        border: isPending ? "1px solid #FDE68A" : "1px solid #BBF7D0",
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: "7px",
+                          height: "7px",
+                          borderRadius: "50%",
+                          backgroundColor: isPending ? "#D97706" : "#16A34A",
+                          display: "inline-block",
+                        }}
+                      />
+                      {displayPaymentStatus}
+                    </span>
+
+                    {/* {isBankTransfer && (
+                      <div
+                        className="d-flex align-items-start gap-2 mt-1 text-start"
+                        style={{
+                          backgroundColor: "#F0F9FF",
+                          border: "1px solid #BAE6FD",
+                          borderRadius: "8px",
+                          padding: "8px 12px",
+                          maxWidth: "340px",
+                          fontSize: "0.82rem",
+                          color: "#0369A1",
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#0284C7"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ flexShrink: 0, marginTop: "2px" }}
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="16" x2="12" y2="12" />
+                          <line x1="12" y1="8" x2="12.01" y2="8" />
+                        </svg>
+                        <span>
+                          We will contact you after referring to your order as soon as possible.
+                        </span>
+                      </div>
+                    )} */}
+                  </div>
+                </td>
               </tr>
               <tr>
                 <th>TOTAL</th>
-                <td className="fw-bold">${finalTotal}</td>
+                <td style={{ textAlign: "right" }} className="fw-bold">
+                  Rs {finalTotal}
+                </td>
               </tr>
             </tbody>
           </table>

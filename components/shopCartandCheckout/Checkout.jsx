@@ -9,6 +9,7 @@ const countries = [
 import { useContextElement } from "@/context/Context";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { apiFetch } from "@/lib/api/client";
 import {
@@ -25,10 +26,41 @@ export default function Checkout() {
   const {
     cartProducts,
     setCartProducts,
+    setQuantity: contextSetQuantity,
+    removeItem: contextRemoveItem,
     totalPrice,
     setOrderCompleted,
     setCompletedOrderData,
   } = useContextElement();
+
+  const setQuantity = (id, quantity, index = null) => {
+    if (contextSetQuantity) {
+      contextSetQuantity(id, quantity, index);
+    } else {
+      const qty = parseInt(quantity, 10);
+      if (!isNaN(qty) && qty >= 1) {
+        setCartProducts((prev) =>
+          prev.map((item, idx) => {
+            if (index !== null) return idx === index ? { ...item, quantity: qty } : item;
+            return item.id == id ? { ...item, quantity: qty } : item;
+          })
+        );
+      }
+    }
+  };
+
+  const removeItem = (id, index = null) => {
+    if (contextRemoveItem) {
+      contextRemoveItem(id, index);
+    } else {
+      setCartProducts((prev) =>
+        prev.filter((item, idx) => {
+          if (index !== null) return idx !== index;
+          return item.id != id;
+        })
+      );
+    }
+  };
   const router = useRouter();
 
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -61,6 +93,11 @@ export default function Checkout() {
 
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+
+    if (cartProducts.length === 0) {
+      setCheckoutError("Your shopping bag is empty. Please add items before placing an order.");
+      return;
+    }
 
     if (!firstName || !streetAddress || !phone || !city) {
       setCheckoutError("Please fill in all required billing details.");
@@ -100,15 +137,31 @@ export default function Checkout() {
 
       const orderData = {
         orderId: data.data.order_number,
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         totalAmount: data.data.total_amount,
         paymentMethod: paymentMethod === "bank_transfer" ? "Direct Bank Transfer" : paymentMethod,
+        paymentStatus:
+          paymentMethod === "bank_transfer"
+            ? "Successful"
+            : data.data?.payment_status || data.data?.status || "Confirmed",
         bankSlipName: bankSlip ? bankSlip.name : null,
         items: cartProducts,
+        subtotal: totalPrice,
+        shippingCost: calculatedShippingCost,
+        totalWeight: totalWeight,
+        totalWeightGrams: totalWeightGrams,
       };
 
       setCompletedOrderData(orderData);
       setOrderCompleted(true);
+      if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem("lastCompletedOrder", JSON.stringify(orderData));
+        } catch (e) {
+          console.error(e);
+        }
+      }
       
       // Clear cart
       setCartProducts([]);
@@ -451,59 +504,352 @@ export default function Checkout() {
         </div>
         <div className="checkout__totals-wrapper">
           <div className="sticky-content w-100">
-            <div className="checkout__totals w-100">
-              <h3>Your Order</h3>
-              <table className="checkout-cart-items">
-                <thead>
-                  <tr>
-                    <th>PRODUCT</th>
-                    <th>SUBTOTAL</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cartProducts.map((elm, i) => (
-                    <tr key={i}>
-                      <td>
-                        <span className="fw-medium">{elm.title}</span>
-                        <span
-                          className="d-block text-secondary"
-                          style={{ fontSize: "0.75rem" }}
-                        >
-                          {(() => {
-                            const itemGrams = parseWeightInGrams(elm.weight_grams ?? elm.weight, elm.size, 200);
-                            const itemKg = (itemGrams / 1000).toFixed(2);
-                            const totalItemKg = ((itemGrams * elm.quantity) / 1000).toFixed(2);
-                            return (
-                              <>
-                                Weight: {itemKg} kg ({itemGrams}g){" "}
-                                {elm.quantity > 1 ? `(${totalItemKg} kg total)` : ""}
-                              </>
-                            );
-                          })()}
-                        </span>
-                        x {elm.quantity}
-                      </td>
-                      <td>Rs {elm.price * elm.quantity}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <table className="checkout-totals mb-2">
-                <tbody>
-                  <tr>
-                    <th>SUBTOTAL</th>
-                    <td>Rs {totalPrice}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-              {/* EXPANDABLE WEIGHT-BASED SHIPPING BREAKDOWN */}
-              <div
-                className="shipping-calculation-card mb-3 p-3 rounded-3"
+            <div
+              className="checkout__totals w-100"
+              style={{
+                backgroundColor: "#ffffff",
+                border: "1px solid #ECE7DE",
+                borderRadius: "16px",
+                padding: "28px 30px",
+                boxShadow: "0 4px 24px rgba(28, 22, 16, 0.04)",
+              }}
+            >
+              <h3
+                className="mb-4 pb-3"
                 style={{
-                  backgroundColor: "#f7f5ff",
-                  border: "1px solid #eae5f7",
-                  borderRadius: "10px",
+                  fontFamily: "var(--font-heading), 'Lora', serif",
+                  fontSize: "1.35rem",
+                  fontWeight: "600",
+                  color: "#1E1B18",
+                  letterSpacing: "-0.01em",
+                  borderBottom: "1px solid #ECE7DE",
+                }}
+              >
+                Your Order
+              </h3>
+
+              {/* Table Column Labels */}
+              <div
+                className="d-flex justify-content-between pb-2 mb-3"
+                style={{
+                  borderBottom: "1px solid #ECE7DE",
+                  fontSize: "0.72rem",
+                  fontWeight: "600",
+                  letterSpacing: "0.08em",
+                  color: "#777169",
+                  textTransform: "uppercase",
+                }}
+              >
+                <span>PRODUCT</span>
+                <span>SUBTOTAL</span>
+              </div>
+
+              {/* Product Items List */}
+              <div className="checkout-cart-items-list mb-3">
+                {cartProducts.length === 0 ? (
+                  <div
+                    className="text-center py-4 px-3"
+                    style={{
+                      backgroundColor: "#FAF8F4",
+                      borderRadius: "12px",
+                      border: "1px dashed #DDD6CC",
+                    }}
+                  >
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#A0988E"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mb-2"
+                    >
+                      <circle cx="9" cy="21" r="1"></circle>
+                      <circle cx="20" cy="21" r="1"></circle>
+                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <p
+                      style={{
+                        color: "#777169",
+                        fontSize: "0.9rem",
+                        margin: "4px 0 10px",
+                      }}
+                    >
+                      Your shopping bag is currently empty.
+                    </p>
+                    <Link
+                      href="/shop-1"
+                      className="btn btn-outline-primary btn-sm"
+                      style={{
+                        borderRadius: "6px",
+                        fontSize: "0.8rem",
+                        padding: "5px 14px",
+                      }}
+                    >
+                      Continue Shopping
+                    </Link>
+                  </div>
+                ) : (
+                  cartProducts.map((elm, i) => {
+                    const itemGrams = parseWeightInGrams(
+                      elm.weight_grams ?? elm.weight,
+                      elm.size,
+                      200
+                    );
+                    const itemKg = (itemGrams / 1000).toFixed(2);
+                    const totalItemKg = ((itemGrams * elm.quantity) / 1000).toFixed(2);
+
+                    return (
+                      <div
+                        key={elm.id ? `${elm.id}-${i}` : i}
+                        className="d-flex justify-content-between align-items-center py-3"
+                        style={{
+                          borderBottom:
+                            i === cartProducts.length - 1
+                              ? "none"
+                              : "1px solid #F0ECE4",
+                        }}
+                      >
+                        <div className="d-flex align-items-center gap-3">
+                          <div
+                            style={{
+                              width: "64px",
+                              height: "64px",
+                              borderRadius: "8px",
+                              overflow: "hidden",
+                              flexShrink: 0,
+                              backgroundColor: "#FAF8F4",
+                              border: "1px solid #ECE7DE",
+                              position: "relative",
+                            }}
+                          >
+                            <Image
+                              src={elm.imgSrc || "/assets/images/products/product_0.jpg"}
+                              alt={elm.title || "Product"}
+                              fill
+                              sizes="64px"
+                              unoptimized
+                              style={{ objectFit: "cover" }}
+                            />
+                          </div>
+                          <div>
+                            <span
+                              className="d-block fw-medium text-dark"
+                              style={{
+                                fontFamily: "var(--font-heading), 'Lora', serif",
+                                fontSize: "0.98rem",
+                                fontWeight: "500",
+                                color: "#1E1B18",
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              {elm.title}
+                            </span>
+                            <span
+                              className="d-block mt-1"
+                              style={{ fontSize: "0.78rem", color: "#777169" }}
+                            >
+                             {elm.size || "L"}
+                            </span>
+                            <span
+                              className="d-block mt-1"
+                              style={{ fontSize: "0.78rem", color: "#777169" }}
+                            >
+                              Weight: {itemKg} kg 
+                            </span>
+
+                            {/* Quantity Controls & Remove Action */}
+                            <div className="d-flex align-items-center flex-wrap gap-2 mt-2">
+                              <div
+                                className="d-inline-flex align-items-center"
+                                style={{
+                                  border: "1px solid #DCD6CC",
+                                  borderRadius: "6px",
+                                  backgroundColor: "#FAF8F5",
+                                  height: "28px",
+                                  padding: "0 2px",
+                                }}
+                              >
+                                <button
+                                  type="button"
+                                  onClick={() => setQuantity(elm.id, elm.quantity - 1, i)}
+                                  disabled={elm.quantity <= 1}
+                                  aria-label="Reduce quantity"
+                                  style={{
+                                    width: "24px",
+                                    height: "24px",
+                                    border: "none",
+                                    background: "transparent",
+                                    color: elm.quantity <= 1 ? "#C2BBB2" : "#1E1B18",
+                                    fontSize: "15px",
+                                    fontWeight: "bold",
+                                    cursor: elm.quantity <= 1 ? "not-allowed" : "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: 0,
+                                    lineHeight: 1,
+                                    transition: "all 0.15s ease",
+                                  }}
+                                  title={
+                                    elm.quantity <= 1
+                                      ? "Minimum quantity is 1 (use remove to delete)"
+                                      : "Reduce quantity"
+                                  }
+                                >
+                                  −
+                                </button>
+                                <input
+                                  type="number"
+                                  min="1"
+                                  value={elm.quantity}
+                                  onChange={(e) => {
+                                    const val = parseInt(e.target.value, 10);
+                                    if (!isNaN(val) && val >= 1) {
+                                      setQuantity(elm.id, val, i);
+                                    }
+                                  }}
+                                  aria-label="Item quantity"
+                                  style={{
+                                    width: "32px",
+                                    height: "22px",
+                                    border: "none",
+                                    background: "transparent",
+                                    textAlign: "center",
+                                    fontSize: "0.82rem",
+                                    fontWeight: "600",
+                                    color: "#1E1B18",
+                                    outline: "none",
+                                    padding: 0,
+                                    MozAppearance: "textfield",
+                                  }}
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => setQuantity(elm.id, elm.quantity + 1, i)}
+                                  aria-label="Increase quantity"
+                                  style={{
+                                    width: "24px",
+                                    height: "24px",
+                                    border: "none",
+                                    background: "transparent",
+                                    color: "#1E1B18",
+                                    fontSize: "15px",
+                                    fontWeight: "bold",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: 0,
+                                    lineHeight: 1,
+                                    transition: "all 0.15s ease",
+                                  }}
+                                  title="Increase quantity"
+                                >
+                                  +
+                                </button>
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => removeItem(elm.id, i)}
+                                title="Remove item"
+                                style={{
+                                  border: "none",
+                                  background: "transparent",
+                                  color: "#9A938A",
+                                  padding: "2px 4px",
+                                  fontSize: "0.75rem",
+                                  cursor: "pointer",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "3px",
+                                  borderRadius: "4px",
+                                  transition: "color 0.15s ease",
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.color = "#D9534F")}
+                                onMouseLeave={(e) => (e.currentTarget.style.color = "#9A938A")}
+                              >
+                                <svg
+                                  width="12"
+                                  height="12"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <polyline points="3 6 5 6 21 6"></polyline>
+                                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                                <span>Remove</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="fw-medium text-end ms-2"
+                          style={{
+                            fontSize: "0.95rem",
+                            color: "#1E1B18",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <div>Rs {elm.price * elm.quantity}</div>
+                          {elm.quantity > 1 && (
+                            <div
+                              style={{
+                                fontSize: "0.72rem",
+                                color: "#8C857B",
+                                fontWeight: 400,
+                              }}
+                            >
+                              Rs {elm.price} each
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* Subtotal Row */}
+              <div
+                className="d-flex justify-content-between align-items-center py-3 mb-3"
+                style={{
+                  borderTop: "1px solid #ECE7DE",
+                  borderBottom: "1px solid #ECE7DE",
+                }}
+              >
+                <span
+                  className="fw-semibold text-uppercase"
+                  style={{
+                    fontSize: "0.82rem",
+                    letterSpacing: "0.05em",
+                    color: "#1E1B18",
+                  }}
+                >
+                  SUBTOTAL
+                </span>
+                <span
+                  className="fw-semibold text-dark"
+                  style={{ fontSize: "0.95rem", color: "#1E1B18" }}
+                >
+                  Rs {totalPrice}
+                </span>
+              </div>
+
+              {/* EXPANDABLE WEIGHT-BASED SHIPPING BREAKDOWN CARD */}
+              <div
+                className="shipping-calculation-card mb-3 p-3"
+                style={{
+                  backgroundColor: "#FAF8F4",
+                  border: "1px solid #EFEAE1",
+                  borderRadius: "12px",
                 }}
               >
                 <div
@@ -511,67 +857,113 @@ export default function Checkout() {
                   onClick={() => setShippingOpen(!shippingOpen)}
                   style={{ cursor: "pointer", userSelect: "none" }}
                 >
-                  <span
-                    className="fw-semibold text-uppercase"
-                    style={{ fontSize: "0.875rem", letterSpacing: "0.03em" }}
-                  >
-                    SHIPPING
-                  </span>
+                  <div className="d-flex align-items-center gap-2">
+                    <div
+                      className="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        backgroundColor: "#F3EDE3",
+                        color: "#9E805A",
+                      }}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect x="1" y="3" width="15" height="13"></rect>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                      </svg>
+                    </div>
+                    <span
+                      className="fw-semibold text-uppercase"
+                      style={{
+                        fontSize: "0.82rem",
+                        letterSpacing: "0.05em",
+                        color: "#1E1B18",
+                      }}
+                    >
+                      SHIPPING
+                    </span>
+                  </div>
                   <div className="d-flex align-items-center gap-2">
                     <span
                       className="fw-bold text-dark"
-                      style={{ fontSize: "0.95rem" }}
+                      style={{ fontSize: "0.95rem", color: "#1E1B18" }}
                     >
-                    Rs {calculatedShippingCost}
+                      {extraSteps > 0
+                        ? `Rs ${BASE_SHIPPING_COST} + Rs ${extraSteps * STEP_COST}`
+                        : `Rs ${calculatedShippingCost}`}
                     </span>
                     <span
-                      className="text-secondary"
                       style={{
-                        fontSize: "0.75rem",
-                        display: "inline-block",
-                        transition: "transform 0.2s ease",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        transition: "transform 0.25s ease",
                         transform: shippingOpen
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
+                        color: "#1E1B18",
                       }}
                     >
-                      ▲
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
                     </span>
                   </div>
                 </div>
 
                 {shippingOpen && (
                   <div
-                    className="shipping-breakdown mt-3 pt-2"
-                    style={{ borderTop: "1px solid #e6e0f5" }}
+                    className="shipping-breakdown mt-3 pt-3"
+                    style={{ borderTop: "1px solid #EAE4D8" }}
                   >
-                    {/* Total Weight Box */}
                     <div
-                      className="p-3 mb-2 rounded-3 bg-white d-flex align-items-center justify-content-between"
+                      className="p-3 bg-white"
                       style={{
-                        padding: "0.75rem 1rem",
-                        backgroundColor: "#ffffff",
-                        border: "1px solid #efecf9",
-                        borderRadius: "8px",
+                        border: "1px solid #ECE7DE",
+                        borderRadius: "10px",
                       }}
                     >
-                      <div className="d-flex align-items-center gap-3">
+                      {/* Total Weight Row */}
+                      <div
+                        className="d-flex align-items-center gap-3 pb-3 mb-3"
+                        style={{ borderBottom: "1px solid #F0ECE4" }}
+                      >
                         <div
                           className="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
                           style={{
                             width: "36px",
                             height: "36px",
-                            backgroundColor: "#f0edfd",
-                            color: "#6c5ce7",
+                            backgroundColor: "#F4EFE6",
+                            color: "#9E805A",
                           }}
                         >
                           <svg
-                            width="18"
-                            height="18"
+                            width="17"
+                            height="17"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            strokeWidth="2"
+                            strokeWidth="1.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           >
@@ -590,15 +982,20 @@ export default function Checkout() {
                             </span>
                             <span
                               className="text-secondary ms-1 cursor-pointer"
-                              title="Shipping Rate: Rs 450 for first 1000g + Rs 100 per additional 1000g"
-                              style={{ fontSize: "0.8rem", cursor: "help" }}
+                              title={`Base rate up to ${BASE_WEIGHT_GRAMS / 1000}kg: Rs ${BASE_SHIPPING_COST}; +Rs ${STEP_COST} per additional ${STEP_WEIGHT_GRAMS / 1000}kg`}
+                              style={{
+                                fontSize: "0.75rem",
+                                cursor: "help",
+                                display: "inline-flex",
+                                alignItems: "center",
+                              }}
                             >
                               <svg
-                                width="14"
-                                height="14"
+                                width="13"
+                                height="13"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                stroke="#6c5ce7"
+                                stroke="#9E805A"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -615,42 +1012,32 @@ export default function Checkout() {
                             </span>
                           </div>
                           <span
-                            className="text-secondary d-block"
-                            style={{ fontSize: "0.8rem", fontWeight: "600" }}
+                            className="d-block text-secondary mt-1"
+                            style={{ fontSize: "0.8rem", color: "#6E6860" }}
                           >
                             {totalWeight} kg ({totalWeightGrams}g)
                           </span>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Shipping Cost Box */}
-                    <div
-                      className="p-3 rounded-3 bg-white d-flex align-items-center justify-content-between"
-                      style={{
-                        padding: "0.75rem 1rem",
-                        backgroundColor: "#ffffff",
-                        border: "1px solid #efecf9",
-                        borderRadius: "8px",
-                      }}
-                    >
+                      {/* Shipping Cost Row */}
                       <div className="d-flex align-items-center gap-3">
                         <div
                           className="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
                           style={{
                             width: "36px",
                             height: "36px",
-                            backgroundColor: "#f0edfd",
-                            color: "#6c5ce7",
+                            backgroundColor: "#F4EFE6",
+                            color: "#9E805A",
                           }}
                         >
                           <svg
-                            width="18"
-                            height="18"
+                            width="17"
+                            height="17"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            strokeWidth="2"
+                            strokeWidth="1.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           >
@@ -668,42 +1055,74 @@ export default function Checkout() {
                             Shipping Cost
                           </span>
                           <span
-                            className="text-secondary d-block"
-                            style={{ fontSize: "0.75rem" }}
+                            className="d-block text-secondary mt-1"
+                            style={{ fontSize: "0.8rem", color: "#6E6860" }}
                           >
                             {totalWeightGrams <= 0
                               ? "No items in cart"
                               : totalWeightGrams < BASE_WEIGHT_GRAMS
                               ? `Rs ${BASE_SHIPPING_COST} (up to 2kg base rate)`
-                              : `Rs ${BASE_SHIPPING_COST} (first 2kg) + Rs ${extraSteps * STEP_COST} (${extraSteps} x ${STEP_WEIGHT_GRAMS}g extra)`}
+                              : `Rs ${BASE_SHIPPING_COST}  + Rs ${extraSteps * STEP_COST} (${extraSteps} x ${STEP_WEIGHT_GRAMS}g extra)`}
                           </span>
                         </div>
                       </div>
-                      <span
-                        className="fw-bold text-dark ms-2"
-                        style={{ fontSize: "0.9rem" }}
-                      >
-                        Rs {calculatedShippingCost}
-                      </span>
                     </div>
                   </div>
                 )}
               </div>
 
-              <table className="checkout-totals">
-                <tbody>
-                  <tr>
-                    <th>SHIPPING COST</th>
-                    <td>Rs {calculatedShippingCost}</td>
-                  </tr>
-                  <tr>
-                    <th>TOTAL</th>
-                    <td className="fw-bold">
-                      Rs {totalPrice + calculatedShippingCost}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* Shipping Cost Summary Line */}
+              <div className="d-flex justify-content-between align-items-center py-2 mb-3">
+                <span
+                  className="fw-semibold text-uppercase"
+                  style={{
+                    fontSize: "0.8rem",
+                    letterSpacing: "0.06em",
+                    color: "#1E1B18",
+                  }}
+                >
+                  SHIPPING COST
+                </span>
+                <span
+                  className="fw-bold text-dark"
+                  style={{ fontSize: "0.95rem", color: "#1E1B18" }}
+                >
+                  {extraSteps > 0
+                    ? `Rs ${BASE_SHIPPING_COST} + Rs ${extraSteps * STEP_COST}`
+                    : `Rs ${calculatedShippingCost}`}
+                </span>
+              </div>
+
+              {/* TOTAL Highlight Box */}
+              <div
+                className="d-flex justify-content-between align-items-center p-3 mb-3"
+                style={{
+                  backgroundColor: "#F7F3EB",
+                  border: "1px solid #EBE4D5",
+                  borderRadius: "10px",
+                }}
+              >
+                <span
+                  className="fw-bold text-uppercase"
+                  style={{
+                    fontSize: "1rem",
+                    letterSpacing: "0.05em",
+                    color: "#1E1B18",
+                  }}
+                >
+                  TOTAL
+                </span>
+                <span
+                  className="fw-bold"
+                  style={{
+                    fontFamily: "var(--font-heading), 'Lora', serif",
+                    fontSize: "1.38rem",
+                    color: "#9E805A",
+                  }}
+                >
+                  Rs {totalPrice + calculatedShippingCost}
+                </span>
+              </div>
             </div>
 
             <div className="policy-text my-3">
@@ -728,7 +1147,7 @@ export default function Checkout() {
             <button
               type="submit"
               className="btn btn-primary btn-checkout d-flex align-items-center justify-content-center gap-2"
-              disabled={isSubmitting}
+              disabled={isSubmitting || cartProducts.length === 0}
             >
               {isSubmitting ? (
                 <>

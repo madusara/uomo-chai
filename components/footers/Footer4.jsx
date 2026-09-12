@@ -215,7 +215,7 @@ export default function Footer4() {
                 defaultValue="JOIN"
               />
             </form>
-
+{/* 
             <div className="mt-4 pt-3">
               <strong className="fw-medium">Secure payments</strong>
               <p className="mt-2">
@@ -227,7 +227,7 @@ export default function Footer4() {
                   alt="Acceptable payment gateways"
                 />
               </p>
-            </div>
+            </div> */}
           </div>
           {/* <!-- /.footer-column --> */}
         </div>

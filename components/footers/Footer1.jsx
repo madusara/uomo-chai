@@ -148,7 +148,7 @@ export default function Footer1({ collections = [] }) {
               />
             </form>
 
-            <div className="mt-4 pt-3">
+            {/* <div className="mt-4 pt-3">
               <strong className="fw-medium">Secure payments</strong>
               <p className="mt-2">
                 <Image
@@ -160,7 +160,7 @@ export default function Footer1({ collections = [] }) {
                   className="mw-100"
                 />
               </p>
-            </div>
+            </div> */}
           </div>
           {/* <!-- /.footer-column --> */}
         </div>

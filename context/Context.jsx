@@ -124,9 +124,61 @@ export default function Context({ children }) {
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [completedOrderData, setCompletedOrderData] = useState(null);
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("lastCompletedOrder");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed) {
+          setCompletedOrderData(parsed);
+          setOrderCompleted(true);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (completedOrderData) {
+      try {
+        localStorage.setItem("lastCompletedOrder", JSON.stringify(completedOrderData));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [completedOrderData]);
+
+  const setQuantity = (id, quantity, itemIndex = null) => {
+    const qty = parseInt(quantity, 10);
+    if (!isNaN(qty) && qty >= 1) {
+      setCartProducts((prev) =>
+        prev.map((item, idx) => {
+          if (itemIndex !== null && itemIndex !== undefined) {
+            return idx === itemIndex ? { ...item, quantity: qty } : item;
+          }
+          return item.id == id ? { ...item, quantity: qty } : item;
+        })
+      );
+    }
+  };
+
+  const removeItem = (id, itemIndex = null) => {
+    setCartProducts((prev) =>
+      prev.filter((item, idx) => {
+        if (itemIndex !== null && itemIndex !== undefined) {
+          return idx !== itemIndex;
+        }
+        return item.id != id;
+      })
+    );
+  };
+
   const contextElement = {
     cartProducts,
     setCartProducts,
+    setQuantity,
+    removeItem,
     totalPrice,
     addProductToCart,
     isAddedToCartProducts,
