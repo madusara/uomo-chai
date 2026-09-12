@@ -41,9 +41,8 @@ export default function TrendingProducts() {
             role="presentation"
           >
             <a
-              className={`nav-link nav-link_underscore ${
-                currentCategory == elm ? "active" : ""
-              }`}
+              className={`nav-link nav-link_underscore ${currentCategory == elm ? "active" : ""
+                }`}
             >
               {elm}
             </a>
@@ -105,11 +104,10 @@ export default function TrendingProducts() {
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <use
-                            href={`${
-                              isAddedToCartProducts(elm.id)
+                            href={`${isAddedToCartProducts(elm.id)
                                 ? "#icon_cart_added"
                                 : "#icon_cart"
-                            }`}
+                              }`}
                           />
                         </svg>
                       </button>
@@ -131,9 +129,8 @@ export default function TrendingProducts() {
                         </svg>
                       </button>
                       <button
-                        className={`btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist ${
-                          isAddedtoWishlist(elm.id) ? "active" : ""
-                        }`}
+                        className={`btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                          }`}
                         onClick={() => toggleWishlist(elm.id)}
                         title="Add To Wishlist"
                       >
@@ -174,7 +171,7 @@ export default function TrendingProducts() {
           <div className="text-center mt-2">
             <Link
               className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-              href="/shop-1"
+              href="/shop"
             >
               See All Products
             </Link>

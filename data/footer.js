@@ -12,7 +12,7 @@ export const footerLinks2 = [
   // { href: "/shop-3", text: "Accessories" },
   // { href: "/shop-4", text: "Men" },
   // { href: "/shop-5", text: "Women" },
-  // { href: "/shop-1", text: "Shop All" },
+  // { href: "/shop", text: "Shop All" },
 ];
 export const footerLinks3 = [
   { href: "/about", text: "Privacy Policy" },

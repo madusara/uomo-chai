@@ -69,9 +69,8 @@ export default function Nav() {
       <li className="navigation__item">
         <a
           href="/"
-          className={`navigation__link ${
-            isActiveParentMenu(homePages) ? "menu-active" : ""
-          }`}
+          className={`navigation__link ${isActiveParentMenu(homePages) ? "menu-active" : ""
+            }`}
         >
           Home
         </a>
@@ -82,9 +81,8 @@ export default function Nav() {
                 <li key={i} className="sub-menu__item">
                   <Link
                     href={elm.href}
-                    className={`menu-link menu-link_us-s ${
-                      isMenuActive(elm.href) ? "menu-active" : ""
-                    }`}
+                    className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                      }`}
                   >
                     {elm.title}
                   </Link>
@@ -99,9 +97,8 @@ export default function Nav() {
                 <li key={i} className="sub-menu__item">
                   <Link
                     href={elm.href}
-                    className={`menu-link menu-link_us-s ${
-                      isMenuActive(elm.href) ? "menu-active" : ""
-                    }`}
+                    className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                      }`}
                   >
                     {elm.title}
                   </Link>
@@ -116,9 +113,8 @@ export default function Nav() {
                 <li key={i} className="sub-menu__item">
                   <Link
                     href={elm.href}
-                    className={`menu-link menu-link_us-s ${
-                      isMenuActive(elm.href) ? "menu-active" : ""
-                    }`}
+                    className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                      }`}
                   >
                     {elm.title}
                   </Link>
@@ -133,9 +129,8 @@ export default function Nav() {
                 <li key={i} className="sub-menu__item">
                   <Link
                     href={elm.href}
-                    className={`menu-link menu-link_us-s ${
-                      isMenuActive(elm.href) ? "menu-active" : ""
-                    }`}
+                    className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                      }`}
                   >
                     {elm.title}
                   </Link>
@@ -166,9 +161,8 @@ export default function Nav() {
                   <li key={i} className="sub-menu__item">
                     <Link
                       href={elm.href}
-                      className={`menu-link menu-link_us-s ${
-                        isMenuActive(elm.href) ? "menu-active" : ""
-                      }`}
+                      className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                        }`}
                     >
                       {elm.title}
                     </Link>
@@ -186,9 +180,8 @@ export default function Nav() {
                   <li key={i} className="sub-menu__item">
                     <Link
                       href={elm.href}
-                      className={`menu-link menu-link_us-s ${
-                        isMenuActive(elm.href) ? "menu-active" : ""
-                      }`}
+                      className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                        }`}
                     >
                       {elm.title}
                     </Link>
@@ -206,9 +199,8 @@ export default function Nav() {
                   <li key={i} className="sub-menu__item">
                     <Link
                       href={elm.href}
-                      className={`menu-link menu-link_us-s ${
-                        isMenuActive(elm.href) ? "menu-active" : ""
-                      }`}
+                      className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                        }`}
                     >
                       {elm.title}
                     </Link>
@@ -232,7 +224,7 @@ export default function Nav() {
                   <h3>NEW</h3>
                   <h3 className="mb-0">HORIZONS</h3>
                   <Link
-                    href="/shop-1"
+                    href="/shop"
                     className="btn-link default-underline fw-medium"
                   >
                     SHOP NOW
@@ -247,9 +239,8 @@ export default function Nav() {
       <li className="navigation__item">
         <a
           href="/blogs"
-          className={`navigation__link ${
-            isBlogActive ? "menu-active" : ""
-          }`}
+          className={`navigation__link ${isBlogActive ? "menu-active" : ""
+            }`}
         >
           Blog
         </a>
@@ -258,9 +249,8 @@ export default function Nav() {
             <li key={i} className="sub-menu__item">
               <Link
                 href={elm.href}
-                className={`menu-link menu-link_us-s ${
-                  isMenuActive(elm.href) ? "menu-active" : ""
-                }`}
+                className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                  }`}
               >
                 {elm.title}
               </Link>
@@ -272,9 +262,8 @@ export default function Nav() {
       <li className="navigation__item d-none">
         <a
           href="#"
-          className={`navigation__link ${
-            isActiveParentMenu(othersMenuItems) ? "menu-active" : ""
-          }`}
+          className={`navigation__link ${isActiveParentMenu(othersMenuItems) ? "menu-active" : ""
+            }`}
         >
           Pages
         </a>
@@ -283,9 +272,8 @@ export default function Nav() {
             <li key={i} className="sub-menu__item">
               <Link
                 href={elm.href}
-                className={`menu-link menu-link_us-s ${
-                  isMenuActive(elm.href) ? "menu-active" : ""
-                }`}
+                className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                  }`}
               >
                 {elm.title}
               </Link>
@@ -297,9 +285,8 @@ export default function Nav() {
       <li className="navigation__item">
         <Link
           href="/about"
-          className={`navigation__link ${
-            pathname == "/about" ? "menu-active" : ""
-          }`}
+          className={`navigation__link ${pathname == "/about" ? "menu-active" : ""
+            }`}
         >
           About
         </Link>
@@ -307,9 +294,8 @@ export default function Nav() {
       <li className="navigation__item">
         <Link
           href="/contact"
-          className={`navigation__link ${
-            pathname == "/contact" ? "menu-active" : ""
-          }`}
+          className={`navigation__link ${pathname == "/contact" ? "menu-active" : ""
+            }`}
         >
           Contact
         </Link>

@@ -78,7 +78,7 @@ export default function WeekDeals() {
             </div>
 
             <Link
-              href="/shop-1"
+              href="/shop"
               className="btn-link default-underline text-uppercase text-white fw-medium mt-3"
             >
               View All
@@ -135,9 +135,8 @@ export default function WeekDeals() {
                           </svg>
                         </button>
                         <button
-                          className={`btn btn-round-sm btn-hover-red d-block border-0 text-uppercase js-add-wishlist ${
-                            isAddedtoWishlist(elm.id) ? "active" : ""
-                          }`}
+                          className={`btn btn-round-sm btn-hover-red d-block border-0 text-uppercase js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                            }`}
                           onClick={() => toggleWishlist(elm.id)}
                           title="Add To Wishlist"
                         >

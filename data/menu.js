@@ -26,7 +26,7 @@ export const homePages = [
 export const shopList = [
   {
     id: 1,
-    href: "/shop-1",
+    href: "/shop",
     title: "Shop List V1",
   },
   {
@@ -71,12 +71,12 @@ export const shopList = [
   },
   {
     id: 10,
-    href: "/shop-10",
+    href: "/shop0",
     title: "Shop Item Style",
   },
   {
     id: 11,
-    href: "/shop-11",
+    href: "/shop1",
     title: "Horizontal Scroll",
   },
 ];
@@ -95,7 +95,7 @@ export const shopDetails = [
 ];
 
 export const additionalShopPageitems = [
-  { id: 1, href: "/shop-12", title: "Collection Grid" },
+  { id: 1, href: "/shop2", title: "Collection Grid" },
   { id: 2, href: "/product1_simple/1", title: "Simple Product" },
   { id: 3, href: "/product2_variable/2", title: "Variable Product" },
   { id: 4, href: "/product3_external/2", title: "External Product" },

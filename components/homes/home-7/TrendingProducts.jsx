@@ -100,9 +100,8 @@ export default function TrendingProducts() {
                       </span>
                     </button>
                     <button
-                      className={`pc__btn-wl bg-transparent border-0 js-add-wishlist ${
-                        isAddedtoWishlist(elm.id) ? "active" : ""
-                      }`}
+                      className={`pc__btn-wl bg-transparent border-0 js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                        }`}
                       onClick={() => toggleWishlist(elm.id)}
                       title="Add To Wishlist"
                     >
@@ -127,7 +126,7 @@ export default function TrendingProducts() {
       <div className="text-center mt-2">
         <Link
           className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-          href="/shop-1"
+          href="/shop"
         >
           See All Products
         </Link>

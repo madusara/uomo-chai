@@ -26,7 +26,7 @@ export default function CategoryMassonry({ collections = [] }) {
 
   const getShopHref = (item, fallbackSlug) => {
     const slug = item?.slug || fallbackSlug;
-    return slug === "shop-1" ? "/shop-1" : `/shop/${slug}`;
+    return slug === "shop-1" ? "/shop" : `/shop/${slug}`;
   };
 
   return (

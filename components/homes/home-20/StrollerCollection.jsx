@@ -57,7 +57,7 @@ export default function StrollerCollection() {
 
         <Link
           className="btn-link btn-link_md default-underline text-uppercase fw-semi-bold theme-color-secondary"
-          href="/shop-1"
+          href="/shop"
         >
           See All Products
         </Link>
@@ -80,7 +80,7 @@ export default function StrollerCollection() {
                 Popular Infants Goods
               </h3>
               <Link
-                href="/shop-1"
+                href="/shop"
                 className="btn btn-outline-primary border-0 fs-12 btn-40 border-circle text-uppercase theme-bg-color-secondary text-white px-4 py-2 fw-semi-bold d-inline-flex align-items-center"
               >
                 <span>Shop Now</span>
@@ -126,11 +126,10 @@ export default function StrollerCollection() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <use
-                          href={`${
-                            isAddedToCartProducts(elm.id)
+                          href={`${isAddedToCartProducts(elm.id)
                               ? "#icon_cart_added"
                               : "#icon_cart"
-                          }`}
+                            }`}
                         ></use>
                       </svg>
                       <span className="d-block pt-1">
@@ -158,9 +157,8 @@ export default function StrollerCollection() {
                         </svg>
                       </button>
                       <button
-                        className={`btn btn-round-sm btn-hover-red d-block border-1 text-uppercase js-add-wishlist ${
-                          isAddedtoWishlist(elm.id) ? "active" : ""
-                        } theme-hover-bg`}
+                        className={`btn btn-round-sm btn-hover-red d-block border-1 text-uppercase js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                          } theme-hover-bg`}
                         onClick={() => toggleWishlist(elm.id)}
                         title="Add To Wishlist"
                       >

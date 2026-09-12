@@ -162,7 +162,7 @@ export default function Checkout() {
           console.error(e);
         }
       }
-      
+
       // Clear cart
       setCartProducts([]);
       if (typeof window !== "undefined") {
@@ -580,7 +580,7 @@ export default function Checkout() {
                       Your shopping bag is currently empty.
                     </p>
                     <Link
-                      href="/shop-1"
+                      href="/shop"
                       className="btn btn-outline-primary btn-sm"
                       style={{
                         borderRadius: "6px",
@@ -651,13 +651,13 @@ export default function Checkout() {
                               className="d-block mt-1"
                               style={{ fontSize: "0.78rem", color: "#777169" }}
                             >
-                             {elm.size || "L"}
+                              {elm.size || "L"}
                             </span>
                             <span
                               className="d-block mt-1"
                               style={{ fontSize: "0.78rem", color: "#777169" }}
                             >
-                              Weight: {itemKg} kg 
+                              Weight: {itemKg} kg
                             </span>
 
                             {/* Quantity Controls & Remove Action */}
@@ -1061,8 +1061,8 @@ export default function Checkout() {
                             {totalWeightGrams <= 0
                               ? "No items in cart"
                               : totalWeightGrams < BASE_WEIGHT_GRAMS
-                              ? `Rs ${BASE_SHIPPING_COST} (up to 2kg base rate)`
-                              : `Rs ${BASE_SHIPPING_COST}  + Rs ${extraSteps * STEP_COST} (${extraSteps} x ${STEP_WEIGHT_GRAMS}g extra)`}
+                                ? `Rs ${BASE_SHIPPING_COST} (up to 2kg base rate)`
+                                : `Rs ${BASE_SHIPPING_COST}  + Rs ${extraSteps * STEP_COST} (${extraSteps} x ${STEP_WEIGHT_GRAMS}g extra)`}
                           </span>
                         </div>
                       </div>

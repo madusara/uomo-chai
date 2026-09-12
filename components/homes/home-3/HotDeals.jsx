@@ -60,7 +60,7 @@ export default function HotDeals() {
           </div>
 
           <Link
-            href="/shop-1"
+            href="/shop"
             className="btn-link default-underline text-uppercase fw-medium mt-3"
           >
             View All
@@ -146,9 +146,8 @@ export default function HotDeals() {
                         </span>
                       </button>
                       <button
-                        className={`pc__btn-wl bg-transparent border-0 js-add-wishlist ${
-                          isAddedtoWishlist(elm.id) ? "active" : ""
-                        }`}
+                        className={`pc__btn-wl bg-transparent border-0 js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                          }`}
                         onClick={() => toggleWishlist(elm.id)}
                         title="Add To Wishlist"
                       >

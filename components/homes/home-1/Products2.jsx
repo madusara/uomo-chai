@@ -38,9 +38,8 @@ export default function Products2() {
             role="presentation"
           >
             <a
-              className={`nav-link nav-link_underscore ${
-                currentCategory == elm ? "active" : ""
-              }`}
+              className={`nav-link nav-link_underscore ${currentCategory == elm ? "active" : ""
+                }`}
             >
               {elm}
             </a>
@@ -113,9 +112,8 @@ export default function Products2() {
                     </div>
 
                     <button
-                      className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${
-                        isAddedtoWishlist(elm.id) ? "active" : ""
-                      }`}
+                      className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                        }`}
                       title="Add To Wishlist"
                       onClick={() => toggleWishlist(elm.id)}
                     >
@@ -138,7 +136,7 @@ export default function Products2() {
           <div className="text-center mt-2">
             <Link
               className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-              href="/shop-1"
+              href="/shop"
             >
               Discover More
             </Link>

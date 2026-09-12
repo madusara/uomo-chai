@@ -61,7 +61,7 @@ export default function WeeklyDeal() {
 
         <Link
           className="btn-link btn-link_md default-underline text-uppercase fw-semi-bold ms-md-auto mb-3"
-          href="/shop-1"
+          href="/shop"
         >
           See All Products
         </Link>
@@ -114,9 +114,8 @@ export default function WeeklyDeal() {
                 </div>
 
                 <button
-                  className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${
-                    isAddedtoWishlist(elm.id) ? "active" : ""
-                  } mt-1`}
+                  className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                    } mt-1`}
                   onClick={() => toggleWishlist(elm.id)}
                   title="Add To Wishlist"
                 >

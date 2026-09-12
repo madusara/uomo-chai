@@ -25,9 +25,8 @@ export default function Hero() {
         el: ".spbh5",
         clickable: true,
         renderBullet: function (index, className) {
-          return ` <span class="swiper-pagination-bullet ${className}">0${
-            index + 1
-          }</span>`;
+          return ` <span class="swiper-pagination-bullet ${className}">0${index + 1
+            }</span>`;
         },
       }}
       className="swiper-container js-swiper-slider slideshow full-width_padding swiper-number-pagination swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
@@ -54,7 +53,7 @@ export default function Hero() {
                 {elm.subtitle}
               </h2>
               <Link
-                href="/shop-1"
+                href="/shop"
                 className="btn-link btn-link_lg default-underline text-uppercase fw-medium animate animate_fade animate_btt animate_delay-7"
               >
                 Discover More

@@ -36,9 +36,8 @@ export default function NewArrival() {
               role="presentation"
             >
               <a
-                className={`nav-link nav-link_underscore  text-uppercase fs-13 fw-semi-bold ${
-                  currentCategory == elm ? "active" : ""
-                }`}
+                className={`nav-link nav-link_underscore  text-uppercase fs-13 fw-semi-bold ${currentCategory == elm ? "active" : ""
+                  }`}
               >
                 {elm}
               </a>
@@ -60,7 +59,7 @@ export default function NewArrival() {
                     Equipment
                   </h3>
                   <Link
-                    href="/shop-1"
+                    href="/shop"
                     className="btn btn-outline-primary border-0 fs-12 fw-semi-bold btn-40 text-uppercase py-1 px-4 mb-3 d-inline-flex align-items-center"
                   >
                     <span>Shop Now</span>
@@ -121,9 +120,8 @@ export default function NewArrival() {
                           </div>
 
                           <button
-                            className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${
-                              isAddedtoWishlist(elm.id) ? "active" : ""
-                            } mt-1`}
+                            className={`pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                              } mt-1`}
                             onClick={() => toggleWishlist(elm.id)}
                             title="Add To Wishlist"
                           >

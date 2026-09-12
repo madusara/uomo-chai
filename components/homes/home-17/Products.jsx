@@ -59,7 +59,7 @@ export default function Products() {
 
         <Link
           className="btn-link default-underline text-uppercase fs-13 fw-semi-bold theme-color"
-          href="/shop-1"
+          href="/shop"
         >
           Shop All Products
         </Link>
@@ -106,11 +106,10 @@ export default function Products() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <use
-                        href={`${
-                          isAddedToCartProducts(elm.id)
+                        href={`${isAddedToCartProducts(elm.id)
                             ? "#icon_cart_added"
                             : "#icon_cart"
-                        }`}
+                          }`}
                       />
                     </svg>
                   </button>
@@ -132,9 +131,8 @@ export default function Products() {
                     </svg>
                   </button>
                   <button
-                    className={`btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist ${
-                      isAddedtoWishlist(elm.id) ? "active" : ""
-                    } d-inline-flex align-items-center justify-content-center`}
+                    className={`btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                      } d-inline-flex align-items-center justify-content-center`}
                     onClick={() => toggleWishlist(elm.id)}
                     title="Add To Wishlist"
                   >

@@ -77,9 +77,8 @@ export default function NewArrival() {
                     />
                   </Link>
                   <button
-                    className={`pc__btn-wl position-absolute rounded-circle border-0 text-secondary js-add-wishlist ${
-                      isAddedtoWishlist(elm.id) ? "active" : ""
-                    } bg-transparent`}
+                    className={`pc__btn-wl position-absolute rounded-circle border-0 text-secondary js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                      } bg-transparent`}
                     onClick={() => toggleWishlist(elm.id)}
                     title="Add To Wishlist"
                   >
@@ -118,7 +117,7 @@ export default function NewArrival() {
       <div className="text-center mt-2">
         <Link
           className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-          href="/shop-1"
+          href="/shop"
         >
           See All Products
         </Link>

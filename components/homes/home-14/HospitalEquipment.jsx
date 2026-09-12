@@ -52,7 +52,7 @@ export default function HospitalEquipment() {
 
         <Link
           className="btn-link btn-link_md default-underline text-uppercase fw-semi-bold theme-color"
-          href="/shop-1"
+          href="/shop"
         >
           See All Products
         </Link>
@@ -122,11 +122,10 @@ export default function HospitalEquipment() {
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <use
-                            href={`${
-                              isAddedToCartProducts(elm.id)
+                            href={`${isAddedToCartProducts(elm.id)
                                 ? "#icon_cart_added"
                                 : "#icon_cart"
-                            }`}
+                              }`}
                           />
                         </svg>
                       </button>
@@ -148,9 +147,8 @@ export default function HospitalEquipment() {
                         </svg>
                       </button>
                       <button
-                        className={`btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist ${
-                          isAddedtoWishlist(elm.id) ? "active" : ""
-                        }`}
+                        className={`btn btn-round btn-hover-red border-0 text-uppercase js-add-wishlist ${isAddedtoWishlist(elm.id) ? "active" : ""
+                          }`}
                         onClick={() => toggleWishlist(elm.id)}
                         title="Add To Wishlist"
                       >
