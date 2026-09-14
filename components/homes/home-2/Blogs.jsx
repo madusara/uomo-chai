@@ -44,7 +44,7 @@ export default function Blogs() {
         Latest News
       </h2>
 
-      <div className="position-relative">
+      <div className="position-relative d-none">
         <Swiper
           style={{ maxWidth: "100vw", overflow: "hidden" }}
           {...swiperOptions}
