@@ -40,7 +40,7 @@ export default function Blogs() {
   };
   return (
     <section className="blog-carousel container">
-      <h2 className="section-title text-uppercase fw-bold text-center mb-3 pb-xl-2 mb-xl-4">
+      <h2 className="section-title text-uppercase fw-bold text-center mb-3 pb-xl-2 mb-xl-4 pt-4">
         Latest News
       </h2>
 
@@ -80,7 +80,7 @@ export default function Blogs() {
         </Swiper>
         {/* <!-- /.swiper-container js-swiper-slider --> */}
 
-        <div className="blog-pagination type2 mt-1 mt-md-4 d-flex align-items-center justify-content-center"></div>
+        <div className="blog-pagination type2 mt-1 mt-md-4 mb-3 mb-md-4 d-flex align-items-center justify-content-center"></div>
         {/* <!-- /.products-pagination --> */}
       </div>
       {/* <!-- /.position-relative --> */}

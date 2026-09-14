@@ -3,7 +3,8 @@ import Footer8 from "@/components/footers/Footer8";
 import Header9 from "@/components/headers/Header9";
 import BestSelling from "@/components/homes/home-9/BestSelling";
 import Blogs from "@/components/homes/home-9/Blogs";
-import Brands from "@/components/common/brands/Brands";
+import Blogs18 from "@/components/homes/home-2/Blogs";
+import Brands from "@/components/homes/home-2/Brands";
 import Hero from "@/components/homes/home-9/Hero";
 import Instagram from "@/components/homes/home-19/Instagram";
 import InstagramAlternate from "@/components/homes/home-9/Instagram";
@@ -166,6 +167,19 @@ export default async function Home() {
             <BestSelling products={showAreaProducts} />
           </ScrollReveal>
         </section>
+
+
+
+
+        <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
+          <Blogs18 />
+        </ScrollReveal>
+
+        <div className="mb-4 pb-2 mb-xl-5"></div>
+
+        <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
+          <Brands />
+        </ScrollReveal>
 
         <div className="mb-5 pb-4"></div>
         {/* <Lookbook products={showAreaProducts} /> */}

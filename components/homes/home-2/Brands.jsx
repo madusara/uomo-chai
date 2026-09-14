@@ -7,35 +7,41 @@ import Image from "next/image";
 export default function Brands() {
   const swiperOptions = {
     autoplay: {
-      delay: 5000,
+      delay: 3200,
+      disableOnInteraction: false,
     },
     modules: [Autoplay],
     slidesPerView: 7,
-    slidesPerGroup: 7,
-    effect: "none",
+    slidesPerGroup: 1,
     loop: true,
+    speed: 700,
     breakpoints: {
       320: {
         slidesPerView: 2,
-        slidesPerGroup: 2,
-        spaceBetween: 14,
+        spaceBetween: 20,
+      },
+      480: {
+        slidesPerView: 3,
+        spaceBetween: 24,
       },
       768: {
         slidesPerView: 4,
-        slidesPerGroup: 4,
-        spaceBetween: 24,
+        spaceBetween: 30,
       },
       992: {
+        slidesPerView: 5,
+        spaceBetween: 36,
+      },
+      1200: {
         slidesPerView: 7,
-        slidesPerGroup: 1,
-        spaceBetween: 30,
-        pagination: false,
+        spaceBetween: 44,
       },
     },
   };
+
   return (
     <section className="brands-carousel container">
-      <h2 className="d-none">Brands</h2>
+      <h2 className="d-none">Our Partner Brands</h2>
       <div className="position-relative">
         <Swiper
           className="swiper-container js-swiper-slider"
@@ -43,21 +49,21 @@ export default function Brands() {
         >
           {brandImages.map((elm, i) => (
             <SwiperSlide key={i} className="swiper-slide">
-              <Image
-                loading="lazy"
-                src={elm.src}
-                width={elm.width}
-                height={elm.height}
-                alt="image"
-              />
+              <div className="brand-item" title={elm.name}>
+                <Image
+                  loading="lazy"
+                  src={elm.src}
+                  width={elm.width}
+                  height={elm.height}
+                  alt={elm.name || "Brand Partner"}
+                  className="brand-item__image"
+                />
+              </div>
             </SwiperSlide>
           ))}
-
-          {/* <!-- /.swiper-wrapper --> */}
         </Swiper>
-        {/* <!-- /.swiper-container js-swiper-slider --> */}
       </div>
-      {/* <!-- /.position-relative --> */}
     </section>
   );
 }
+
