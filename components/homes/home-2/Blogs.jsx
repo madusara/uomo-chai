@@ -39,10 +39,19 @@ export default function Blogs() {
     },
   };
   return (
-    <section className="blog-carousel container">
-      <h2 className="section-title text-uppercase fw-bold text-center mb-3 pb-xl-2 mb-xl-4 pt-4">
-        Latest News
-      </h2>
+    <section className="blog-carousel brands-header-section container">
+      <div className="brands-header text-center">
+        <div className="brands-header__title-wrap">
+          <span className="brands-header__line" aria-hidden="true" />
+          <h2 className="brands-header__title section-title text-uppercase fw-bold mb-0">
+            OUR PARTNERS
+          </h2>
+          <span className="brands-header__line" aria-hidden="true" />
+        </div>
+        <p className="brands-header__subtitle">
+          Trusted by global brands, we deliver excellence in every project.
+        </p>
+      </div>
 
       <div className="position-relative d-none">
         <Swiper

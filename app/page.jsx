@@ -168,16 +168,10 @@ export default async function Home() {
           </ScrollReveal>
         </section>
 
-
-
+        <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
 
         <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
           <Blogs18 />
-        </ScrollReveal>
-
-        <div className="mb-4 pb-2 mb-xl-5"></div>
-
-        <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
           <Brands />
         </ScrollReveal>
 
