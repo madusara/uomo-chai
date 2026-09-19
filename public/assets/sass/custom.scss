@@ -303,3 +303,110 @@ body {
     transform: scale(0.99);
   }
 }
+
+/* ==========================================================================
+   Bulk Purchase Hero Banner
+   ========================================================================== */
+.bulk-hero-banner {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  background-color: #f4efe2;
+  background-image: url("/assets/images/bulk_purchase_hero_bg@2x.jpg");
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  padding: 48px 0;
+  margin-bottom: 3rem;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    min-height: 320px;
+    padding: 56px 0;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    min-height: 360px;
+    padding: 68px 0;
+    margin-bottom: 4rem;
+  }
+
+  @media (max-width: 767px) {
+    background: linear-gradient(
+        to right,
+        rgba(244, 239, 226, 0.96) 0%,
+        rgba(244, 239, 226, 0.92) 65%,
+        rgba(244, 239, 226, 0.45) 100%
+      ),
+      url("/assets/images/bulk_purchase_hero_bg@2x.jpg") right center / cover no-repeat;
+    min-height: 250px;
+    padding: 36px 0;
+  }
+
+  &__content {
+    max-width: 540px;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__breadcrumb {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #444444;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    a {
+      color: #444444;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #111111;
+      }
+    }
+
+    span.sep {
+      color: #777777;
+      font-weight: 400;
+    }
+
+    span.current {
+      color: #222222;
+    }
+  }
+
+  &__title {
+    font-size: clamp(2.15rem, 4.2vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: #1f1f1f;
+    line-height: 1.15;
+    margin-bottom: 0.95rem;
+    font-family: inherit;
+  }
+
+  &__desc {
+    font-size: clamp(0.95rem, 1.35vw, 1.125rem);
+    font-weight: 400;
+    line-height: 1.6;
+    color: #55524c;
+    margin-bottom: 1.4rem;
+  }
+
+  &__accent {
+    width: 44px;
+    height: 3px;
+    background-color: #b59e5f;
+    border-radius: 2px;
+  }
+}
+

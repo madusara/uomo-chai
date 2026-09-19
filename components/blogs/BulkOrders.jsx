@@ -30,19 +30,21 @@ export default function BulkOrders({ blogs = blogs13 }) {
 
   return (
     <>
-      <section className="blog-page-title mb-4 mb-xl-5">
-        <div className="title-bg">
-          <Image
-            loading="lazy"
-            src="/assets/images/blog_title_bg.jpg"
-            width="1780"
-            height="420"
-            alt="image"
-          />
-        </div>
+      <section className="bulk-hero-banner">
         <div className="container">
-          <h2 className="page-title">BULK PURCHASE</h2>
-          <span className="fs-4">Best Quality Tea in Sri Lanka</span>
+          <div className="bulk-hero-banner__content">
+            <nav className="bulk-hero-banner__breadcrumb" aria-label="breadcrumb">
+              <Link href="/">HOME</Link>
+              <span className="sep">/</span>
+              <span className="current">BULK PURCHASE</span>
+            </nav>
+            <h1 className="bulk-hero-banner__title">BULK PURCHASE</h1>
+            <p className="bulk-hero-banner__desc">
+              Curated quantities for cafés, retailers, hospitality
+              <br className="d-none d-sm-inline" /> and growing businesses.
+            </p>
+            <div className="bulk-hero-banner__accent" />
+          </div>
         </div>
       </section>
       <section className="blog-page container">
