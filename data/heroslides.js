@@ -287,7 +287,7 @@ export const slidesData4 = [
   {
     id: 1,
     // imageSrc: "/assets/images/home/demo9/slider1.webp",
-    imageSrc: "/assets/images/home/endless/carousel-compressed-1.png",
+    imageSrc: "/assets/images/home/endless/banner1.jpeg",
     imageAlt: "TRENDING 2026",
     subtitle: "First Steps in Chai",
     description: "Add infusio chai elixir to your morning cup of milk to spice up your tea ritual.",
