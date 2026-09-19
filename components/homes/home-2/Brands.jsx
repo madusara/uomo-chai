@@ -41,7 +41,7 @@ export default function Brands() {
 
   return (
     <section className="brands-carousel container">
-      <h2 className="d-none">Our Partner Brands</h2>
+      <h2 className="d-none">Proudly serving </h2>
       <div className="position-relative">
         <Swiper
           className="swiper-container js-swiper-slider"

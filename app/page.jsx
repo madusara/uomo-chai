@@ -171,6 +171,16 @@ export default async function Home() {
 
 
 
+        <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
+
+
+             <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
+          <Blogs18 />
+          <Brands />
+        </ScrollReveal>
+
+
+
 
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
 
@@ -182,12 +192,18 @@ export default async function Home() {
 
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
 
-        <ScrollReveal variant="fade-up" duration={0.8} threshold={0.1}>
-          <Blogs18 />
-          <Brands />
+
+
+
+
+
+        <ScrollReveal variant="zoom-in" duration={0.85} threshold={0.12}>
+          <Banner />
         </ScrollReveal>
 
-        <div className="mb-5 pb-4"></div>
+   
+
+        {/* <div className="mb-5 pb-4"></div> */}
         {/* <Lookbook products={showAreaProducts} /> */}
 
    
@@ -202,9 +218,6 @@ export default async function Home() {
         <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
         {/* <Brands /> */}
 
-        <ScrollReveal variant="zoom-in" duration={0.85} threshold={0.12}>
-          <Banner />
-        </ScrollReveal>
 
         <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>
         <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>

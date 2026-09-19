@@ -44,13 +44,12 @@ export default function Blogs() {
         <div className="brands-header__title-wrap">
           <span className="brands-header__line" aria-hidden="true" />
           <h2 className="brands-header__title section-title text-uppercase fw-bold mb-0">
-            OUR PARTNERS
+            Proudly serving 
           </h2>
           <span className="brands-header__line" aria-hidden="true" />
         </div>
         <p className="brands-header__subtitle">
-          Trusted by global brands, we deliver excellence in every project.
-        </p>
+Trusted by leading hospitality businesses, delivering excellence in every project        </p>
       </div>
 
       <div className="position-relative d-none">
