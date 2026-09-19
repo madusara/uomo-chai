@@ -26,6 +26,10 @@ export default function MobileNav() {
     pathname.startsWith("/blog/") ||
     isActiveParentMenu(blogmenuItems);
 
+  const isBulkOrdersActive =
+    pathname === "/bulk-orders" ||
+    pathname.startsWith("/bulk-orders");
+
   const isShopActive =
     pathname === "/shop" ||
     pathname.startsWith("/shop/") ||
@@ -412,8 +416,19 @@ export default function MobileNav() {
       </li>
 
       <li className="navigation__item">
+        <Link
+          href="/bulk-orders"
+          className={`navigation__link d-flex align-items-center ${
+            isBulkOrdersActive ? "menu-active" : ""
+          }`}
+        >
+          Business Orders
+        </Link>
+      </li>
+
+      <li className="navigation__item">
         <a
-          href="blogs"
+          href="/blogs"
           className={`navigation__link  d-flex align-items-center ${
             isBlogActive ? "menu-active" : ""
           }`}

@@ -27,6 +27,10 @@ export default function Nav() {
     pathname.startsWith("/blog/") ||
     isActiveParentMenu(blogmenuItems);
 
+  const isBulkOrdersActive =
+    pathname === "/bulk-orders" ||
+    pathname.startsWith("/bulk-orders");
+
   const isShopActive =
     pathname === "/shop" ||
     pathname.startsWith("/shop/") ||
@@ -240,28 +244,15 @@ export default function Nav() {
 
 
 
-       <li className="navigation__item">
-        <a
-          href="/blogs"
-          className={`navigation__link ${isBlogActive ? "menu-active" : ""
-            }`}
+      <li className="navigation__item">
+        <Link
+          href="/bulk-orders"
+          className={`navigation__link ${
+            isBulkOrdersActive ? "menu-active" : ""
+          }`}
         >
           Business Orders
-        </a>
-        <ul className="default-menu list-unstyled d-none">
-          {blogmenuItems.map((elm, i) => (
-            <li key={i} className="sub-menu__item">
-              <Link
-                href={elm.href}
-                className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
-                  }`}
-              >
-                {elm.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        {/* <!-- /.box-menu --> */}
+        </Link>
       </li>
 
 
