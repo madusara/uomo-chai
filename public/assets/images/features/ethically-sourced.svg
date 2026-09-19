@@ -1,35 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
-  <g fill="none" stroke="#525456" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Heart on the left -->
-    <!-- Tilted slightly to the right, resting on beam at (98, 115) -->
-    <path d="M 98 115
-             C 75 102, 52 75, 52 52
-             C 52 35, 66 22, 83 22
-             C 94 22, 104 29, 110 38
-             C 116 29, 126 22, 137 22
-             C 154 22, 168 35, 168 52
-             C 168 75, 135 98, 98 115 Z" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <g fill="none" stroke="#686b6e" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Heart on Left Beam -->
+    <!-- Smooth, plump, symmetrical heart with bottom resting on beam at (120, 148) -->
+    <path d="M 120 148
+             C 92 128, 62 98, 62 66
+             C 62 44, 80 26, 102 26
+             C 111 26, 117 31, 120 37
+             C 123 31, 129 26, 138 26
+             C 160 26, 178 44, 178 66
+             C 178 98, 148 128, 120 148 Z" />
 
-    <!-- Leaf on the right -->
-    <!-- Pointed oval tilted 45 deg, base at (208, 115), tip at (272, 36) -->
-    <path d="M 208 115
-             C 200 80, 225 45, 272 36
-             C 280 72, 255 107, 208 115 Z" />
-    <!-- Diagonal vein line from base to tip -->
-    <line x1="208" y1="115" x2="272" y2="36" />
+    <!-- Leaf on Right Beam -->
+    <!-- Pointed oval leaf resting on beam at (242, 148), pointing up-right to (334, 46) -->
+    <path d="M 242 148
+             C 234 100, 272 56, 334 46
+             C 344 94, 308 138, 242 148 Z" />
+    <!-- Diagonal center vein line from base to tip -->
+    <line x1="242" y1="148" x2="334" y2="46" stroke-width="7.5" />
 
-    <!-- Balance beam resting on fulcrum apex -->
-    <line x1="80" y1="115" x2="260" y2="115" stroke-width="7" />
+    <!-- Balance Beam -->
+    <line x1="86" y1="148" x2="314" y2="148" stroke-width="9.5" />
 
-    <!-- Fulcrum triangle -->
-    <polygon points="170,115 135,188 205,188" stroke-width="6.5" />
+    <!-- Fulcrum Triangle -->
+    <polygon points="200,148 155,232 245,232" stroke-width="8.5" />
   </g>
 
-  <!-- Text: ETHICALLY SOURCED -->
-  <text x="170" y="240" text-anchor="middle" fill="#525456"
-        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
-        font-size="28" font-weight="700" letter-spacing="3.5">ETHICALLY</text>
-  <text x="170" y="278" text-anchor="middle" fill="#525456"
-        font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
-        font-size="28" font-weight="700" letter-spacing="3.5">SOURCED</text>
+  <!-- Typography: ETHICALLY SOURCED -->
+  <text x="200" y="296" text-anchor="middle" fill="#686b6e"
+        font-family="-apple-system, BlinkMacSystemFont, 'Montserrat', 'Inter', 'Segoe UI', Roboto, sans-serif"
+        font-size="34" font-weight="700" letter-spacing="4.5">ETHICALLY</text>
+  <text x="200" y="348" text-anchor="middle" fill="#686b6e"
+        font-family="-apple-system, BlinkMacSystemFont, 'Montserrat', 'Inter', 'Segoe UI', Roboto, sans-serif"
+        font-size="34" font-weight="700" letter-spacing="4.5">SOURCED</text>
 </svg>
