@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <defs>
+    <!-- Top arc for CLEAN: radius 108 -->
+    <path id="cleanArc" d="M 60 160 A 108 108 0 0 1 260 160" fill="none" />
+    <!-- Bottom arc for SCIENCE: radius 108 (left-to-right clockwise) -->
+    <path id="scienceArc" d="M 60 160 A 108 108 0 0 0 260 160" fill="none" />
+  </defs>
+
+  <!-- Outer circle -->
+  <circle cx="160" cy="160" r="144" fill="none" stroke="#111111" stroke-width="7" />
+
+  <!-- Inner circle -->
+  <circle cx="160" cy="160" r="92" fill="none" stroke="#111111" stroke-width="5" />
+
+  <!-- Text along arcs -->
+  <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+        font-size="28" font-weight="800" fill="#111111" letter-spacing="4.5">
+    <textPath href="#cleanArc" startOffset="50%" text-anchor="middle">CLEAN</textPath>
+  </text>
+
+  <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+        font-size="27" font-weight="800" fill="#111111" letter-spacing="4">
+    <textPath href="#scienceArc" startOffset="50%" text-anchor="middle">SCIENCE</textPath>
+  </text>
+
+  <!-- Center Erlenmeyer Flask with Sprouting Plant Leaves -->
+  <g fill="none" stroke="#111111" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Flask Body and Neck -->
+    <!-- Lip / Rim -->
+    <line x1="149" y1="148" x2="171" y2="148" stroke-width="5" />
+    <!-- Neck and Body -->
+    <path d="M 152 148 L 152 168 L 130 208 C 128 212, 131 216, 136 216 L 184 216 C 189 216, 192 212, 190 208 L 168 168 L 168 148" />
+    <!-- Liquid Level Line -->
+    <line x1="136" y1="198" x2="184" y2="198" stroke-width="4.5" />
+
+    <!-- Sprouting Leaves emerging from neck -->
+    <!-- Central stem -->
+    <line x1="160" y1="172" x2="160" y2="148" stroke-width="5" />
+
+    <!-- Left Leaf -->
+    <path d="M 160 148 C 158 128, 140 114, 114 114 C 114 136, 132 148, 160 148 Z" />
+
+    <!-- Right Leaf -->
+    <path d="M 160 148 C 162 128, 180 114, 206 114 C 206 136, 188 148, 160 148 Z" />
+  </g>
+</svg>
