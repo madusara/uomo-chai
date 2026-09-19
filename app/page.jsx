@@ -219,12 +219,12 @@ export default async function Home() {
         {/* <Brands /> */}
 
 
-        <div className="mb-3 mb-xl-5 pt-1 pb-4"></div>
+        {/* <div className="mb-3 mb-xl-5 pt-1 pb-4"></div> */}
         <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
           <InstagramAlternate instagramImages={instagramImages} />
         </ScrollReveal>
 
-        <div className="mb-3 mb-xl-5"></div>
+        <div className="mb-5 pb-4 pb-xl-5 mb-xl-5"></div>
         <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
           <Features />
         </ScrollReveal>

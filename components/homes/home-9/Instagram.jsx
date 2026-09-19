@@ -18,9 +18,16 @@ export default function Instagram({ instagramImages = instagramImages2 }) {
                 loading="lazy"
                 className="instagram__img"
                 src={elm.src}
-                width="232"
-                height="232"
+                width={232}
+                height={232}
                 alt={elm.alt || "Instagram image"}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: "1 / 1",
+                  objectFit: "cover",
+                  display: "block",
+                }}
               />
             </a>
           </div>
