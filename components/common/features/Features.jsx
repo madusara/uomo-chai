@@ -22,12 +22,12 @@ export default function Features() {
               ) : (
                 <Image
                   src={elm.icon}
-                  width={90}
-                  height={90}
+                  width={140}
+                  height={140}
                   alt={elm.title}
                   style={{
-                    width: "90px",
-                    height: "90px",
+                    width: "135px",
+                    height: "135px",
                     objectFit: "contain",
                     display: "inline-block",
                   }}
@@ -37,9 +37,9 @@ export default function Features() {
             <h3 className="service-promotion__title h5 text-uppercase fw-bold mb-2">
               {elm.title}
             </h3>
-            <p className="service-promotion__content text-secondary mb-0">
+            {/* <p className="service-promotion__content text-secondary mb-0">
               {elm.content}
-            </p>
+            </p> */}
           </div>
         ))}
       </div>

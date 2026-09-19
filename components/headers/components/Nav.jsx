@@ -236,6 +236,37 @@ export default function Nav() {
           {/* <!-- /.container d-flex --> */}
         </div>
       </li>
+
+
+
+
+       <li className="navigation__item">
+        <a
+          href="/blogs"
+          className={`navigation__link ${isBlogActive ? "menu-active" : ""
+            }`}
+        >
+          Business Orders
+        </a>
+        <ul className="default-menu list-unstyled d-none">
+          {blogmenuItems.map((elm, i) => (
+            <li key={i} className="sub-menu__item">
+              <Link
+                href={elm.href}
+                className={`menu-link menu-link_us-s ${isMenuActive(elm.href) ? "menu-active" : ""
+                  }`}
+              >
+                {elm.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {/* <!-- /.box-menu --> */}
+      </li>
+
+
+
+
       <li className="navigation__item">
         <a
           href="/blogs"
@@ -259,6 +290,12 @@ export default function Nav() {
         </ul>
         {/* <!-- /.box-menu --> */}
       </li>
+
+
+
+
+
+
       <li className="navigation__item d-none">
         <a
           href="#"
