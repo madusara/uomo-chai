@@ -160,6 +160,18 @@ export default async function Home() {
           </ScrollReveal>
         </section>
 
+
+        <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
+
+
+
+     <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
+          <Instagram />
+        </ScrollReveal>
+
+
+
+
         <div className="mb-1 pb-4 mb-xl-5 pb-xl-5"></div>
 
         <section id="best-sellers" aria-label="Best Selling Products">
@@ -178,10 +190,7 @@ export default async function Home() {
         <div className="mb-5 pb-4"></div>
         {/* <Lookbook products={showAreaProducts} /> */}
 
-        <ScrollReveal variant="fade-up" duration={0.75} threshold={0.1}>
-          <Instagram />
-        </ScrollReveal>
-
+   
         <div className="pt-1 pb-5 mt-4 mt-xl-5"></div>
 
         <section id="blog" aria-label="Wellness and Spice Stories">

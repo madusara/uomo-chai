@@ -87,22 +87,22 @@ export const instagramImages2 = [
 export const instagramImages3 = [
   {
     id: 1,
-    imgSrc: "/assets/images/home/demo20/instagram2.jpg",
+    imgSrc: "/assets/images/home/demo20/f2.jpeg",
     alt: "Insta image 2",
   },
   {
     id: 2,
-    imgSrc: "/assets/images/home/demo20/instagram3.jpg",
+    imgSrc: "/assets/images/home/demo20/f3.png",
     alt: "Insta image 3",
   },
   {
     id: 3,
-    imgSrc: "/assets/images/home/demo20/instagram4.jpg",
+    imgSrc: "/assets/images/home/demo20/f44.jpg",
     alt: "Insta image 4",
   },
   {
     id: 4,
-    imgSrc: "/assets/images/home/demo20/instagram5.jpg",
+    imgSrc: "/assets/images/home/demo20/f5.webp",
     alt: "Insta image 5",
   },
 ];

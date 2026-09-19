@@ -9,10 +9,10 @@ export default function Instagram() {
         <div className="col-lg-4 px-0 d-flex flex-column">
           <div className="instagram__tile flex-1 d-flex">
             <div className="d-flex flex-column justify-content-center text-white bg-black px-4 px-xl-5 py-3">
-              <h2 className="fs-35 fw-normal text-white mb-2">#uomostyle</h2>
+              <h2 className="fs-35 fw-normal text-white mb-2">#Built for Quality <br></br> Ready for Innovation.
+</h2>
               <p className="mb-0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus sed maecenas a, massa odio est pellentesque sodales.
+               Our state-of-the-art facility meets international standards, prioritizing quality while delivering reliable, innovative food manufacturing solutions for growing brands.
               </p>
             </div>
           </div>
@@ -25,10 +25,17 @@ export default function Instagram() {
               <Image
                 loading="lazy"
                 className="instagram__img"
-                src="/assets/images/home/demo20/instagram1.jpg"
-                width="466"
-                height="525"
+                src="/assets/images/home/demo20/f1.jpeg"
+                width={466}
+                height={525}
                 alt="Insta image 1"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: "466 / 525",
+                  objectFit: "cover",
+                  display: "block",
+                }}
               />
             </a>
           </div>
@@ -45,9 +52,16 @@ export default function Instagram() {
                   loading="lazy"
                   className="instagram__img"
                   src={elm.imgSrc}
-                  width="466"
-                  height="401"
+                  width={466}
+                  height={401}
                   alt="Insta image 2"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    aspectRatio: "466 / 401",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
                 />
               </a>
             </div>
@@ -65,9 +79,16 @@ export default function Instagram() {
                   loading="lazy"
                   className="instagram__img"
                   src={elm.imgSrc}
-                  width="466"
-                  height="401"
+                  width={466}
+                  height={401}
                   alt="Insta image 2"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    aspectRatio: "466 / 401",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
                 />
               </a>
             </div>
