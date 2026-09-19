@@ -295,19 +295,20 @@ export const slidesData4 = [
 
   {
     id: 2,
-    imageSrc: "/assets/images/home/endless/carousel-compressed-3.png",
-    imageAlt: "PREMIUM AND PURE",
-    subtitle: "REAL GINGER KICK",
-    description:
-      "A perfect gourmet ginger syrup for cocktails, mocktails and frizzy drinks. Crafted with bold ceylon ginger.",
-  },
-  {
-    id: 2,
     imageSrc: "/assets/images/home/endless/carousel-compressed-2.png",
     imageAlt: "TRENDING 2026",
     subtitle: "Need a tea upgrade?",
     description:
       "Elevate your tea menu and keep your customers coming back for that comforting, aromatic sip! No brewing hassles, no inconsistencies.",
+  },
+
+  {
+    id: 3,
+    imageSrc: "/assets/images/home/endless/banner3.jpeg",
+    imageAlt: "PREMIUM AND PURE",
+    subtitle: "REAL GINGER KICK",
+    description:
+      "A perfect gourmet ginger syrup for cocktails, mocktails and frizzy drinks. Crafted with bold ceylon ginger.",
   },
   // {
   //   id: 3,
