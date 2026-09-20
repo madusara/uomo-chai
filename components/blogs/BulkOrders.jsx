@@ -129,44 +129,7 @@ export default function BulkOrders({ products = [] }) {
   });
 
   // Bulk Order Cart: array of { id, productId, title, variant, qty, imgSrc }
-  const [orderItems, setOrderItems] = useState([
-    {
-      id: "7-30 ml",
-      productId: 7,
-      title: "Dropit Masala Tea Extract",
-      variant: "30 ml",
-      qty: 3,
-      imgSrc:
-        "https://pub-82664a84eabd402db7a9aa963e98cc10.r2.dev/products/kAzqC7W6pOp5wELeNOAJZjlDgBkDGYqwbkzSf2JR.jpg",
-    },
-    {
-      id: "6-30 ml",
-      productId: 6,
-      title: "Dropit Cardamom Extract",
-      variant: "30 ml",
-      qty: 2,
-      imgSrc:
-        "https://pub-82664a84eabd402db7a9aa963e98cc10.r2.dev/products/G7TKM66doAR43cS1eZs63mX7YcPqmLXSd4bpwDxz.jpg",
-    },
-    {
-      id: "5-30 ml",
-      productId: 5,
-      title: "Dropit Ceylon Cinnamon Extract",
-      variant: "30 ml",
-      qty: 2,
-      imgSrc:
-        "https://pub-82664a84eabd402db7a9aa963e98cc10.r2.dev/products/BPRBdIaWCyfG5LPA8phl1vTA9q4WPKMklV6tQWDz.jpg",
-    },
-    {
-      id: "3-250 ml",
-      productId: 3,
-      title: "Ceylon Cinnamon & Vanilla Elixir",
-      variant: "250 ml",
-      qty: 1,
-      imgSrc:
-        "https://pub-82664a84eabd402db7a9aa963e98cc10.r2.dev/products/KlkFjmbqDLQjeEMylAlnUGE0hbPVE6UuyFQWmBKl.png",
-    },
-  ]);
+  const [orderItems, setOrderItems] = useState([]);
 
   // Modal / Details Form State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -692,7 +655,7 @@ _Sent via Endless Greens Bulk Orders Portal_`;
       </section>
 
       {/* 4. BUSINESS & WHOLESALE SERVICES */}
-      <section className="bulk-services-section container py-4 mb-5">
+      <section className="bulk-services-section container py-4 mb-5 d-none">
         <div className="text-center max-w-700 mx-auto mb-5">
           <span className="text-uppercase fw-bold text-olive small letter-spacing-1">
             Why Partner With Us

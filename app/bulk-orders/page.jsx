@@ -66,6 +66,7 @@ export default async function BulkOrdersPage() {
           Endless Greens Bulk Purchase & Wholesale Orders
         </h1>
         <BulkOrders products={productsData} />
+
       </main>
       <div className="mb-4"></div>
       <Footer1 collections={collections} />
