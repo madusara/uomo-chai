@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useMemo } from "react";
 import { WHATSAPP_CONFIG } from "@/config/whatsapp.config";
+import Blogs from "@/components/homes/home-2/Blogs";
+import Brands from "@/components/homes/home-2/Brands";
 
 // Default authentic products if API is offline or loading
 const DEFAULT_PRODUCTS = [
@@ -606,6 +608,20 @@ _Sent via Endless Greens Bulk Orders Portal_`;
           </div>
         </div>
       </section>
+
+
+
+      {/* section  for the brands and */}
+      <section className="py-4 my-2">
+        <Blogs />
+        <Brands />
+      </section>
+      {/* end section  */}
+
+
+
+
+
 
       {/* 3. BRAND & WHOLESALE STORY SECTION */}
       <section className="bulk-story-section py-5 my-4 bg-cream">
