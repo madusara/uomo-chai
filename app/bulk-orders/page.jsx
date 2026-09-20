@@ -1,63 +1,60 @@
-import Blog2 from "@/components/blogs/Blog2";
 import Footer1 from "@/components/footers/Footer1";
 import Header1 from "@/components/headers/Header1";
 import React from "react";
-import { getBlogsData, getCategoryData } from "@/lib/api/home";
+import { getAllProducts, getCategoryData } from "@/lib/api/home";
 import BulkOrders from "@/components/blogs/BulkOrders";
 
 export async function generateMetadata() {
-  const blogsData = await getBlogsData();
-  const blogList = blogsData.blogs || [];
-  const dynamicBlogTitles = blogList.map(b => b.title).join(", ");
-  
   return {
-    title: "Wellness & Spice Journal | Endless Greens Blog",
-    description: `Explore our latest stories: ${blogList[0]?.title || 'Botanical innovations'}. Deep dives into Ceylon tea heritage, spice science, and plant-based wellness.`,
+    title: "Bulk Purchase & Business Orders | Endless Greens",
+    description:
+      "Curated wholesale quantities of pure Ceylon spice drops, botanical extracts, and artisanal elixirs for cafés, restaurants, retailers, and hospitality brands.",
     keywords: [
-      "Ceylon tea stories",
-      "Spice health benefits",
-      "Ayurvedic lifestyle blog",
-      "Plant-based food science",
-      "Masala Chai heritage",
-      "Endless Greens articles",
-      dynamicBlogTitles
+      "Bulk spice drops",
+      "Wholesale Ceylon tea extracts",
+      "Hospitality beverage supplies Sri Lanka",
+      "Café elixir wholesale",
+      "Dropit liquid spices bulk order",
+      "B2B food service botanicals",
     ].join(", "),
     openGraph: {
-      title: "Endless Greens Journal | Stories of Heritage & Science",
-      description: "Articles on the functional benefits of Sri Lankan botanicals.",
+      title: "Endless Greens Bulk Purchase | Wholesale Ceylon Botanicals",
+      description:
+        "Direct trade bulk quantities of certified Ceylon spice drops & elixirs for cafes, hotels & culinary businesses.",
       type: "website",
-    }
+    },
   };
 }
 
-export default async function Blogs() {
-  const [blogsData, categoryData] = await Promise.all([
-    getBlogsData(),
-    getCategoryData(),
-  ]);
-  const blogList = blogsData.blogs || [];
-  const collections = categoryData.collections || [];
+export default async function BulkOrdersPage() {
+  let productsData = [];
+  let collections = [];
+
+  try {
+    const [prods, cats] = await Promise.all([
+      getAllProducts().catch(() => ({ products: [] })),
+      getCategoryData().catch(() => ({ collections: [] })),
+    ]);
+    productsData = prods?.products || prods?.data || prods || [];
+    collections = cats?.collections || [];
+  } catch (err) {
+    console.error("Failed to load bulk products data:", err);
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Endless Greens Wellness Journal",
-    "description": "Educational articles about Sri Lankan spices, tea infusions, and plant-based innovation.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Endless Greens"
+    "@type": "Product",
+    name: "Endless Greens Bulk Wholesale Botanicals",
+    description:
+      "Curated wholesale quantities of Ceylon spice drops, herbal elixirs, and infusions.",
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "LKR",
+      availability: "https://schema.org/InStock",
     },
-    "blogPost": blogList.map((post) => ({
-      "@type": "BlogPosting",
-      "headline": post.title,
-      "image": post.imgSrc,
-      "datePublished": post.date,
-      "author": {"@type": "Person", "name": post.author},
-      "url": `https://endlesslk.com/blogs/${post.slug}`
-    }))
   };
 
-return (
+  return (
     <>
       <script
         type="application/ld+json"
@@ -65,10 +62,12 @@ return (
       />
       <Header1 collections={collections} />
       <main className="page-wrapper">
-        <h1 className="visually-hidden">Endless Greens Wellness & Spice Blog</h1>
-        <BulkOrders blogs={blogsData} />
+        <h1 className="visually-hidden">
+          Endless Greens Bulk Purchase & Wholesale Orders
+        </h1>
+        <BulkOrders products={productsData} />
       </main>
-      <div className="mb-5 pb-xl-5"></div>
+      <div className="mb-4"></div>
       <Footer1 collections={collections} />
     </>
   );
