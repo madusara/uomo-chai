@@ -671,115 +671,93 @@ _Sent via Endless Greens B2B Portal_`;
 
             {/* Modal Header */}
             <div className="b2b-modal-header">
-              <div className="b2b-modal-eyebrow">
+              <h3 className="b2b-modal-title">
                 {modalServiceTab === "private_label"
-                  ? "PRIVATE LABEL"
+                  ? "Complete Private Label Request"
                   : modalServiceTab === "rnd"
-                  ? "R&D & CONTRACT MANUFACTURING"
-                  : "BULK ORDERS"}
-              </div>
-              <h3 className="b2b-modal-title">Request a Quote</h3>
+                  ? "Complete Custom Formulation Request"
+                  : "Complete Bulk Order Request"}
+              </h3>
               <p className="b2b-modal-sub">
                 {modalServiceTab === "private_label"
-                  ? "Tell us more about your private label requirements and our team will get back to you with the best solutions for your business."
+                  ? "Tell us more about your private label request"
                   : modalServiceTab === "rnd"
-                  ? "Tell us more about your custom product requirement and our team will get back to you with the best solutions for your business."
-                  : "Tell us more about your bulk order request and our team will get back to you with the best solutions for your business."}
+                  ? "Tell us more about your custom formulation request"
+                  : "Tell us more about your bulk order request"}
               </p>
             </div>
+
+            <hr className="b2b-modal-divider" />
 
             {/* Modal Form */}
             <form onSubmit={handleQuoteDirectSubmit}>
               <div className="row g-3">
-                {/* Row 1: Related Product & Inquiry Details (Hide Related Product if coming from tab #3 R&D) */}
-                {modalServiceTab !== "rnd" ? (
-                  <>
-                    <div className="col-12 col-md-6">
-                      <div className="b2b-form-group">
-                        <label className="b2b-form-label">
-                          RELATED PRODUCT <span className="req">*</span>
-                        </label>
-                        <select
-                          className="b2b-form-select"
-                          value={quoteForm.relatedProduct}
-                          onChange={(e) =>
-                            setQuoteForm({
-                              ...quoteForm,
-                              relatedProduct: e.target.value,
-                            })
-                          }
-                          required
-                        >
-                          <option value="">Choose product</option>
-                          {normalizedProducts.map((p) => (
-                            <option key={p.id} value={p.title}>
-                              {p.title} ({p.filterCategory})
-                            </option>
-                          ))}
-                          <option value="All Products / Assorted Catalog">
-                            All Products / Assorted Catalog
-                          </option>
-                          <option value="Custom Product Request">
-                            Custom Product Request
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <div className="b2b-form-group">
-                        <label className="b2b-form-label">
-                          YOUR INQUIRY DETAILS <span className="req">*</span>
-                        </label>
-                        <textarea
-                          className="b2b-form-textarea"
-                          placeholder="Tell us about your inquiry..."
-                          rows="3"
-                          value={quoteForm.inquiryDetails}
-                          onChange={(e) =>
-                            setQuoteForm({
-                              ...quoteForm,
-                              inquiryDetails: e.target.value,
-                            })
-                          }
-                          required
-                        />
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  /* If coming from tab #3 (R&D), hide related product field as instructed */
+                {/* Field 1: Related Product (Hidden if coming from tab #3 R&D) */}
+                {modalServiceTab !== "rnd" && (
                   <div className="col-12">
                     <div className="b2b-form-group">
                       <label className="b2b-form-label">
-                        YOUR INQUIRY DETAILS <span className="req">*</span>
+                        Related product
                       </label>
-                      <textarea
-                        className="b2b-form-textarea"
-                        placeholder="Tell us about your custom formulation concept, target flavor profile, volumes, and requirements..."
-                        rows="4"
-                        value={quoteForm.inquiryDetails}
+                      <select
+                        className="b2b-form-select"
+                        value={quoteForm.relatedProduct}
                         onChange={(e) =>
                           setQuoteForm({
                             ...quoteForm,
-                            inquiryDetails: e.target.value,
+                            relatedProduct: e.target.value,
                           })
                         }
-                        required
-                      />
+                      >
+                        <option value="">Choose product</option>
+                        {normalizedProducts.map((p) => (
+                          <option key={p.id} value={p.title}>
+                            {p.title} ({p.filterCategory})
+                          </option>
+                        ))}
+                        <option value="All Products / Assorted Catalog">
+                          All Products / Assorted Catalog
+                        </option>
+                        <option value="Custom Product Request">
+                          Custom Product Request
+                        </option>
+                      </select>
                     </div>
                   </div>
                 )}
 
-                {/* Row 2: Phone/WhatsApp & Email */}
+                {/* Field 2: Your inquiry details* (full width) */}
+                <div className="col-12">
+                  <div className="b2b-form-group">
+                    <label className="b2b-form-label">
+                      Your inquiry details<span className="req">*</span>
+                    </label>
+                    <textarea
+                      className="b2b-form-textarea"
+                      placeholder="Tell us about your inquiry.."
+                      rows="4"
+                      value={quoteForm.inquiryDetails}
+                      onChange={(e) =>
+                        setQuoteForm({
+                          ...quoteForm,
+                          inquiryDetails: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Row 3: Phone/Whatsapp* & Email */}
                 <div className="col-12 col-md-6">
                   <div className="b2b-form-group">
                     <label className="b2b-form-label">
-                      PHONE/WHATSAPP <span className="req">*</span>
+                      Phone/Whatsapp<span className="req">*</span>
                     </label>
                     <input
                       type="tel"
                       className="b2b-form-control"
-                      placeholder="+94 7X XXX XXXX"
+                      placeholder=""
                       value={quoteForm.phone}
                       onChange={(e) =>
                         setQuoteForm({ ...quoteForm, phone: e.target.value })
@@ -790,11 +768,11 @@ _Sent via Endless Greens B2B Portal_`;
                 </div>
                 <div className="col-12 col-md-6">
                   <div className="b2b-form-group">
-                    <label className="b2b-form-label">EMAIL</label>
+                    <label className="b2b-form-label">Email</label>
                     <input
                       type="email"
                       className="b2b-form-control"
-                      placeholder="you@company.com"
+                      placeholder=""
                       value={quoteForm.email}
                       onChange={(e) =>
                         setQuoteForm({ ...quoteForm, email: e.target.value })
@@ -803,14 +781,14 @@ _Sent via Endless Greens B2B Portal_`;
                   </div>
                 </div>
 
-                {/* Row 3: Contact Name & Business/Café Name */}
+                {/* Row 4: Contact name & Business/Cafe name */}
                 <div className="col-12 col-md-6">
                   <div className="b2b-form-group">
-                    <label className="b2b-form-label">CONTACT NAME</label>
+                    <label className="b2b-form-label">Contact name</label>
                     <input
                       type="text"
                       className="b2b-form-control"
-                      placeholder="Your name"
+                      placeholder=""
                       value={quoteForm.contactName}
                       onChange={(e) =>
                         setQuoteForm({
@@ -823,11 +801,11 @@ _Sent via Endless Greens B2B Portal_`;
                 </div>
                 <div className="col-12 col-md-6">
                   <div className="b2b-form-group">
-                    <label className="b2b-form-label">BUSINESS/CAFÉ NAME</label>
+                    <label className="b2b-form-label">Business/Cafe name</label>
                     <input
                       type="text"
                       className="b2b-form-control"
-                      placeholder="Your business or café name"
+                      placeholder=""
                       value={quoteForm.businessName}
                       onChange={(e) =>
                         setQuoteForm({
@@ -846,23 +824,8 @@ _Sent via Endless Greens B2B Portal_`;
                   type="submit"
                   className="b2b-btn-send"
                 >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                  </svg>
                   <span>SEND INQUIRY</span>
-                  <span style={{ fontSize: "1.1em", marginLeft: "2px" }}>→</span>
                 </button>
-                <span className="b2b-modal-or">— or —</span>
                 <button
                   type="button"
                   className="b2b-btn-whatsapp"
