@@ -425,7 +425,7 @@ _Sent via Endless Greens B2B Portal_`;
               <span className="sep">/</span>
               <span className="current">B2B SERVICES</span>
             </nav>
-            <h1 className="bulk-hero-banner__title">Solutions Built for Your Business</h1>
+            <h1 className="bulk-hero-banner__title">ENDLESS B2B Solutions</h1>
             <p className="bulk-hero-banner__desc">
             From sourcing our products in bulk to creating products under your brand, 
             we offer flexible B2B solutions designed to help businesses grow.
@@ -469,7 +469,7 @@ _Sent via Endless Greens B2B Portal_`;
           </div>
 
           {/* Active Tab Panel */}
-          <div className="b2b-tab-pane" key={activeTabContent.id}>
+          <div className="b2b-tab-pane p-2 px-4" key={activeTabContent.id}>
             <div className="b2b-eyebrow">{activeTabContent.eyebrow}</div>
             <h3 className="b2b-tab-heading">{activeTabContent.title}</h3>
             <p className="b2b-tab-description">{activeTabContent.desc}</p>
