@@ -515,22 +515,17 @@ _Sent via Endless Greens B2B Portal_`;
         </div>
       </section>
 
-      {/* 3. MAIN BULK SELECTOR + ORDER SUMMARY SECTION */}
-      <section className="bulk-main-container container mb-5 pb-xl-4">
-        {/* Feedback Alert Toast */}
-        {addedNotice && (
-          <div className="bulk-added-toast alert alert-success d-flex align-items-center justify-content-between shadow-sm">
-            <span>✓ {addedNotice}</span>
-            <button
-              type="button"
-              className="btn-close ms-2"
-              onClick={() => setAddedNotice(null)}
-            ></button>
-          </div>
-        )}
-
-       
-      </section>
+      {/* Feedback Alert Toast */}
+      {addedNotice && (
+        <div className="bulk-added-toast alert alert-success d-flex align-items-center justify-content-between shadow-sm">
+          <span>✓ {addedNotice}</span>
+          <button
+            type="button"
+            className="btn-close ms-2"
+            onClick={() => setAddedNotice(null)}
+          ></button>
+        </div>
+      )}
 
 
 
@@ -895,35 +890,35 @@ _Sent via Endless Greens B2B Portal_`;
             >
               <path
                 d="M170 190 C150 140 100 90 20 80 C80 90 140 120 170 190 Z"
-                stroke="#526027"
+                stroke="#8e7c41"
                 strokeWidth="1.5"
-                fill="#526027"
+                fill="#8e7c41"
                 fillOpacity="0.04"
               />
               <path
                 d="M170 190 C160 120 120 70 60 40 C100 70 140 120 170 190 Z"
-                stroke="#526027"
+                stroke="#8e7c41"
                 strokeWidth="1.5"
-                fill="#526027"
+                fill="#8e7c41"
                 fillOpacity="0.04"
               />
               <path
                 d="M170 190 C180 130 150 60 90 20 C130 50 165 110 170 190 Z"
-                stroke="#526027"
+                stroke="#8e7c41"
                 strokeWidth="1.5"
-                fill="#526027"
+                fill="#8e7c41"
                 fillOpacity="0.04"
               />
               <path
                 d="M170 190 C190 140 185 80 145 35 C165 75 175 130 170 190 Z"
-                stroke="#526027"
+                stroke="#8e7c41"
                 strokeWidth="1.5"
-                fill="#526027"
+                fill="#8e7c41"
                 fillOpacity="0.04"
               />
               <path
                 d="M170 190 L90 70 M170 190 L120 50 M170 190 L145 35"
-                stroke="#526027"
+                stroke="#8e7c41"
                 strokeWidth="1"
                 strokeDasharray="2 2"
                 opacity="0.6"
