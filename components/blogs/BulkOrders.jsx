@@ -135,7 +135,20 @@ export default function BulkOrders({ products = [] }) {
 
   // Modal / Details Form State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeB2bTab, setActiveB2bTab] = useState("bulk"); // 'bulk' | 'private_label' | 'rnd'
+  const [modalServiceTab, setModalServiceTab] = useState("bulk");
   const [orderType, setOrderType] = useState("local"); // 'local' | 'international'
+  
+  // Quote Form State (matches UI reference & wireframe draft)
+  const [quoteForm, setQuoteForm] = useState({
+    relatedProduct: "",
+    inquiryDetails: "",
+    phone: "",
+    email: "",
+    contactName: "",
+    businessName: "",
+  });
+
   const [formData, setFormData] = useState({
     fullName: "",
     businessName: "",
@@ -161,133 +174,244 @@ export default function BulkOrders({ products = [] }) {
     });
   }, [normalizedProducts, selectedCategory, searchQuery]);
 
-  // Handle card variant change
-  const handleVariantChange = (productId, variant) => {
-    setCardSelections((prev) => ({
-      ...prev,
-      [productId]: {
-        ...(prev[productId] || { qty: 1 }),
-        variant,
-      },
-    }));
-  };
-
-  // Handle card qty change
-  const handleQtyChange = (productId, delta) => {
-    setCardSelections((prev) => {
-      const current = prev[productId] || { variant: "30 ml", qty: 1 };
-      const nextQty = Math.max(1, current.qty + delta);
-      return {
-        ...prev,
-        [productId]: { ...current, qty: nextQty },
-      };
-    });
-  };
-
-  // Add item from card to order
-  const handleAddToOrder = (product) => {
-    const sel = cardSelections[product.id] || {
-      variant: product.variants[0] || "30 ml",
-      qty: 1,
-    };
-    const key = `${product.id}-${sel.variant}`;
-
-    setOrderItems((prev) => {
-      const existingIndex = prev.findIndex((item) => item.id === key);
-      if (existingIndex > -1) {
-        const updated = [...prev];
-        updated[existingIndex].qty += sel.qty;
-        return updated;
-      } else {
-        return [
-          ...prev,
+  // B2B Tabs Specification (matches draft wireframe & high-fidelity design)
+  const B2B_TABS = useMemo(
+    () => [
+      {
+        id: "bulk",
+        tabLabel: "Bulk Orders",
+        eyebrow: "BULK PURCHASE",
+        title: "Your Business, Our Priority",
+        desc: "Purchase our ready-to-market products in bulk at special B2B pricing. Whether you are a hotel, café, restaurant, retailer, distributor, or other business, our bulk-order solutions make it easy to access our products at competitive rates while maintaining consistent quality, reliable supply, and professional service.",
+        badges: [
           {
-            id: key,
-            productId: product.id,
-            title: product.title,
-            variant: sel.variant,
-            qty: sel.qty,
-            imgSrc: product.imgSrc,
+            title: "Premium Quality",
+            sub: "100% pure Ceylon botanicals",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+            ),
           },
-        ];
-      }
-    });
+          {
+            title: "Reliable Supply",
+            sub: "Continuous batch consistency",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            ),
+          },
+          {
+            title: "Competitive Rates",
+            sub: "Special wholesale tier pricing",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            ),
+          },
+          {
+            title: "Global Shipping",
+            sub: "Door delivery & worldwide export",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            ),
+          },
+        ],
+      },
+      {
+        id: "private_label",
+        tabLabel: "Private Label",
+        eyebrow: "PRIVATE LABEL",
+        title: "Bring Our Products to Market Under Your Own Brand",
+        desc: "Bring our products to market under your own brand. We offer private-label solutions that allow businesses to select from our existing product range and customize the packaging and branding to suit their market. It's a convenient way to expand your product portfolio without developing a product from scratch.",
+        badges: [
+          {
+            title: "Custom Branding",
+            sub: "Tailored labels & packaging",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+            ),
+          },
+          {
+            title: "Low MOQs",
+            sub: "Flexible starter batch options",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            ),
+          },
+          {
+            title: "Turnkey Packaging",
+            sub: "Complete bottling & packing",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            ),
+          },
+          {
+            title: "Certified Formulas",
+            sub: "Export-grade pure botanicals",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            ),
+          },
+        ],
+      },
+      {
+        id: "rnd",
+        tabLabel: "R&D & Contract Manufacturing",
+        eyebrow: "R&D & CONTRACT MANUFACTURING",
+        title: "From Concept to Production",
+        desc: "Have a product idea or a specific requirement? Our R&D and contract manufacturing service takes your concept from development to production. We work with businesses to research, formulate, test, refine, and manufacture customized food and beverage products, creating solutions tailored to their brand, market, and requirements.",
+        badges: [
+          {
+            title: "Custom Formulations",
+            sub: "Bespoke flavor & potency design",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 2v7.31"></path>
+                <path d="M14 2v7.31"></path>
+                <path d="M8.5 2h7"></path>
+                <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+              </svg>
+            ),
+          },
+          {
+            title: "Green Science",
+            sub: "Pure hydro-distilled extraction",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+              </svg>
+            ),
+          },
+          {
+            title: "Lab Certified",
+            sub: "Full COA & stability analysis",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            ),
+          },
+          {
+            title: "Scalable Output",
+            sub: "Pilot trials to mass production",
+            icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            ),
+          },
+        ],
+      },
+    ],
+    []
+  );
 
-    setAddedNotice(`Added ${sel.qty}x ${product.title} (${sel.variant})`);
-    setTimeout(() => setAddedNotice(null), 2500);
+  const activeTabContent = useMemo(() => {
+    return B2B_TABS.find((t) => t.id === activeB2bTab) || B2B_TABS[0];
+  }, [B2B_TABS, activeB2bTab]);
+
+  // Open quote modal from button click
+  const openQuoteModal = (tabId = activeB2bTab) => {
+    setModalServiceTab(tabId);
+    setIsModalOpen(true);
   };
 
-  // Update order item quantity in right panel
-  const handleUpdateCartQty = (id, delta) => {
-    setOrderItems((prev) => {
-      return prev
-        .map((item) => {
-          if (item.id === id) {
-            const nextQty = item.qty + delta;
-            return nextQty > 0 ? { ...item, qty: nextQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean);
-    });
-  };
-
-  // Remove order item from right panel
-  const handleRemoveItem = (id) => {
-    setOrderItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  // Total quantity calculation
-  const totalItemsCount = useMemo(() => {
-    return orderItems.reduce((acc, item) => acc + item.qty, 0);
-  }, [orderItems]);
-
-  // WhatsApp Inquiry Generator
-  const handleSendWhatsAppInquiry = (e) => {
-    e.preventDefault();
-
-    if (orderItems.length === 0) {
-      alert("Please add at least one product to your bulk order list.");
+  // Direct Inquiry submission (Send Inquiry Button)
+  const handleQuoteDirectSubmit = (e) => {
+    if (e) e.preventDefault();
+    if (modalServiceTab !== "rnd" && !quoteForm.relatedProduct) {
+      alert("Please select a related product.");
+      return;
+    }
+    if (!quoteForm.inquiryDetails.trim()) {
+      alert("Please enter your inquiry details.");
+      return;
+    }
+    if (!quoteForm.phone.trim()) {
+      alert("Please enter your Phone / WhatsApp number.");
       return;
     }
 
-    if (!formData.fullName.trim()) {
-      alert("Please enter your name.");
+    setAddedNotice(
+      `✓ Thank you${quoteForm.contactName ? `, ${quoteForm.contactName}` : ""}! Your quote request has been received. Our team will contact you shortly.`
+    );
+    setTimeout(() => setAddedNotice(null), 4000);
+    setIsModalOpen(false);
+    setQuoteForm({
+      relatedProduct: "",
+      inquiryDetails: "",
+      phone: "",
+      email: "",
+      contactName: "",
+      businessName: "",
+    });
+  };
+
+  // WhatsApp Inquiry submission (WhatsApp Button)
+  const handleQuoteWhatsApp = (e) => {
+    if (e) e.preventDefault();
+    if (modalServiceTab !== "rnd" && !quoteForm.relatedProduct) {
+      alert("Please select a related product.");
+      return;
+    }
+    if (!quoteForm.inquiryDetails.trim()) {
+      alert("Please enter your inquiry details.");
+      return;
+    }
+    if (!quoteForm.phone.trim()) {
+      alert("Please enter your Phone / WhatsApp number.");
       return;
     }
 
-    const itemsText = orderItems
-      .map(
-        (item, idx) =>
-          `${idx + 1}. *${item.title}* (${item.variant}) - *${item.qty} units*`
-      )
-      .join("\n");
+    const serviceTitle =
+      modalServiceTab === "private_label"
+        ? "Private Label Solutions"
+        : modalServiceTab === "rnd"
+        ? "R&D & Contract Manufacturing"
+        : "Bulk Purchase Orders";
 
-    const destinationText =
-      orderType === "international"
-        ? `🌍 International Export (Destination: ${formData.country})`
-        : "📍 Local Delivery (Sri Lanka)";
-
-    const message = `🌿 *ENDLESS GREENS - BULK PURCHASE INQUIRY*
-
-*Customer Details:*
-• *Name:* ${formData.fullName}
-${formData.businessName ? `• *Company/Business:* ${formData.businessName}\n` : ""
-}• *Order Type:* ${destinationText}
-${formData.email ? `• *Email:* ${formData.email}\n` : ""
-}• *Phone:* ${formData.phone || "Not provided"}
-${formData.city ? `• *City/Address:* ${formData.city}\n` : ""}
-*Requested Products (${totalItemsCount} total items):*
-${itemsText}
-
-${formData.notes ? `*Special Notes & Requirements:*\n${formData.notes}\n\n` : ""
-}---
-_Sent via Endless Greens Bulk Orders Portal_`;
+    const message = `🌿 *ENDLESS GREENS - B2B INQUIRY*
+━━━━━━━━━━━━━━━━━━━━━
+📋 *Service:* ${serviceTitle}
+${modalServiceTab !== "rnd" && quoteForm.relatedProduct ? `📦 *Related Product:* ${quoteForm.relatedProduct}\n` : ""}👤 *Contact Name:* ${quoteForm.contactName.trim() || "Not provided"}
+🏢 *Business / Café:* ${quoteForm.businessName.trim() || "Not provided"}
+📱 *Phone / WhatsApp:* ${quoteForm.phone.trim()}
+${quoteForm.email.trim() ? `✉️ *Email:* ${quoteForm.email.trim()}\n` : ""}
+📝 *Inquiry Details:*
+${quoteForm.inquiryDetails.trim()}
+━━━━━━━━━━━━━━━━━━━━━
+_Sent via Endless Greens B2B Portal_`;
 
     const phone = WHATSAPP_CONFIG.phoneNumber || "94777530354";
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
     setIsModalOpen(false);
+    setAddedNotice("WhatsApp inquiry opened! We look forward to working with you.");
+    setTimeout(() => setAddedNotice(null), 3500);
   };
 
   return (
@@ -311,7 +435,87 @@ _Sent via Endless Greens Bulk Orders Portal_`;
         </div>
       </section>
 
-      {/* 2. MAIN BULK SELECTOR + ORDER SUMMARY SECTION */}
+
+
+
+
+      {/* 2. B2B SERVICE TABS SECTION */}
+      <section className="b2b-tabs-section container">
+        <div className="b2b-tabs-card">
+          {/* Section Intro Header (from draft wireframe) */}
+          <div className="b2b-section-header">
+            <h2 className="b2b-main-heading">
+              Your Business. Your Brand. Your Product.
+            </h2>
+            <p className="b2b-main-desc">
+              Whether you are looking to purchase our products in bulk, launch them under your own brand, or develop something entirely new, Endless Greens offers tailored solutions to meet your business needs.
+            </p>
+          </div>
+
+          {/* Tab Navigation Buttons */}
+          <div className="b2b-nav-tabs" role="tablist">
+            {B2B_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={activeB2bTab === tab.id}
+                className={`b2b-nav-tab ${activeB2bTab === tab.id ? "active" : ""}`}
+                onClick={() => setActiveB2bTab(tab.id)}
+              >
+                {tab.tabLabel}
+              </button>
+            ))}
+          </div>
+
+          {/* Active Tab Panel */}
+          <div className="b2b-tab-pane" key={activeTabContent.id}>
+            <div className="b2b-eyebrow">{activeTabContent.eyebrow}</div>
+            <h3 className="b2b-tab-heading">{activeTabContent.title}</h3>
+            <p className="b2b-tab-description">{activeTabContent.desc}</p>
+
+            {/* GET IN TOUCH Button */}
+            <div>
+              <button
+                type="button"
+                className="b2b-btn-touch"
+                onClick={() => openQuoteModal(activeTabContent.id)}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <span>GET IN TOUCH</span>
+                <span style={{ fontSize: "1.1em", marginLeft: "2px" }}>→</span>
+              </button>
+            </div>
+
+            {/* Trust Highlights Badges */}
+            <div className="b2b-trust-grid">
+              {activeTabContent.badges.map((badge, idx) => (
+                <div key={idx} className="b2b-trust-item">
+                  <div className="b2b-trust-icon">{badge.icon}</div>
+                  <div className="b2b-trust-text">
+                    <div className="b2b-trust-title">{badge.title}</div>
+                    <div className="b2b-trust-sub">{badge.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. MAIN BULK SELECTOR + ORDER SUMMARY SECTION */}
       <section className="bulk-main-container container mb-5 pb-xl-4">
         {/* Feedback Alert Toast */}
         {addedNotice && (
@@ -325,288 +529,7 @@ _Sent via Endless Greens Bulk Orders Portal_`;
           </div>
         )}
 
-        <div className="row g-4 g-xl-5">
-          {/* LEFT COLUMN: PRODUCTS CATALOG */}
-          <div className="col-lg-8 col-xl-8">
-            <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
-              <div>
-                <h2 className="bulk-section-title mb-1">Select Products</h2>
-                <p className="text-secondary small mb-0">
-                  Select your desired botanical drops, size options, and wholesale quantities.
-                </p>
-              </div>
-            </div>
-
-            {/* Filter & Search Bar */}
-            <div className="bulk-filter-bar mb-4 p-3 bg-white rounded-3 shadow-xs border">
-              <div className="row g-2 align-items-center">
-                <div className="col-12 col-md-7">
-                  <div className="bulk-search-box">
-                    <svg
-                      className="bulk-search-icon"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <circle cx="11" cy="11" r="8"></circle>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input
-                      type="text"
-                      className="form-control bulk-search-input"
-                      placeholder="Search products..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    {searchQuery && (
-                      <button
-                        className="btn btn-sm text-secondary p-0 me-2"
-                        onClick={() => setSearchQuery("")}
-                      >
-                        ✕
-                      </button>
-                    )}
-                  </div>
-                </div>
-                <div className="col-12 col-md-5">
-                  <select
-                    className="form-select bulk-category-select"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                  >
-                    {categories.map((cat, idx) => (
-                      <option key={idx} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Product Cards Grid */}
-            {filteredProducts.length === 0 ? (
-              <div className="text-center py-5 bg-white rounded-3 border">
-                <p className="fs-5 text-secondary mb-2">No products found</p>
-                <button
-                  className="btn btn-outline-secondary btn-sm"
-                  onClick={() => {
-                    setSearchQuery("");
-                    setSelectedCategory("All Categories");
-                  }}
-                >
-                  Reset Filters
-                </button>
-              </div>
-            ) : (
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 g-md-4">
-                {filteredProducts.map((product) => {
-                  const sel = cardSelections[product.id] || {
-                    variant: product.variants[0] || "30 ml",
-                    qty: 1,
-                  };
-                  return (
-                    <div key={product.id} className="col">
-                      <div className="bulk-product-card card h-100 border rounded-3 bg-white shadow-xs">
-                        {/* Product Image */}
-                        <div className="bulk-product-card__img-wrap position-relative">
-                          <Image
-                            src={product.imgSrc}
-                            alt={product.title}
-                            width={320}
-                            height={300}
-                            className="bulk-product-card__img"
-                            unoptimized={product.imgSrc.startsWith("http")}
-                          />
-                        </div>
-
-                        {/* Product Info */}
-                        <div className="card-body p-3 d-flex flex-column">
-                          <span className="bulk-product-card__category text-uppercase mb-1">
-                            {product.filterCategory}
-                          </span>
-                          <h3 className="bulk-product-card__title mb-3">
-                            {product.title}
-                          </h3>
-
-                          {/* Variant Dropdown */}
-                          <div className="mb-2 mt-auto">
-                            <select
-                              className="form-select bulk-product-card__select w-100"
-                              value={sel.variant}
-                              onChange={(e) =>
-                                handleVariantChange(product.id, e.target.value)
-                              }
-                            >
-                              {product.variants.map((v, i) => (
-                                <option key={i} value={v}>
-                                  {v}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-
-                          {/* Stepper (Full Width) */}
-                          <div className="bulk-stepper w-100 d-flex align-items-center justify-content-between border rounded mb-2">
-                            <button
-                              type="button"
-                              className="bulk-stepper__btn"
-                              onClick={() => handleQtyChange(product.id, -1)}
-                              aria-label="Decrease quantity"
-                            >
-                              –
-                            </button>
-                            <span className="bulk-stepper__val flex-grow-1 text-center">
-                              {sel.qty}
-                            </span>
-                            <button
-                              type="button"
-                              className="bulk-stepper__btn"
-                              onClick={() => handleQtyChange(product.id, 1)}
-                              aria-label="Increase quantity"
-                            >
-                              +
-                            </button>
-                          </div>
-
-                          {/* Add to Order Button (Full Width) */}
-                          <button
-                            type="button"
-                            className="btn bulk-product-card__btn w-100 d-flex align-items-center justify-content-center gap-2"
-                            onClick={() => handleAddToOrder(product)}
-                          >
-                            <svg
-                              width="15"
-                              height="15"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <circle cx="9" cy="21" r="1"></circle>
-                              <circle cx="20" cy="21" r="1"></circle>
-                              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                            </svg>
-                            <span>Add to Order</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* RIGHT COLUMN: STICKY "YOUR BULK ORDER" PANEL */}
-          <div className="col-lg-4 col-xl-4">
-            <div className="bulk-order-summary-card card border rounded-3 bg-white p-3 p-xl-4 sticky-top">
-              <h3 className="bulk-order-summary-card__title mb-3">
-                Your Bulk Order
-              </h3>
-
-              {/* Items List */}
-              <div className="bulk-order-summary-card__list mb-3">
-                {orderItems.length === 0 ? (
-                  <div className="text-center py-4 text-secondary">
-                    <svg
-                      className="mb-2 text-muted"
-                      width="40"
-                      height="40"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                      <line x1="3" y1="6" x2="21" y2="6"></line>
-                      <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    <p className="small mb-0">No items selected yet.</p>
-                    <p className="text-muted small">
-                      Select items and quantities on the left to build your bulk inquiry.
-                    </p>
-                  </div>
-                ) : (
-                  orderItems.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bulk-cart-item d-flex align-items-start gap-3 py-3 border-bottom position-relative"
-                    >
-                      <div className="bulk-cart-item__thumb flex-shrink-0">
-                        <Image
-                          src={item.imgSrc}
-                          alt={item.title}
-                          width={60}
-                          height={60}
-                          className="rounded object-fit-cover"
-                          unoptimized={item.imgSrc.startsWith("http")}
-                        />
-                      </div>
-                      <div className="flex-grow-1 min-w-0 pe-4">
-                        <h4 className="bulk-cart-item__title text-truncate mb-1">
-                          {item.title}
-                        </h4>
-                        <div className="bulk-cart-item__variant text-muted small mb-2">
-                          {item.variant}
-                        </div>
-                        <div className="bulk-cart-item__stepper d-inline-flex align-items-center border rounded">
-                          <button
-                            type="button"
-                            onClick={() => handleUpdateCartQty(item.id, -1)}
-                            className="stepper-btn"
-                            aria-label="Decrease"
-                          >
-                            –
-                          </button>
-                          <span className="stepper-val">{item.qty}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleUpdateCartQty(item.id, 1)}
-                            className="stepper-btn"
-                            aria-label="Increase"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-
-                      <button
-                        type="button"
-                        className="btn btn-link text-muted p-0 text-decoration-none fs-5 position-absolute top-2 end-0 lh-1"
-                        onClick={() => handleRemoveItem(item.id)}
-                        title="Remove item"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))
-                )}
-              </div>
-
-              {/* Total items row */}
-              <div className="d-flex align-items-center justify-content-between pt-2 pb-3 border-top">
-                <span className="fw-medium text-secondary">Total Items</span>
-                <span className="fw-bold fs-5 text-dark">
-                  {totalItemsCount}
-                </span>
-              </div>
-
-              {/* Checkout Button */}
-              <button
-                type="button"
-                className="btn bulk-continue-btn w-100 py-3 text-uppercase fw-bold"
-                disabled={orderItems.length === 0}
-                onClick={() => setIsModalOpen(true)}
-              >
-                Continue to Customer Details →
-              </button>
-            </div>
-          </div>
-        </div>
+       
       </section>
 
 
@@ -671,7 +594,7 @@ _Sent via Endless Greens Bulk Orders Portal_`;
       </section>
 
       {/* 4. BUSINESS & WHOLESALE SERVICES */}
-      <section className="bulk-services-section container py-4 mb-5 d-none">
+      <section className="bulk-services-section container py-4 mb-5">
         <div className="text-center max-w-700 mx-auto mb-5">
           <span className="text-uppercase fw-bold text-olive small letter-spacing-1">
             Why Partner With Us
@@ -732,222 +655,280 @@ _Sent via Endless Greens Bulk Orders Portal_`;
         </div>
       </section>
 
-      {/* 5. CUSTOMER DETAILS MODAL */}
+      {/* 5. REQUEST A QUOTE MODAL (Matches UI design & draft) */}
       {isModalOpen && (
-        <div className="bulk-modal-backdrop">
-          <div className="bulk-modal-dialog">
-            <div className="bulk-modal-content card shadow-lg border-0 rounded-4">
-              {/* Modal Header */}
-              <div className="bulk-modal-header d-flex align-items-center justify-content-between p-4 border-bottom">
-                <div>
-                  <h3 className="h5 fw-bold mb-1 text-dark">
-                    Complete Bulk Inquiry
-                  </h3>
-                  <p className="text-muted small mb-0">
-                    Provide your delivery destination and contact details.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setIsModalOpen(false)}
-                ></button>
+        <div
+          className="b2b-modal-backdrop"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsModalOpen(false);
+          }}
+        >
+          <div className="b2b-modal-dialog">
+            {/* Close Button */}
+            <button
+              type="button"
+              className="b2b-modal-close"
+              onClick={() => setIsModalOpen(false)}
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+
+            {/* Modal Header */}
+            <div className="b2b-modal-header">
+              <div className="b2b-modal-eyebrow">
+                {modalServiceTab === "private_label"
+                  ? "PRIVATE LABEL"
+                  : modalServiceTab === "rnd"
+                  ? "R&D & CONTRACT MANUFACTURING"
+                  : "BULK ORDERS"}
               </div>
+              <h3 className="b2b-modal-title">Request a Quote</h3>
+              <p className="b2b-modal-sub">
+                {modalServiceTab === "private_label"
+                  ? "Tell us more about your private label requirements and our team will get back to you with the best solutions for your business."
+                  : modalServiceTab === "rnd"
+                  ? "Tell us more about your custom product requirement and our team will get back to you with the best solutions for your business."
+                  : "Tell us more about your bulk order request and our team will get back to you with the best solutions for your business."}
+              </p>
+            </div>
 
-              {/* Modal Body */}
-              <form onSubmit={handleSendWhatsAppInquiry} className="p-4">
-                {/* Local vs International Toggle */}
-                <div className="mb-4">
-                  <label className="form-label fw-bold small text-uppercase text-secondary mb-2">
-                    Destination Type
-                  </label>
-                  <div className="row g-2">
-                    <div className="col-6">
-                      <button
-                        type="button"
-                        className={`btn w-100 p-2 text-start rounded-3 border d-flex align-items-center gap-2 ${
-                          orderType === "local"
-                            ? "btn-dark border-dark text-white fw-bold"
-                            : "btn-light text-dark"
-                        }`}
-                        onClick={() => setOrderType("local")}
-                      >
-                        <span>📍</span>
-                        <div>
-                          <div className="small fw-bold">Local (Sri Lanka)</div>
-                          <div className="text-muted extra-small">
-                            Direct courier delivery
-                          </div>
-                        </div>
-                      </button>
+            {/* Modal Form */}
+            <form onSubmit={handleQuoteDirectSubmit}>
+              <div className="row g-3">
+                {/* Row 1: Related Product & Inquiry Details (Hide Related Product if coming from tab #3 R&D) */}
+                {modalServiceTab !== "rnd" ? (
+                  <>
+                    <div className="col-12 col-md-6">
+                      <div className="b2b-form-group">
+                        <label className="b2b-form-label">
+                          RELATED PRODUCT <span className="req">*</span>
+                        </label>
+                        <select
+                          className="b2b-form-select"
+                          value={quoteForm.relatedProduct}
+                          onChange={(e) =>
+                            setQuoteForm({
+                              ...quoteForm,
+                              relatedProduct: e.target.value,
+                            })
+                          }
+                          required
+                        >
+                          <option value="">Choose product</option>
+                          {normalizedProducts.map((p) => (
+                            <option key={p.id} value={p.title}>
+                              {p.title} ({p.filterCategory})
+                            </option>
+                          ))}
+                          <option value="All Products / Assorted Catalog">
+                            All Products / Assorted Catalog
+                          </option>
+                          <option value="Custom Product Request">
+                            Custom Product Request
+                          </option>
+                        </select>
+                      </div>
                     </div>
-                    <div className="col-6">
-                      <button
-                        type="button"
-                        className={`btn w-100 p-2 text-start rounded-3 border d-flex align-items-center gap-2 ${
-                          orderType === "international"
-                            ? "btn-dark border-dark text-white fw-bold"
-                            : "btn-light text-dark"
-                        }`}
-                        onClick={() => setOrderType("international")}
-                      >
-                        <span>🌍</span>
-                        <div>
-                          <div className="small fw-bold">International</div>
-                          <div className="text-muted extra-small">
-                            Worldwide export air/sea
-                          </div>
-                        </div>
-                      </button>
+                    <div className="col-12 col-md-6">
+                      <div className="b2b-form-group">
+                        <label className="b2b-form-label">
+                          YOUR INQUIRY DETAILS <span className="req">*</span>
+                        </label>
+                        <textarea
+                          className="b2b-form-textarea"
+                          placeholder="Tell us about your inquiry..."
+                          rows="3"
+                          value={quoteForm.inquiryDetails}
+                          onChange={(e) =>
+                            setQuoteForm({
+                              ...quoteForm,
+                              inquiryDetails: e.target.value,
+                            })
+                          }
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
-                </div>
-
-                {/* Country dropdown if international */}
-                {orderType === "international" && (
-                  <div className="mb-3 animate-fade-in">
-                    <label className="form-label fw-bold small text-secondary">
-                      Destination Country *
-                    </label>
-                    <select
-                      className="form-select"
-                      required
-                      value={formData.country}
-                      onChange={(e) =>
-                        setFormData({ ...formData, country: e.target.value })
-                      }
-                    >
-                      {POPULAR_COUNTRIES.map((c, i) => (
-                        <option key={i} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
+                  </>
+                ) : (
+                  /* If coming from tab #3 (R&D), hide related product field as instructed */
+                  <div className="col-12">
+                    <div className="b2b-form-group">
+                      <label className="b2b-form-label">
+                        YOUR INQUIRY DETAILS <span className="req">*</span>
+                      </label>
+                      <textarea
+                        className="b2b-form-textarea"
+                        placeholder="Tell us about your custom formulation concept, target flavor profile, volumes, and requirements..."
+                        rows="4"
+                        value={quoteForm.inquiryDetails}
+                        onChange={(e) =>
+                          setQuoteForm({
+                            ...quoteForm,
+                            inquiryDetails: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
                   </div>
                 )}
 
-                {/* Contact Fields */}
-                <div className="row g-3 mb-3">
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label fw-bold small text-secondary">
-                      Contact Name *
+                {/* Row 2: Phone/WhatsApp & Email */}
+                <div className="col-12 col-md-6">
+                  <div className="b2b-form-group">
+                    <label className="b2b-form-label">
+                      PHONE/WHATSAPP <span className="req">*</span>
                     </label>
                     <input
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. Ruwan Silva"
-                      required
-                      value={formData.fullName}
+                      type="tel"
+                      className="b2b-form-control"
+                      placeholder="+94 7X XXX XXXX"
+                      value={quoteForm.phone}
                       onChange={(e) =>
-                        setFormData({ ...formData, fullName: e.target.value })
+                        setQuoteForm({ ...quoteForm, phone: e.target.value })
+                      }
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-12 col-md-6">
+                  <div className="b2b-form-group">
+                    <label className="b2b-form-label">EMAIL</label>
+                    <input
+                      type="email"
+                      className="b2b-form-control"
+                      placeholder="you@company.com"
+                      value={quoteForm.email}
+                      onChange={(e) =>
+                        setQuoteForm({ ...quoteForm, email: e.target.value })
                       }
                     />
                   </div>
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label fw-bold small text-secondary">
-                      Business / Café Name
-                    </label>
+                </div>
+
+                {/* Row 3: Contact Name & Business/Café Name */}
+                <div className="col-12 col-md-6">
+                  <div className="b2b-form-group">
+                    <label className="b2b-form-label">CONTACT NAME</label>
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="e.g. Ceylon Specialty Bar"
-                      value={formData.businessName}
+                      className="b2b-form-control"
+                      placeholder="Your name"
+                      value={quoteForm.contactName}
                       onChange={(e) =>
-                        setFormData({
-                          ...formData,
+                        setQuoteForm({
+                          ...quoteForm,
+                          contactName: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="col-12 col-md-6">
+                  <div className="b2b-form-group">
+                    <label className="b2b-form-label">BUSINESS/CAFÉ NAME</label>
+                    <input
+                      type="text"
+                      className="b2b-form-control"
+                      placeholder="Your business or café name"
+                      value={quoteForm.businessName}
+                      onChange={(e) =>
+                        setQuoteForm({
+                          ...quoteForm,
                           businessName: e.target.value,
                         })
                       }
                     />
                   </div>
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label fw-bold small text-secondary">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      placeholder="name@business.com"
-                      required
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="col-12 col-sm-6">
-                    <label className="form-label fw-bold small text-secondary">
-                      WhatsApp / Phone *
-                    </label>
-                    <input
-                      type="tel"
-                      className="form-control"
-                      placeholder="+94 77 123 4567"
-                      required
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="col-12">
-                    <label className="form-label fw-bold small text-secondary">
-                      City / Shipping Location
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="e.g. Colombo, London, Sydney..."
-                      value={formData.city}
-                      onChange={(e) =>
-                        setFormData({ ...formData, city: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="col-12">
-                    <label className="form-label fw-bold small text-secondary">
-                      Special Requirements / Inquiries
-                    </label>
-                    <textarea
-                      rows="3"
-                      className="form-control"
-                      placeholder="e.g. Requesting wholesale price tier, private labeling, custom bottling sizes..."
-                      value={formData.notes}
-                      onChange={(e) =>
-                        setFormData({ ...formData, notes: e.target.value })
-                      }
-                    ></textarea>
-                  </div>
                 </div>
+              </div>
 
-                {/* Summary badge */}
-                <div className="p-3 bg-light rounded-3 mb-4 d-flex align-items-center justify-content-between">
-                  <span className="small text-secondary">
-                    Total Items in Inquiry:
-                  </span>
-                  <span className="fw-bold fs-6 text-dark">
-                    {totalItemsCount} units across {orderItems.length} products
-                  </span>
-                </div>
-
-                {/* Submit button */}
+              {/* Action Buttons */}
+              <div className="b2b-modal-actions">
                 <button
                   type="submit"
-                  className="btn btn-success w-100 py-3 d-flex align-items-center justify-content-center gap-2 fw-bold text-uppercase rounded-3 shadow-sm"
-                  style={{ backgroundColor: "#25D366", borderColor: "#25D366" }}
+                  className="b2b-btn-send"
                 >
                   <svg
-                    width="20"
-                    height="20"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
-                    fill="white"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                  <span>SEND INQUIRY</span>
+                  <span style={{ fontSize: "1.1em", marginLeft: "2px" }}>→</span>
+                </button>
+                <span className="b2b-modal-or">— or —</span>
+                <button
+                  type="button"
+                  className="b2b-btn-whatsapp"
+                  onClick={handleQuoteWhatsApp}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="#25D366"
                   >
                     <path d="M20.52 3.48A11.86 11.86 0 0 0 12.03 0C5.41 0 .03 5.38.03 12c0 2.11.55 4.17 1.59 6L0 24l6.16-1.61a11.96 11.96 0 0 0 5.86 1.5h.01c6.62 0 12-5.38 12-12 0-3.2-1.25-6.2-3.51-8.41ZM12.03 21.86h-.01a9.9 9.9 0 0 1-5.04-1.37l-.36-.21-3.65.95.97-3.56-.24-.37a9.9 9.9 0 0 1-1.52-5.3c0-5.47 4.45-9.92 9.92-9.92a9.86 9.86 0 0 1 7.02 2.91 9.86 9.86 0 0 1 2.9 7.02c0 5.47-4.45 9.92-9.92 9.92Z" />
                   </svg>
-                  <span>Send Inquiry via WhatsApp</span>
+                  <span>SEND INQUIRY via WHATSAPP</span>
                 </button>
-              </form>
-            </div>
+              </div>
+            </form>
+
+            {/* Decorative Botanical Leaf Outline SVG (matches UI design) */}
+            <svg
+              className="b2b-modal-leaf"
+              viewBox="0 0 200 200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M170 190 C150 140 100 90 20 80 C80 90 140 120 170 190 Z"
+                stroke="#526027"
+                strokeWidth="1.5"
+                fill="#526027"
+                fillOpacity="0.04"
+              />
+              <path
+                d="M170 190 C160 120 120 70 60 40 C100 70 140 120 170 190 Z"
+                stroke="#526027"
+                strokeWidth="1.5"
+                fill="#526027"
+                fillOpacity="0.04"
+              />
+              <path
+                d="M170 190 C180 130 150 60 90 20 C130 50 165 110 170 190 Z"
+                stroke="#526027"
+                strokeWidth="1.5"
+                fill="#526027"
+                fillOpacity="0.04"
+              />
+              <path
+                d="M170 190 C190 140 185 80 145 35 C165 75 175 130 170 190 Z"
+                stroke="#526027"
+                strokeWidth="1.5"
+                fill="#526027"
+                fillOpacity="0.04"
+              />
+              <path
+                d="M170 190 L90 70 M170 190 L120 50 M170 190 L145 35"
+                stroke="#526027"
+                strokeWidth="1"
+                strokeDasharray="2 2"
+                opacity="0.6"
+              />
+            </svg>
           </div>
         </div>
       )}
