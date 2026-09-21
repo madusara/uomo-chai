@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function Hero() {
   const swiperOptions = {
     autoplay: {
-      delay: 500000,
+      delay: 5000,
     },
     modules: [Autoplay, EffectFade, Pagination],
     slidesPerView: 1,
