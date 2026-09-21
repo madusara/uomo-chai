@@ -417,12 +417,12 @@ export default function MobileNav() {
 
       <li className="navigation__item">
         <Link
-          href="/bulk-orders"
+          href="/b2b-services"
           className={`navigation__link d-flex align-items-center ${
             isBulkOrdersActive ? "menu-active" : ""
           }`}
         >
-          Business Orders
+          B2B Services
         </Link>
       </li>
 

@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function Hero() {
   const swiperOptions = {
     autoplay: {
-      delay: 5000,
+      delay: 500000,
     },
     modules: [Autoplay, EffectFade, Pagination],
     slidesPerView: 1,
@@ -23,11 +23,11 @@ export default function Hero() {
   return (
     <Swiper
       {...swiperOptions}
-      className="swiper-container js-swiper-slider slideshow full-width_padding-20 slideshow-md swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
+      className="swiper-container js-swiper-slider slideshow slideshow slideshow-stacked-sm full-width_padding-20 slideshow-md swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
     >
       {slidesData4.map((elm, i) => (
         <SwiperSlide key={i} className="swiper-slide">
-          <div className="overflow-hidden position-relative h-100">
+          <div className="overflow-hidden position-relative h-100 slideshow-stacked-sm__slide">
             <div className="slideshow-bg">
               <Image
                 loading="lazy"
@@ -38,7 +38,7 @@ export default function Hero() {
                 className="slideshow-bg__img object-fit-cover object-position-right"
               />
             </div>
-            <div className="slideshow-text container position-absolute start-50 top-50 translate-middle">
+            <div className="slideshow-text container position-absolute top-0 left-0 w-100 p-3 p-md-5">
               <h6 className="text_dash text-uppercase fs-base fw-medium animate animate_fade animate_btt animate_delay-3">
                 {elm.imageAlt}
               </h6>
@@ -46,9 +46,9 @@ export default function Hero() {
                 {elm.subtitle}
               </h2>
               <p className="animate animate_fade animate_btt animate_delay-6">
-                {elm.description.split(" ").slice(0, 7).join(" ")}
+                {elm.description.split(" ").slice(0, 10).join(" ")}
                 <br />
-                {elm.description.split(" ").slice(7).join(" ")}
+                {elm.description.split(" ").slice(10).join(" ")}
               </p>
               <Link
                 href="/shop"

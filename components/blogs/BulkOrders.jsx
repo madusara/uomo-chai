@@ -423,12 +423,12 @@ _Sent via Endless Greens B2B Portal_`;
             <nav className="bulk-hero-banner__breadcrumb" aria-label="breadcrumb">
               <Link href="/">HOME</Link>
               <span className="sep">/</span>
-              <span className="current">BULK PURCHASE</span>
+              <span className="current">B2B SERVICES</span>
             </nav>
-            <h1 className="bulk-hero-banner__title">BULK PURCHASE</h1>
+            <h1 className="bulk-hero-banner__title">Solutions Built for Your Business</h1>
             <p className="bulk-hero-banner__desc">
-              Curated quantities for cafés, retailers, hospitality
-              <br className="d-none d-sm-inline" /> and growing businesses.
+            From sourcing our products in bulk to creating products under your brand, 
+            we offer flexible B2B solutions designed to help businesses grow.
             </p>
             <div className="bulk-hero-banner__accent" />
           </div>

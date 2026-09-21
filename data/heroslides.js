@@ -306,9 +306,9 @@ export const slidesData4 = [
     id: 3,
     imageSrc: "/assets/images/home/endless/banner3.jpeg",
     imageAlt: "PREMIUM AND PURE",
-    subtitle: "REAL GINGER KICK",
+    subtitle: "B2B SERVICES",
     description:
-      "A perfect gourmet ginger syrup for cocktails, mocktails and frizzy drinks. Crafted with bold ceylon ginger.",
+      "From sourcing our products in bulk to creating products under your brand, we offer flexible B2B solutions designed to help businesses grow.",
   },
   // {
   //   id: 3,

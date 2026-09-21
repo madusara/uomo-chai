@@ -6,21 +6,24 @@ import BulkOrders from "@/components/blogs/BulkOrders";
 
 export async function generateMetadata() {
   return {
-    title: "Bulk Purchase & Business Orders | Endless Greens",
+    title: "B2B Services | Endless Greens",
     description:
-      "Curated wholesale quantities of pure Ceylon spice drops, botanical extracts, and artisanal elixirs for cafés, restaurants, retailers, and hospitality brands.",
+      "Whether you are looking to purchase our products in bulk, launch them under your own brand, or develop something entirely new, Endless Greens offers tailored solutions to meet your business needs.",
     keywords: [
       "Bulk spice drops",
       "Wholesale Ceylon tea extracts",
       "Hospitality beverage supplies Sri Lanka",
       "Café elixir wholesale",
       "Dropit liquid spices bulk order",
-      "B2B food service botanicals",
+      "Contract manufacturing",
+      "Private label products",
+      "Wholesale pricing",
+      "chai",
     ].join(", "),
     openGraph: {
-      title: "Endless Greens Bulk Purchase | Wholesale Ceylon Botanicals",
+      title: "Endless Greens Bulk Purchase | White label | Private label | Contract manufacturing",
       description:
-        "Direct trade bulk quantities of certified Ceylon spice drops & elixirs for cafes, hotels & culinary businesses.",
+        "Direct trade bulk quantities/private label/contract manufacturing of certified Ceylon spice drops & elixirs for cafes, hotels & culinary businesses.",
       type: "website",
     },
   };
@@ -63,7 +66,7 @@ export default async function BulkOrdersPage() {
       <Header1 collections={collections} />
       <main className="page-wrapper">
         <h1 className="visually-hidden">
-          Endless Greens Bulk Purchase & Wholesale Orders
+          Endless Greens B2B Services
         </h1>
         <BulkOrders products={productsData} />
 

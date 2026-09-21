@@ -246,12 +246,12 @@ export default function Nav() {
 
       <li className="navigation__item">
         <Link
-          href="/bulk-orders"
+          href="/b2b-services"
           className={`navigation__link ${
             isBulkOrdersActive ? "menu-active" : ""
           }`}
         >
-          Business Orders
+          B2B Services
         </Link>
       </li>
 
